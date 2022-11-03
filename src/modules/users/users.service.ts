@@ -36,12 +36,10 @@ export class UsersService {
   }
 
   async getUserByEmail(email: string) {
-    console.log(email);
     const user = await this.userRepository
       .createQueryBuilder('user')
       .where('user.email= :userEmail', { userEmail: email })
       .getOne();
-    console.log(user);
     return user;
   }
 }
