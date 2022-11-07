@@ -2,6 +2,8 @@
 
 Nest template for the project
 
+All development must be done from branch - develop
+
 ## Installation
 
 ```bash
