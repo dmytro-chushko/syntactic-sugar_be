@@ -15,4 +15,20 @@ export class User {
     nullable: false,
   })
   password: string;
+
+  @Column({
+    nullable: false,
+  })
+  firstName: string;
+
+  @Column({
+    nullable: false,
+  })
+  lastName: string;
+
+  @Column({
+    nullable: false,
+    default: false,
+  })
+  isActivated: boolean;
 }
