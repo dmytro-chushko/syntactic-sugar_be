@@ -3,9 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { User } from './modules/users/users.entity';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
+import { entities } from 'src/database/index';
 
 @Module({
   imports: [
@@ -19,11 +20,12 @@ import { RolesModule } from './modules/roles/roles.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [User],
+      entities: entities,
       synchronize: true,
     }),
     UsersModule,
     RolesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
