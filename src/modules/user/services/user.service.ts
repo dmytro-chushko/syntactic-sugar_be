@@ -1,25 +1,34 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './users.entity';
+import { User } from '../../../database/entities/users.entity';
+import { IUserService } from '../interfaces/IUserService';
 
 @Injectable()
-export class UsersService {
+export class UserService implements IUserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
-  async createUser(userDto: CreateUserDto): Promise<User> {
+  /*async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const user = await this.userRepository.create(userDto);
+      const user = await this.userRepository.create(createUserDto);
       await this.userRepository.save(user);
       return user;
     } catch (err) {
       throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }*/
+
+  async findByEmail(email: string) {
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.email= :userEmail', { userEmail: email })
+      .getOne();
+    return user;
   }
 
+  /*
   async getAllUser(): Promise<User[]> {
     try {
       const users = await this.userRepository.find();
@@ -67,5 +76,5 @@ export class UsersService {
     } catch (err) {
       throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
+  }*/
 }
