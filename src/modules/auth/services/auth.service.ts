@@ -6,11 +6,13 @@ import { IUserService } from '../../user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../database/entities/users.entity';
 import { Repository } from 'typeorm';
+import { MailService } from '../../mail/services/mail.service';
 
 @Injectable()
 export class AuthService implements IAuthService {
   constructor(
     @Inject(Services.USER) private readonly userService: IUserService,
+    @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
@@ -24,6 +26,12 @@ export class AuthService implements IAuthService {
         HttpStatus.CONFLICT,
       );
     }
-    return this.userService.createUser(createUserDto);
+    const user = await this.userService.createUser(createUserDto);
+    await this.sendConfirmation(user);
+  }
+
+  async sendConfirmation(user: User) {
+    const confirmLink = `http://localhost:4000/auth/confirm?token=${user.id}`;
+    await this.mailService.sendActivationMail(user.email, confirmLink);
   }
 }

@@ -7,4 +7,5 @@ export enum Routes {
 export enum Services {
   AUTH = 'AUTH_SERVICE',
   USER = 'USER_SERVICE',
+  MAIL = 'MAIL_SERVICE',
 }

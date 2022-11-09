@@ -11,13 +11,13 @@ export class UserService implements IUserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
-  async createUser(createUserDto: CreateUserDto): Promise<void> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     const password = await hashPassword(createUserDto.password);
     const newUser = this.userRepository.create({
       ...createUserDto,
       password,
     });
-    await this.userRepository.save(newUser);
+    return await this.userRepository.save(newUser);
   }
 
   async findByEmail(email: string) {
