@@ -10,6 +10,16 @@ export class UserService implements IUserService {
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
 
+  async findByEmail(email: string) {
+    const data = await this.userRepository
+      .createQueryBuilder()
+      .select('id')
+      .from(User, 'id')
+      .where({ email })
+      .getOne();
+    return data;
+  }
+
   /*async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
       const user = await this.userRepository.create(createUserDto);
@@ -20,13 +30,14 @@ export class UserService implements IUserService {
     }
   }*/
 
+  /*
   async findByEmail(email: string) {
     const user = await this.userRepository
       .createQueryBuilder('user')
       .where('user.email= :userEmail', { userEmail: email })
       .getOne();
     return user;
-  }
+  }*/
 
   /*
   async getAllUser(): Promise<User[]> {

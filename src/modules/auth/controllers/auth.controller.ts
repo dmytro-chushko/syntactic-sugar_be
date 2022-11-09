@@ -18,7 +18,7 @@ export class AuthController {
     @Inject(Services.USER) private userService: IUserService,
   ) {}
 
-  @Post('register')
+  @Post(Routes.REGISTER)
   @UsePipes(ValidationPipe)
   register(@Body() createUserDto: CreateUserDto) {
     return this.authService.registration(createUserDto);

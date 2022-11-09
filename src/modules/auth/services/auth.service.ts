@@ -16,12 +16,20 @@ export class AuthService implements IAuthService {
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
-    const existingUser = this.userService.findByEmail(createUserDto.email);
+    const existingUser = await this.userService.findByEmail(
+      createUserDto.email,
+    );
     if (existingUser) {
-      throw new HttpException('existing user', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        `user with such email ${createUserDto.email} exists`,
+        HttpStatus.CONFLICT,
+      );
     }
     const password = await hashPassword(createUserDto.password);
-    const newUser = this.userRepository.create({ ...createUserDto, password });
+    const newUser = this.userRepository.create({
+      ...createUserDto,
+      password,
+    });
     return this.userRepository.save(newUser);
   }
 }
