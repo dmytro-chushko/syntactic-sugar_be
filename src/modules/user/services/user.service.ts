@@ -3,21 +3,31 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../../../database/entities/users.entity';
 import { IUserService } from '../interfaces/IUserService';
+import { CreateUserDto } from '../dtos/createUser.dto';
+import { hashPassword } from '../../../utils/hash';
 
 @Injectable()
 export class UserService implements IUserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
+  async createUser(createUserDto: CreateUserDto): Promise<void> {
+    const password = await hashPassword(createUserDto.password);
+    const newUser = this.userRepository.create({
+      ...createUserDto,
+      password,
+    });
+    await this.userRepository.save(newUser);
+  }
 
   async findByEmail(email: string) {
-    const data = await this.userRepository
+    const user = await this.userRepository
       .createQueryBuilder()
       .select('id')
       .from(User, 'id')
       .where({ email })
       .getOne();
-    return data;
+    return user;
   }
 
   /*async createUser(createUserDto: CreateUserDto): Promise<User> {

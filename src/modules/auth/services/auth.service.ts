@@ -6,7 +6,6 @@ import { IUserService } from '../../user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../../database/entities/users.entity';
 import { Repository } from 'typeorm';
-import { hashPassword } from '../../../utils/hash';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -25,11 +24,6 @@ export class AuthService implements IAuthService {
         HttpStatus.CONFLICT,
       );
     }
-    const password = await hashPassword(createUserDto.password);
-    const newUser = this.userRepository.create({
-      ...createUserDto,
-      password,
-    });
-    return this.userRepository.save(newUser);
+    return this.userService.createUser(createUserDto);
   }
 }
