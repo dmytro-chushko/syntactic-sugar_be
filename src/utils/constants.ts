@@ -1,7 +1,8 @@
 export enum Routes {
   AUTH = 'auth',
   REGISTER = 'register',
-  //USER = 'users',
+  CONFIRM = 'confirm',
+  USER = 'users',
 }
 
 export enum Services {

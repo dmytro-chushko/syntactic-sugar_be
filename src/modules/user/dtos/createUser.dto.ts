@@ -5,7 +5,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  //add size check for password
+  //add size check for password , don`t do it now cause its should be easier for testing
   @IsString()
   @IsNotEmpty()
   password: string;
