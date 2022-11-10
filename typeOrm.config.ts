@@ -1,8 +1,6 @@
-import { Role } from './src/modules/roles/roles.entity';
 import { DataSource } from 'typeorm';
-import { User } from './src/modules/users/users.entity';
+import { User } from './src/database/entities/users.entity';
 import { UserRole1667482792749 } from './src/migrations/1667482792749-User_Role';
-
 
 export default new DataSource({
   type: 'mysql',
@@ -11,7 +9,7 @@ export default new DataSource({
   username: 'root',
   password: 'root',
   database: 'mysql_db',
-  entities: [User, Role],
+  entities: [User],
   migrations: [UserRole1667482792749],
   synchronize: true,
 });
