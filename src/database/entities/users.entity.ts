@@ -24,13 +24,13 @@ export class User {
 
   @ApiProperty()
   @Column({
-    nullable: false,
+    nullable: true,
   })
   firstName: string;
 
   @ApiProperty()
   @Column({
-    nullable: false,
+    nullable: true,
   })
   lastName: string;
 

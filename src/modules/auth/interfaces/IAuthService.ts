@@ -5,4 +5,6 @@ export interface IAuthService {
   registration(createUserDto: CreateUserDto);
   sendConfirmation(user: User);
   confirmEmail(id: string);
+  login(userDto: CreateUserDto);
+  loginByGoogle(token: string);
 }
