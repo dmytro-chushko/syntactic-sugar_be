@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { User } from './modules/users/users.entity';
 import { UsersModule } from './modules/users/users.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { ResetPasswordModule } from './modules/reset-password/reset-password.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RolesModule } from './modules/roles/roles.module';
     }),
     UsersModule,
     RolesModule,
+    ResetPasswordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
