@@ -4,6 +4,7 @@ import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
@@ -14,6 +15,7 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
@@ -50,9 +52,17 @@ export class AuthService implements IAuthService {
         throw new HttpException('not found', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
-      return this.userRepository.save(user);
+
+      return this.generateToken(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  private async generateToken(user: User) {
+    const payload = { email: user.email, id: user.id };
+    return {
+      token: this.jwtService.sign(payload),
+    };
   }
 }
