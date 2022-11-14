@@ -37,6 +37,7 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(createUserDto);
+
       return user;
       await this.sendConfirmation(user);
     } catch (error) {
@@ -60,13 +61,14 @@ export class AuthService implements IAuthService {
         throw new HttpException('not found', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+
       return this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async login(userDto: CreateUserDto) {
+  async login(userDto: CreateUserDto): Promise<LoginUserDto> {
     try {
       const user = await this.userService.findByEmail(userDto.email);
       if (user) {
@@ -84,7 +86,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async loginByGoogle(token: string) {
+  async loginByGoogle(token: string): Promise<LoginUserDto> {
     try {
       const client = new OAuth2Client(
         process.env.GOOGLE_CLIENT_ID,
