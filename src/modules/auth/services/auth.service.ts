@@ -5,7 +5,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { Services } from 'src/utils/constants';
@@ -16,6 +15,7 @@ import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { comparePassword } from 'src/utils/hash';
 import { LoginUserDto } from '../dtos/loginUser.dto';
+import { OAuth2Client } from 'google-auth-library';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -93,6 +93,7 @@ export class AuthService implements IAuthService {
         process.env.GOOGLE_SECRET,
       );
       const ticket = await client.getTokenInfo(token);
+      console.log(ticket);
       const user = await this.userService.findByEmail(ticket.email);
       if (user) {
         return new LoginUserDto(user);
