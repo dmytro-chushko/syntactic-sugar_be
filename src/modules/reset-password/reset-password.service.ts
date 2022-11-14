@@ -1,9 +1,9 @@
 import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MailService } from 'src/modules/mail/mail.service';
+import { MailService } from 'src/modules/mail/services/mail.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { User } from 'src/modules/users/users.entity';
+import { User } from 'src/database/entities/users.entity';
 import { Result } from './types';
 
 const RESET_PASSWOPRD_LINK = 'http://localhost:4200/';
@@ -28,7 +28,7 @@ export class ResetPasswordService {
         user.email,
         `${RESET_PASSWOPRD_LINK}resetpassword/${user.id}`,
       );
-      const result = { id: user.id, email: user.email };
+      const result = { id: user.id };
 
       return result;
     } catch (err) {
