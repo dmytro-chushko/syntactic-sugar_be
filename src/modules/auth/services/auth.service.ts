@@ -93,7 +93,6 @@ export class AuthService implements IAuthService {
         process.env.GOOGLE_SECRET,
       );
       const ticket = await client.getTokenInfo(token);
-      console.log(ticket);
       const user = await this.userService.findByEmail(ticket.email);
       if (user) {
         return new LoginUserDto(user);
