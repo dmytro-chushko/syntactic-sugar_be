@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { MailModule } from 'src/modules/mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -15,6 +16,12 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forFeature([User]),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    JwtModule.register({
+      secret: process.env.PRIVATE_KEY || 'SECRET_KEY',
+      signOptions: {
+        expiresIn: process.env.EXPIRES_IN || '24h',
+      },
     }),
   ],
   controllers: [AuthController],
