@@ -43,7 +43,7 @@ export class AuthController {
     return this.authService.confirmEmail(query.id);
   }
   @ApiBody({ type: TokenDto })
-  @ApiResponse({ status: 200, description: 'Sign up' })
+  @ApiResponse({ status: 200, description: 'register with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
   @UsePipes(ValidationPipe)
   @UseInterceptors(ClassSerializerInterceptor)
