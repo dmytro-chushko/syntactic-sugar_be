@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { User } from './modules/users/users.entity';
-import { UsersModule } from './modules/users/users.module';
-import { RolesModule } from './modules/roles/roles.module';
 import { ResetPasswordModule } from './modules/reset-password/reset-password.module';
+import { UserModule } from 'src/modules/user/user.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
+import { entities } from 'src/database/index';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -20,14 +19,15 @@ import { ResetPasswordModule } from './modules/reset-password/reset-password.mod
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [User],
+      entities: entities,
       synchronize: true,
     }),
-    UsersModule,
-    RolesModule,
     ResetPasswordModule,
+    UserModule,
+    AuthModule,
+    MailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
