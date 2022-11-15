@@ -2,9 +2,9 @@ import { BadRequestException, HttpException, HttpStatus, Inject, Injectable } fr
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
+import { AuthService } from '../auth/services/auth.service';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { User } from 'src/database/entities/users.entity';
-import { Result } from './types';
 
 const RESET_PASSWOPRD_LINK = 'http://localhost:4200/';
 
@@ -13,9 +13,10 @@ export class ResetPasswordService {
   constructor(
     @InjectRepository(User) private resetPasswordRepository: Repository<User>,
     @Inject('MAIL_SERVICE') private mailService: MailService,
+    @Inject('AUTH_SERVICE') private authService: AuthService,
   ) {}
 
-  async forgotPassword(forgotPasswordDTO: ForgotPasswordDto): Promise<Result> {
+  async forgotPassword(forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
     try {
       const user = await this.resetPasswordRepository
         .createQueryBuilder('user')
@@ -24,13 +25,12 @@ export class ResetPasswordService {
       if (!user) {
         throw new BadRequestException('Invalid mail');
       }
+      const token = await this.authService.generateToken(user);
       await this.mailService.sendActivationMail(
         user.email,
-        `${RESET_PASSWOPRD_LINK}resetpassword/${user.id}`,
+        `${RESET_PASSWOPRD_LINK}resetpassword/${token.token}`,
       );
-      const result = { id: user.id };
-
-      return result;
+      return true;
     } catch (err) {
       if (err.status === 400) {
         throw new BadRequestException('Invalid mail');

@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -14,6 +15,7 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
@@ -52,5 +54,12 @@ export class AuthService implements IAuthService {
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async generateToken(user: User) {
+    const payload = { email: user.email, id: user.id };
+    return {
+      token: this.jwtService.sign(payload),
+    };
   }
 }
