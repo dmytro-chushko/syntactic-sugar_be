@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -15,6 +16,7 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private configService: ConfigService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
@@ -60,19 +62,18 @@ export class AuthService implements IAuthService {
   async signupGoogle(token: string) {
     try {
       const client = new OAuth2Client(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_SECRET,
+        this.configService.get('GOOGLE_CLIENT_ID'),
+        this.configService.get('GOOGLE_SECRET_KEY'),
       );
       const ticket = await client.getTokenInfo(token);
       const email = await this.userService.findByEmail(ticket.email);
-      console.log(email);
       if (email) {
         throw new HttpException(
           `user with  ${email} is already registered`,
           HttpStatus.CONFLICT,
         );
       }
-      const user = await this.userService.createUser(CreateUserDto);
+      const user = await this.userService.createUser(email);
       return user;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
