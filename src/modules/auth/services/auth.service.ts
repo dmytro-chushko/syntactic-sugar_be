@@ -53,6 +53,7 @@ export class AuthService implements IAuthService {
         throw new HttpException('not found', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+
       return this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -74,6 +75,7 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(email);
+
       return user;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
