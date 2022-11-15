@@ -16,6 +16,7 @@ import { MailService } from 'src/modules/mail/services/mail.service';
 import { comparePassword } from 'src/utils/hash';
 import { LoginUserDto } from '../dtos/loginUser.dto';
 import { OAuth2Client } from 'google-auth-library';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -23,6 +24,7 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private configService: ConfigService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
@@ -89,8 +91,8 @@ export class AuthService implements IAuthService {
   async loginByGoogle(token: string): Promise<LoginUserDto> {
     try {
       const client = new OAuth2Client(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_SECRET,
+        this.configService.get('GOOGLE_CLIENT_ID'),
+        this.configService.get('GOOGLE_SECRET'),
       );
       const ticket = await client.getTokenInfo(token);
       const user = await this.userService.findByEmail(ticket.email);
