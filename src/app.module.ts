@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ResetPasswordModule } from './modules/reset-password/reset-password.module';
 import { UserModule } from 'src/modules/user/user.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { entities } from 'src/database/index';
@@ -22,7 +21,6 @@ import { MailModule } from './modules/mail/mail.module';
       entities: entities,
       synchronize: true,
     }),
-    ResetPasswordModule,
     UserModule,
     AuthModule,
     MailModule,

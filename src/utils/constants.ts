@@ -3,6 +3,7 @@ export enum Routes {
   REGISTER = 'register',
   CONFIRM = 'confirm',
   USER = 'users',
+  FORGOT_PASS = 'forgotpassword',
 }
 
 export enum Services {

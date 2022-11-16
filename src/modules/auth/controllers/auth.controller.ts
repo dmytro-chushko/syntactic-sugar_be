@@ -12,7 +12,7 @@ import { Routes, Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
-import { ConfirmAccountDto } from 'src/modules/auth/dtos/confirmAccont.dto';
+import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('auth')
@@ -39,5 +39,10 @@ export class AuthController {
   @Get(Routes.CONFIRM)
   confirm(@Query(ValidationPipe) query: ConfirmAccountDto) {
     return this.authService.confirmEmail(query.id);
+  }
+  @ApiResponse({ status: 200, description: 'Email has been sent' })
+  @Post(Routes.FORGOT_PASS)
+  forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
+    return this.authService.forgotPassword(forgotPasswordDTO.email);
   }
 }

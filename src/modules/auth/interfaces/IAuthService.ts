@@ -5,4 +5,5 @@ export interface IAuthService {
   registration(createUserDto: CreateUserDto);
   sendConfirmation(user: User);
   confirmEmail(id: string);
+  forgotPassword(email: string);
 }
