@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable, BadRequestException } from '@nestjs/common';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
+import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -56,19 +57,22 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async generateToken(user: User) {
-    const payload = { email: user.email, id: user.id };
-    return {
-      token: this.jwtService.sign(payload),
-    };
+  async generateToken(user: User): Promise<IToken> {
+    try {
+      const payload = { email: user.email, id: user.id };
+      return {
+        token: this.jwtService.sign(payload),
+      };
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async forgotPassword(email: string): Promise<boolean> {
     try {
       const existingUser = await this.userService.findByEmail(email);
-      console.log(existingUser);
       if (!existingUser) {
-        throw new BadRequestException(`user with such email ${email} does not exists`);
+        throw new BadRequestException(`user with email ${email} does not exists`);
       }
       const token = await this.generateToken(existingUser);
       await this.mailService.sendActivationMail(
