@@ -6,7 +6,7 @@ import { IMailService } from 'src/modules/mail/interfaces/IMailService';
 export class MailService implements IMailService {
   constructor(private mailer: MailerService) {}
 
-  async sendActivationMail(to, link) {
+  async sendActivationMail(to: string, link: string) {
     try {
       await this.mailer.sendMail({
         to,
@@ -15,7 +15,7 @@ export class MailService implements IMailService {
         text: 'some text',
         html: `
                     <div>
-                        <h1>Activate your account</h1>
+                        <h1>To reset your password follow the link below</h1>
                         <a href="${link}">${link}</a>
                     </div>
                 `,
