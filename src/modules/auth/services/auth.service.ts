@@ -1,12 +1,15 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
+import { CreateGoogleUserDto } from 'src/modules/user/dtos/createGoogleUser.dto';
 import { Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -14,6 +17,7 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private configService: ConfigService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
@@ -50,7 +54,30 @@ export class AuthService implements IAuthService {
         throw new HttpException('not found', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+
       return this.userRepository.save(user);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async signupGoogle(token: string): Promise<CreateGoogleUserDto> {
+    try {
+      const client = new OAuth2Client(
+        this.configService.get('GOOGLE_CLIENT_ID'),
+        this.configService.get('GOOGLE_SECRET_KEY'),
+      );
+      const ticket = await client.getTokenInfo(token);
+      const email = await this.userService.findByEmail(ticket.email);
+      if (email) {
+        throw new HttpException(
+          `user with  ${ticket.email} is already registered`,
+          HttpStatus.CONFLICT,
+        );
+      }
+      const user = await this.userService.createGoogleUser(ticket.email);
+
+      return user;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -3,6 +3,7 @@ export enum Routes {
   REGISTER = 'register',
   CONFIRM = 'confirm',
   USER = 'users',
+  SIGNUP_GOOGLE = 'google/signup',
 }
 
 export enum Services {

@@ -4,4 +4,5 @@ export interface IUserService {
   createUser(createUserDto): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
   findById(id: string): Promise<User | null>;
+  createGoogleUser(createGoogleUserDto): Promise<User | null>;
 }

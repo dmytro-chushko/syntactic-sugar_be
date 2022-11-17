@@ -18,6 +18,7 @@ export class UserService implements IUserService {
         ...createUserDto,
         password,
       });
+
       return await this.userRepository.save(newUser);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -32,6 +33,7 @@ export class UserService implements IUserService {
         .from(User, 'id')
         .where({ email })
         .getOne();
+
       return user;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -46,7 +48,18 @@ export class UserService implements IUserService {
         .from(User, 'id')
         .where({ id })
         .getOne();
+
       return user;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async createGoogleUser(email: string): Promise<User> {
+    try {
+      const newUser = this.userRepository.create({ email });
+
+      return await this.userRepository.save(newUser);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
