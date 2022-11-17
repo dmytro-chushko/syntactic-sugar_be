@@ -18,10 +18,9 @@ async function start() {
     app.useGlobalPipes(new ValidationPipe());
     app.enableCors({
       allowedHeaders: ['content-type'],
-      origin: 'http://localhost:4200',
+      origin: process.env.CLIENT_HOST,
       credentials: true,
     });
-    // process.env.CLIENT_HOST
 
     return await app.listen(PORT, () =>
       console.log(`Server started on port ${PORT}`),
