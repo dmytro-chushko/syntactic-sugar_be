@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
+import { CreateGoogleUserDto } from 'src/modules/user/dtos/createGoogleUser.dto';
 import { Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -60,7 +61,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async signupGoogle(token: string) {
+  async signupGoogle(token: string): Promise<CreateGoogleUserDto> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -70,11 +71,11 @@ export class AuthService implements IAuthService {
       const email = await this.userService.findByEmail(ticket.email);
       if (email) {
         throw new HttpException(
-          `user with  ${email} is already registered`,
+          `user with  ${ticket.email} is already registered`,
           HttpStatus.CONFLICT,
         );
       }
-      const user = await this.userService.createUser(email);
+      const user = await this.userService.createGoogleUser(ticket.email);
 
       return user;
     } catch (error) {

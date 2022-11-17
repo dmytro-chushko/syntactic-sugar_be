@@ -18,7 +18,7 @@ export class User {
   @ApiProperty()
   @Exclude()
   @Column({
-    nullable: false,
+    nullable: true,
     default: null,
   })
   password: string;
@@ -26,14 +26,14 @@ export class User {
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
+    default: '',
   })
   firstName: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
+    default: '',
   })
   lastName: string;
 

@@ -17,6 +17,7 @@ import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { ConfirmAccountDto } from 'src/modules/auth/dtos/confirmAccont.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from '../dtos/token.dto';
+import { User } from 'src/database/entities/users.entity';
 @ApiTags('auth')
 @Controller(Routes.AUTH)
 export class AuthController {
@@ -43,11 +44,11 @@ export class AuthController {
     return this.authService.confirmEmail(query.id);
   }
   @ApiBody({ type: TokenDto })
-  @ApiResponse({ status: 200, description: 'register with Google' })
+  @ApiResponse({ status: 200, description: 'Registered with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
   @UsePipes(ValidationPipe)
   @UseInterceptors(ClassSerializerInterceptor)
-  signupGoogle(@Body('token') token: string) {
+  signupGoogle(@Body('token') token: string): Promise<User> {
     return this.authService.signupGoogle(token);
   }
 }

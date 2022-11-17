@@ -54,4 +54,14 @@ export class UserService implements IUserService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async createGoogleUser(email: string): Promise<User> {
+    try {
+      const newUser = this.userRepository.create({ email });
+
+      return await this.userRepository.save(newUser);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
