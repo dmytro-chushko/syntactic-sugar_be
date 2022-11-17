@@ -7,6 +7,8 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { Routes, Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -14,7 +16,8 @@ import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import { TokenDto } from '../dtos/token.dto';
+import { User } from 'src/database/entities/users.entity';
 @ApiTags('auth')
 @Controller(Routes.AUTH)
 export class AuthController {
@@ -44,5 +47,13 @@ export class AuthController {
   @Post(Routes.FORGOT_PASS)
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
+  }
+  @ApiBody({ type: TokenDto })
+  @ApiResponse({ status: 200, description: 'Registered with Google' })
+  @Post(Routes.SIGNUP_GOOGLE)
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(ClassSerializerInterceptor)
+  signupGoogle(@Body('token') token: string): Promise<User> {
+    return this.authService.signupGoogle(token);
   }
 }

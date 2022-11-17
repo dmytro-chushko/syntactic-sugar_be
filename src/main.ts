@@ -1,7 +1,6 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'src/app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function start() {
@@ -17,9 +16,15 @@ async function start() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
     app.useGlobalPipes(new ValidationPipe());
-    await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+    app.enableCors({
+      allowedHeaders: ['content-type'],
+      origin: process.env.CLIENT_HOST,
+      credentials: true,
+    });
+
+    return await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
-    throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
 start();

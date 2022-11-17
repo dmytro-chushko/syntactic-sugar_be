@@ -6,4 +6,5 @@ export interface IAuthService {
   sendConfirmation(user: User);
   confirmEmail(id: string);
   forgotPassword(email: string);
+  signupGoogle(token: string);
 }
