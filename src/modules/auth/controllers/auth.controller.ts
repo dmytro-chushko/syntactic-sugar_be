@@ -17,7 +17,8 @@ import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { ConfirmAccountDto } from 'src/modules/auth/dtos/confirmAccont.dto';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TokenDto } from '../dtos/token.dto';
+import { TokenDto } from 'src/modules/auth/dtos/token.dto';
+import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
 
 @ApiTags('auth')
 @Controller(Routes.AUTH)
@@ -50,7 +51,7 @@ export class AuthController {
   @Post(Routes.LOGIN)
   @UsePipes(ValidationPipe)
   @UseInterceptors(ClassSerializerInterceptor)
-  login(@Body() userDto: CreateUserDto) {
+  login(@Body() userDto: CreateUserDto): Promise<LoginUserDto> {
     return this.authService.login(userDto);
   }
 
@@ -59,7 +60,7 @@ export class AuthController {
   @Post(Routes.GOOGLE_LOGIN)
   @UsePipes(ValidationPipe)
   @UseInterceptors(ClassSerializerInterceptor)
-  loginByGoogle(@Body('token') token: string) {
+  loginByGoogle(@Body('token') token: string): Promise<LoginUserDto> {
     return this.authService.loginByGoogle(token);
   }
 }

@@ -14,7 +14,7 @@ import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { comparePassword } from 'src/utils/hash';
-import { LoginUserDto } from '../dtos/loginUser.dto';
+import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
 import { OAuth2Client } from 'google-auth-library';
 import { ConfigService } from '@nestjs/config';
 
