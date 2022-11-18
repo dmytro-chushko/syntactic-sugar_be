@@ -22,9 +22,7 @@ async function start() {
       credentials: true,
     });
 
-    return await app.listen(PORT, () =>
-      console.log(`Server started on port ${PORT}`),
-    );
+    return await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
     throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
   }

@@ -13,9 +13,7 @@ export class UserRole1667482792749 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `DROP INDEX \`IDX_97672ac88f789774dd47f7c8be\` ON \`users\``,
-    );
+    await queryRunner.query(`DROP INDEX \`IDX_97672ac88f789774dd47f7c8be\` ON \`users\``);
     await queryRunner.query(`DROP TABLE \`users\``);
     await queryRunner.query(`DROP TABLE \`roles\``);
   }

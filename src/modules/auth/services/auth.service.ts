@@ -10,6 +10,7 @@ import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { ConfigService } from '@nestjs/config';
+// import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -22,9 +23,7 @@ export class AuthService implements IAuthService {
 
   async registration(createUserDto: CreateUserDto) {
     try {
-      const existingUser = await this.userService.findByEmail(
-        createUserDto.email,
-      );
+      const existingUser = await this.userService.findByEmail(createUserDto.email);
       if (existingUser) {
         throw new HttpException(
           `user with such email ${createUserDto.email} exists`,
@@ -82,4 +81,6 @@ export class AuthService implements IAuthService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  // async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<void> {}
 }
