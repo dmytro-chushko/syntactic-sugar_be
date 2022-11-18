@@ -81,9 +81,10 @@ export class AuthService implements IAuthService {
         throw new BadRequestException(`user with email ${email} does not exists`);
       }
       const token = await this.generateToken(existingUser);
+      const resetPageLink = this.configService.get<string>('RESET_PASSWOPRD_LINK');
       await this.mailService.sendActivationMail(
         existingUser.email,
-        `${process.env.RESET_PASSWOPRD_LINK}resetpassword/${token.token}`,
+        `${resetPageLink}resetpassword/${token.token}`,
       );
 
       return true;
