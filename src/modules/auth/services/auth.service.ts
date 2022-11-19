@@ -12,6 +12,8 @@ import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { ResetPasswordDto } from '../dtos/resetPassword.dto';
+import { hashPassword } from 'src/utils/hash';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -86,6 +88,21 @@ export class AuthService implements IAuthService {
         existingUser.email,
         `${resetPageLink}resetpassword/${token.token}`,
       );
+
+      return true;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<boolean> {
+    try {
+      const user = this.jwtService.verify<User>(resetPasswordDto.token);
+      if (!user) {
+        throw new BadRequestException(`Your link has expired`);
+      }
+      const password = await hashPassword(resetPasswordDto.password);
+      await this.userRepository.update(user.id, { password });
 
       return true;
     } catch (error) {

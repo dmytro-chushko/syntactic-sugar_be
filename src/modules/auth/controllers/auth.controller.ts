@@ -18,6 +18,7 @@ import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from '../dtos/token.dto';
 import { User } from 'src/database/entities/users.entity';
+import { ResetPasswordDto } from '../dtos/resetPassword.dto';
 @ApiTags('auth')
 @Controller(Routes.AUTH)
 export class AuthController {
@@ -47,6 +48,11 @@ export class AuthController {
   @Post(Routes.FORGOT_PASS)
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
+  }
+  @ApiResponse({ status: 200, description: 'Your password has updated' })
+  @Post('resetpassword')
+  resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<boolean> {
+    return this.authService.resetPassword(resetPasswordDto);
   }
   @ApiBody({ type: TokenDto })
   @ApiResponse({ status: 200, description: 'Registered with Google' })
