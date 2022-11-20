@@ -11,7 +11,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-.development.env
 .production.env
 .env
 # OS
@@ -29,6 +28,8 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+.env
+.development.env
 
 # IDE - VSCode
 .vscode/*

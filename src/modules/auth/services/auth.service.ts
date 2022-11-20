@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, BadRequestException } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
+import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { CreateGoogleUserDto } from 'src/modules/user/dtos/createGoogleUser.dto';
 import { Services } from 'src/utils/constants';
@@ -9,7 +10,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
+import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { ResetPasswordDto } from '../dtos/resetPassword.dto';
+import { hashPassword } from 'src/utils/hash';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -17,14 +21,13 @@ export class AuthService implements IAuthService {
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.MAIL) private readonly mailService: MailService,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
 
   async registration(createUserDto: CreateUserDto) {
     try {
-      const existingUser = await this.userService.findByEmail(
-        createUserDto.email,
-      );
+      const existingUser = await this.userService.findByEmail(createUserDto.email);
       if (existingUser) {
         throw new HttpException(
           `user with such email ${createUserDto.email} exists`,
@@ -56,6 +59,52 @@ export class AuthService implements IAuthService {
       user.isActivated = true;
 
       return this.userRepository.save(user);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async generateToken(user: User): Promise<IToken> {
+    try {
+      const payload = { email: user.email, id: user.id };
+
+      return {
+        token: this.jwtService.sign(payload),
+      };
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async forgotPassword(email: string): Promise<boolean> {
+    try {
+      const existingUser = await this.userService.findByEmail(email);
+      if (!existingUser) {
+        throw new BadRequestException(`user with email ${email} does not exists`);
+      }
+      const token = await this.generateToken(existingUser);
+      const resetPageLink = this.configService.get<string>('RESET_PASSWOPRD_LINK');
+      await this.mailService.sendActivationMail(
+        existingUser.email,
+        `${resetPageLink}resetpassword/${token.token}`,
+      );
+
+      return true;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<boolean> {
+    try {
+      const user = this.jwtService.verify<User>(resetPasswordDto.token);
+      if (!user) {
+        throw new BadRequestException(`Your link has expired`);
+      }
+      const password = await hashPassword(resetPasswordDto.password);
+      await this.userRepository.update(user.id, { password });
+
+      return true;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -6,7 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function start() {
   try {
     const PORT = process.env.PORT || 8090;
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { cors: true });
     const config = new DocumentBuilder()
       .setTitle('Freelancer')
       .setDescription('DOCS Freelancer')
@@ -22,9 +22,7 @@ async function start() {
       credentials: true,
     });
 
-    return await app.listen(PORT, () =>
-      console.log(`Server started on port ${PORT}`),
-    );
+    return await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
     throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
