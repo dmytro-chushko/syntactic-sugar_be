@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 export async function hashPassword(password: string) {
@@ -6,8 +7,15 @@ export async function hashPassword(password: string) {
   return bcrypt.hash(password, salt);
 }
 
-export async function comparePassword(hashPassword: string, password: string) {
-  const passwordEquals = await bcrypt.compare(hashPassword, password);
+export async function comparePassword(
+  hashPassword: string,
+  password: string,
+): Promise<boolean> {
+  try {
+    const passwordEquals = await bcrypt.compare(hashPassword, password);
 
-  return passwordEquals;
+    return passwordEquals;
+  } catch (error) {
+    throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }
