@@ -19,6 +19,8 @@ import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from '../dtos/token.dto';
 import { User } from 'src/database/entities/users.entity';
 import { ResetPasswordDto } from '../dtos/resetPassword.dto';
+import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
+
 @ApiTags('auth')
 @Controller(Routes.AUTH)
 export class AuthController {
@@ -44,16 +46,37 @@ export class AuthController {
   confirm(@Query(ValidationPipe) query: ConfirmAccountDto) {
     return this.authService.confirmEmail(query.id);
   }
+
+  @ApiBody({ type: CreateUserDto })
+  @ApiResponse({ status: 200, description: 'Login user' })
+  @Post(Routes.LOGIN)
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(ClassSerializerInterceptor)
+  login(@Body() userDto: CreateUserDto): Promise<LoginUserDto> {
+    return this.authService.login(userDto);
+  }
+
+  @ApiBody({ type: TokenDto })
+  @ApiResponse({ status: 200, description: 'Login user' })
+  @Post(Routes.GOOGLE_LOGIN)
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(ClassSerializerInterceptor)
+  loginByGoogle(@Body('token') token: string): Promise<LoginUserDto> {
+    return this.authService.loginByGoogle(token);
+  }
+
   @ApiResponse({ status: 200, description: 'Email has been sent' })
   @Post(Routes.FORGOT_PASS)
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
   }
+
   @ApiResponse({ status: 200, description: 'Your password has updated' })
   @Post('resetpassword')
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<boolean> {
     return this.authService.resetPassword(resetPasswordDto);
   }
+
   @ApiBody({ type: TokenDto })
   @ApiResponse({ status: 200, description: 'Registered with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
