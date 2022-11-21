@@ -2,8 +2,8 @@ import { Body, Controller, Inject, Param, Post, UsePipes, ValidationPipe } from 
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { User } from 'src/database/entities/users.entity';
 import { Routes, Services } from 'src/utils/constants';
-import { AddRoleDto } from '../dtos/addRole.dto';
-import { IUserService } from '../interfaces/IUserService';
+import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
+import { IUserService } from 'src/modules/user/interfaces/IUserService';
 
 @Controller(Routes.USER)
 export class UserController {

@@ -18,7 +18,7 @@ import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { ResetPasswordDto } from '../dtos/resetPassword.dto';
+import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { hashPassword } from 'src/utils/hash';
 import { comparePassword } from 'src/utils/hash';
 
