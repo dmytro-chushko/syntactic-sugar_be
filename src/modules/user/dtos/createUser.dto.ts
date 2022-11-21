@@ -13,13 +13,13 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  firstName: string;
+  // @ApiProperty()
+  // @IsString()
+  // @IsNotEmpty()
+  // firstName: string;
 
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
+  // @ApiProperty()
+  // @IsString()
+  // @IsNotEmpty()
+  // lastName: string;
 }

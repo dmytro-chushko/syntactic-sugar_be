@@ -1,4 +1,11 @@
-import { HttpException, HttpStatus, Inject, Injectable, BadRequestException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
@@ -14,6 +21,8 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { ResetPasswordDto } from '../dtos/resetPassword.dto';
 import { hashPassword } from 'src/utils/hash';
+import { comparePassword } from 'src/utils/hash';
+import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -59,6 +68,38 @@ export class AuthService implements IAuthService {
       user.isActivated = true;
 
       return this.userRepository.save(user);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async login(userDto: CreateUserDto): Promise<LoginUserDto> {
+    try {
+      const user = await this.userService.findByEmail(userDto.email);
+      if (user) {
+        const passwordEquals = await comparePassword(userDto.password, user.password);
+        if (passwordEquals) {
+          return new LoginUserDto(user);
+        }
+      }
+      throw new UnauthorizedException(`Authorization error`);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async loginByGoogle(token: string): Promise<LoginUserDto> {
+    try {
+      const client = new OAuth2Client(
+        this.configService.get('GOOGLE_CLIENT_ID'),
+        this.configService.get('GOOGLE_SECRET'),
+      );
+      const ticket = await client.getTokenInfo(token);
+      const user = await this.userService.findByEmail(ticket.email);
+      if (user) {
+        return new LoginUserDto(user);
+      }
+      throw new UnauthorizedException(`User with email: ${ticket.email} doesn't exist`);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

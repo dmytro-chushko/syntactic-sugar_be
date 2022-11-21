@@ -5,6 +5,8 @@ export enum Routes {
   USER = 'users',
   FORGOT_PASS = 'forgotpassword',
   SIGNUP_GOOGLE = 'google/signup',
+  LOGIN = 'login',
+  GOOGLE_LOGIN = 'google/login',
 }
 
 export enum Services {
