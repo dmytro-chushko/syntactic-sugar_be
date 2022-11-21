@@ -7,8 +7,6 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
-  UseInterceptors,
-  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { Routes, Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -17,9 +15,8 @@ import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from '../dtos/token.dto';
-import { User } from 'src/database/entities/users.entity';
 import { ResetPasswordDto } from '../dtos/resetPassword.dto';
-import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
+import { IToken } from '../interfaces/IToken';
 
 @ApiTags('auth')
 @Controller(Routes.AUTH)
@@ -33,7 +30,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'insert user to db' })
   @Post(Routes.REGISTER)
   @UsePipes(ValidationPipe)
-  register(@Body() createUserDto: CreateUserDto) {
+  register(@Body() createUserDto: CreateUserDto): Promise<IToken> {
     return this.authService.registration(createUserDto);
   }
 
@@ -43,7 +40,7 @@ export class AuthController {
     description: 'updated field isActivated=true for user',
   })
   @Get(Routes.CONFIRM)
-  confirm(@Query(ValidationPipe) query: ConfirmAccountDto) {
+  confirm(@Query(ValidationPipe) query: ConfirmAccountDto): Promise<IToken> {
     return this.authService.confirmEmail(query.id);
   }
 
@@ -51,8 +48,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Login user' })
   @Post(Routes.LOGIN)
   @UsePipes(ValidationPipe)
-  @UseInterceptors(ClassSerializerInterceptor)
-  login(@Body() userDto: CreateUserDto): Promise<LoginUserDto> {
+  login(@Body() userDto: CreateUserDto): Promise<IToken> {
     return this.authService.login(userDto);
   }
 
@@ -60,8 +56,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Login user' })
   @Post(Routes.GOOGLE_LOGIN)
   @UsePipes(ValidationPipe)
-  @UseInterceptors(ClassSerializerInterceptor)
-  loginByGoogle(@Body('token') token: string): Promise<LoginUserDto> {
+  loginByGoogle(@Body('token') token: string): Promise<IToken> {
     return this.authService.loginByGoogle(token);
   }
 
@@ -81,8 +76,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Registered with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
   @UsePipes(ValidationPipe)
-  @UseInterceptors(ClassSerializerInterceptor)
-  signupGoogle(@Body('token') token: string): Promise<User> {
+  signupGoogle(@Body('token') token: string): Promise<IToken> {
     return this.authService.signupGoogle(token);
   }
 }

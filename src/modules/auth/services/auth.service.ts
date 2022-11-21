@@ -10,7 +10,6 @@ import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
-import { CreateGoogleUserDto } from 'src/modules/user/dtos/createGoogleUser.dto';
 import { Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,7 +21,6 @@ import { ConfigService } from '@nestjs/config';
 import { ResetPasswordDto } from '../dtos/resetPassword.dto';
 import { hashPassword } from 'src/utils/hash';
 import { comparePassword } from 'src/utils/hash';
-import { LoginUserDto } from 'src/modules/auth/dtos/loginUser.dto';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -44,6 +42,7 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(createUserDto);
+
       await this.sendConfirmation(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,27 +58,31 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async confirmEmail(id: string) {
+  async confirmEmail(id: string): Promise<IToken> {
     try {
       const user = await this.userService.findById(id);
       if (!user) {
         throw new HttpException('not found', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+      await this.userRepository.save(user);
+      const token = this.generateToken(user);
 
-      return this.userRepository.save(user);
+      return token;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async login(userDto: CreateUserDto): Promise<LoginUserDto> {
+  async login(userDto: CreateUserDto): Promise<IToken> {
     try {
       const user = await this.userService.findByEmail(userDto.email);
       if (user) {
         const passwordEquals = await comparePassword(userDto.password, user.password);
         if (passwordEquals) {
-          return new LoginUserDto(user);
+          const token = this.generateToken(user);
+
+          return token;
         }
       }
       throw new UnauthorizedException(`Authorization error`);
@@ -88,7 +91,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async loginByGoogle(token: string): Promise<LoginUserDto> {
+  async loginByGoogle(token: string): Promise<IToken> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -97,7 +100,9 @@ export class AuthService implements IAuthService {
       const ticket = await client.getTokenInfo(token);
       const user = await this.userService.findByEmail(ticket.email);
       if (user) {
-        return new LoginUserDto(user);
+        const token = this.generateToken(user);
+
+        return token;
       }
       throw new UnauthorizedException(`User with email: ${ticket.email} doesn't exist`);
     } catch (error) {
@@ -151,7 +156,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async signupGoogle(token: string): Promise<CreateGoogleUserDto> {
+  async signupGoogle(token: string): Promise<IToken> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -166,8 +171,9 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createGoogleUser(ticket.email);
+      const tokenJwt = this.generateToken(user);
 
-      return user;
+      return tokenJwt;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
