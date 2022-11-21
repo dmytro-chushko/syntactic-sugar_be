@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserRoles } from 'src/utils/constants';
 
 @Entity({ name: 'users' })
 export class User {
@@ -22,6 +23,13 @@ export class User {
     default: null,
   })
   password: string;
+
+  @ApiProperty()
+  @Column({
+    nullable: true,
+    default: UserRoles.FREELANCER,
+  })
+  role: UserRoles;
 
   @ApiProperty()
   @Column({

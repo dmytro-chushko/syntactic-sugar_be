@@ -5,6 +5,7 @@ import { User } from 'src/database/entities/users.entity';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { hashPassword } from 'src/utils/hash';
+import { UserRoles } from 'src/utils/constants';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -58,6 +59,22 @@ export class UserService implements IUserService {
       const newUser = this.userRepository.create({ email });
 
       return await this.userRepository.save(newUser);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async addUserRole(id: string, role: UserRoles): Promise<User> {
+    try {
+      const user = await this.userRepository
+        .createQueryBuilder()
+        .select('id')
+        .from(User, 'id')
+        .where({ id })
+        .getOne();
+      user.role = role;
+
+      return await this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

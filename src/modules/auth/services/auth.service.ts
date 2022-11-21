@@ -42,7 +42,6 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(createUserDto);
-
       await this.sendConfirmation(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
