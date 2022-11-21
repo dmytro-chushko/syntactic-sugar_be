@@ -4,7 +4,7 @@ import { UserController } from './controllers/user.controller';
 import { User } from 'src/database/entities/users.entity';
 import { UserService } from 'src/modules/user/services/user.service';
 import { Services } from 'src/utils/constants';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 @Module({
   controllers: [UserController],
