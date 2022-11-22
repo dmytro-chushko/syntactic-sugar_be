@@ -21,6 +21,7 @@ import { ConfigService } from '@nestjs/config';
 import { ResetPasswordDto } from '../dtos/resetPassword.dto';
 import { hashPassword } from 'src/utils/hash';
 import { comparePassword } from 'src/utils/hash';
+import { postMailServiceHtml } from 'src/utils/postMailServiceHtml';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -51,8 +52,12 @@ export class AuthService implements IAuthService {
 
   async sendConfirmation(user: User) {
     try {
-      const confirmLink = `${process.env.CONFIRM_PATH}?id=${user.id}`;
-      await this.mailService.sendActivationMail(user.email, confirmLink);
+      const confirmLink = `${this.configService.get<string>('CONFIRM_PATH')}?id=${user.id}`;
+
+      await this.mailService.sendActivationMail(
+        user.email,
+        postMailServiceHtml('confirmEmail', confirmLink),
+      );
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -129,10 +134,12 @@ export class AuthService implements IAuthService {
         throw new BadRequestException(`user with email ${email} does not exists`);
       }
       const token = await this.generateToken(existingUser);
-      const resetPageLink = this.configService.get<string>('RESET_PASSWOPRD_LINK');
+      const resetPassLink = `${this.configService.get<string>('RESET_PASSWOPRD_LINK')}${
+        token.token
+      }`;
       await this.mailService.sendActivationMail(
         existingUser.email,
-        `${resetPageLink}resetpassword/${token.token}`,
+        postMailServiceHtml('resetPassword', resetPassLink),
       );
 
       return true;
