@@ -62,6 +62,7 @@ export class AuthController {
 
   @ApiResponse({ status: 200, description: 'Email has been sent' })
   @Post(Routes.FORGOT_PASS)
+  // eslint-disable-next-line prettier/prettier
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
   }
