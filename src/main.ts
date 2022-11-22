@@ -6,7 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function start() {
   try {
     const PORT = process.env.PORT || 8090;
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { cors: true });
     const config = new DocumentBuilder()
       .setTitle('Freelancer')
       .setDescription('DOCS Freelancer')
