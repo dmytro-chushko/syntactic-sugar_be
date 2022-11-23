@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthController } from 'src/modules/auth/controllers/auth.controller';
 import { AuthService } from 'src/modules/auth/services/auth.service';
 import { UserModule } from 'src/modules/user/user.module';
@@ -10,7 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    UserModule,
+    forwardRef(() => UserModule),
     MailModule,
     TypeOrmModule.forFeature([User]),
     ConfigModule.forRoot({
@@ -25,11 +25,6 @@ import { ConfigModule } from '@nestjs/config';
   ],
   controllers: [AuthController],
   providers: [{ provide: 'AUTH_SERVICE', useClass: AuthService }],
-  exports: [
-    {
-      provide: 'AUTH_SERVICE',
-      useClass: AuthService,
-    },
-  ],
+  exports: [JwtModule],
 })
 export class AuthModule {}

@@ -14,3 +14,8 @@ export enum Services {
   USER = 'USER_SERVICE',
   MAIL = 'MAIL_SERVICE',
 }
+
+export enum UserRoles {
+  JOB_OWNER = 'JOB_OWNER',
+  FREELANCER = 'FREELANCER',
+}

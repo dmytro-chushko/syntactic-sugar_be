@@ -10,7 +10,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
-import { Services } from 'src/utils/constants';
+import { Services, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
@@ -18,7 +18,7 @@ import { Repository } from 'typeorm';
 import { MailService } from 'src/modules/mail/services/mail.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { ResetPasswordDto } from '../dtos/resetPassword.dto';
+import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { hashPassword } from 'src/utils/hash';
 import { comparePassword } from 'src/utils/hash';
 import { postMailServiceHtml } from 'src/utils/postMailServiceHtml';
@@ -43,7 +43,6 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(createUserDto);
-
       await this.sendConfirmation(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -117,7 +116,7 @@ export class AuthService implements IAuthService {
 
   async generateToken(user: User): Promise<IToken> {
     try {
-      const payload = { email: user.email, id: user.id };
+      const payload = { email: user.email, id: user.id, role: user.role };
 
       return {
         token: this.jwtService.sign(payload),
@@ -181,6 +180,22 @@ export class AuthService implements IAuthService {
       const tokenJwt = this.generateToken(user);
 
       return tokenJwt;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async addUserRole(id: string, role: UserRoles): Promise<IToken> {
+    try {
+      const user = await this.userService.findById(id);
+      if (user) {
+        user.role = role;
+        await this.userRepository.save(user);
+        const token = await this.generateToken(user);
+
+        return token;
+      }
+      throw new UnauthorizedException(`User doesn't exist`);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
