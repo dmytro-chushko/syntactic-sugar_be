@@ -1,8 +1,9 @@
 import { User } from 'src/database/entities/users.entity';
+import { AuthUserDto } from '../../auth/dtos/authUser.dto';
 
 export interface IUserService {
-  createUser(createUserDto): Promise<User>;
-  findByEmail(email: string): Promise<User | null>;
-  findById(id: string): Promise<User | null>;
+  createUser(registerUserDto: AuthUserDto): Promise<User>;
+  getUserById(userId: string): Promise<User>;
+  getUserByEmail(userEmail: string): Promise<User>;
   createGoogleUser(createGoogleUserDto): Promise<User | null>;
 }

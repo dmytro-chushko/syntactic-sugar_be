@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
-import { entities } from 'src/database/index';
+import { entities } from 'src/database';
 import { MailModule } from './modules/mail/mail.module';
+import { FreelancerModule } from './modules/freelancer/freelancer.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { MailModule } from './modules/mail/mail.module';
     UserModule,
     AuthModule,
     MailModule,
+    FreelancerModule,
   ],
   controllers: [],
   providers: [],
