@@ -1,13 +1,8 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserRoles } from 'src/utils/constants';
 import { Employer } from './employer.entity';
-
-export enum UserRole {
-  Guest = 'guest',
-  Freelancer = 'freelancer',
-  Employer = 'employer',
-}
 
 @Entity({ name: 'users' })
 export class User {
@@ -32,6 +27,13 @@ export class User {
 
   @ApiProperty()
   @Column({
+    nullable: true,
+    default: UserRoles.GUEST,
+  })
+  role: UserRoles;
+
+  @ApiProperty()
+  @Column({
     nullable: false,
     default: '',
   })
@@ -50,9 +52,6 @@ export class User {
     default: false,
   })
   isActivated: boolean;
-
-  @Column({ default: UserRole.Guest })
-  role: UserRole;
 
   @OneToOne(() => Employer, employer => employer.user)
   femployer: Employer;

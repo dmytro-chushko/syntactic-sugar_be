@@ -3,20 +3,25 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
   Post,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Routes, Services } from 'src/utils/constants';
+import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
 import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TokenDto } from '../dtos/token.dto';
-import { ResetPasswordDto } from '../dtos/resetPassword.dto';
-import { IToken } from '../interfaces/IToken';
+import { TokenDto } from 'src/modules/auth/dtos/token.dto';
+import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
+import { IToken } from 'src/modules/auth/interfaces/IToken';
+import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
+import { Roles } from 'src/modules/auth/services/roles-auth.decorator';
+import { AuthRolesGuard } from 'src/modules/auth/services/auth-roles.guard';
 
 @ApiTags('auth')
 @Controller(Routes.AUTH)
@@ -79,5 +84,16 @@ export class AuthController {
   @UsePipes(ValidationPipe)
   signupGoogle(@Body('token') token: string): Promise<IToken> {
     return this.authService.signupGoogle(token);
+  }
+
+  @ApiBody({ type: AddRoleDto })
+  @ApiResponse({ status: 200, description: 'Role added' })
+  @UsePipes(ValidationPipe)
+  // For example how does AuthRolesGuard works
+  @Roles(UserRoles.JOB_OWNER)
+  @UseGuards(AuthRolesGuard)
+  @Post('role/:id')
+  addUserRole(@Body() roleDto: AddRoleDto, @Param('id') userId: string): Promise<IToken> {
+    return this.authService.addUserRole(userId, roleDto.role);
   }
 }
