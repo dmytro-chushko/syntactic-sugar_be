@@ -13,9 +13,13 @@ export enum Services {
   AUTH = 'AUTH_SERVICE',
   USER = 'USER_SERVICE',
   MAIL = 'MAIL_SERVICE',
+  TOKEN = 'TOKEN_SERVICE',
 }
 
 export enum UserRoles {
   JOB_OWNER = 'JOB_OWNER',
   FREELANCER = 'FREELANCER',
+  GUEST = 'GUEST',
 }
+
+export const ROLES_KEY = 'roles';

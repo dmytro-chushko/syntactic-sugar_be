@@ -1,17 +1,17 @@
-import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
+import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { User } from 'src/database/entities/users.entity';
 import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { UserRoles } from 'src/utils/constants';
-import { IToken } from './IToken';
+import { IToken } from 'src/modules/auth/interfaces/IToken';
 
 export interface IAuthService {
-  registration(createUserDto: CreateUserDto);
-  sendConfirmation(user: User);
-  confirmEmail(id: string);
+  registration(authUserDto: AuthUserDto): Promise<IToken>;
+  login(authUserDto: AuthUserDto): Promise<IToken>;
+  sendConfirmation(user: User): Promise<void>;
+  confirmEmail(id: string): Promise<void>;
   forgotPassword(email: string);
   resetPassword(resetPasswordDto: ResetPasswordDto);
   signupGoogle(token: string);
-  login(userDto: CreateUserDto);
   loginByGoogle(token: string);
   addUserRole(id: string, role: UserRoles): Promise<IToken>;
 }
