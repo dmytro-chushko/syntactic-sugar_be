@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { entities } from 'src/database/index';
-import { MailModule } from './modules/mail/mail.module';
+import { MailModule } from 'src/modules/mail/mail.module';
 import { EmployerModule } from 'src/modules/employer/employer.module';
 
 @Module({

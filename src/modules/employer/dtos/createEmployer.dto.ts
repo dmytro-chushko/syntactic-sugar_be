@@ -32,4 +32,9 @@ export class CreateEmployerDto {
   @IsNotEmpty()
   @IsFQDN()
   website: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  aboutUs: string;
 }

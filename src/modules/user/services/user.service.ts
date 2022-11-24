@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -8,7 +9,8 @@ import { hashPassword } from 'src/utils/hash';
 
 @Injectable()
 export class UserService implements IUserService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(@InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     try {
       const password = await hashPassword(createUserDto.password);

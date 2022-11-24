@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  // OneToMany,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
@@ -66,10 +59,7 @@ export class Employer {
   })
   aboutUs: string;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, user => user.id)
   @JoinColumn()
   user: User;
-
-  // @OneToMany(() => Jobs, (job) => job.employer)
-  // jobs: Jobs[]; // here will be Jobs, in Jobs entity add decorator @ManyToOne
 }
