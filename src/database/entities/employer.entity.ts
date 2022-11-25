@@ -20,42 +20,36 @@ export class Employer {
   @Exclude()
   @Column({
     nullable: false,
-    default: null,
   })
   companyName: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
   })
   position: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
   })
   phone: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
   })
   linkedIn: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
   })
   website: string;
 
   @ApiProperty()
   @Column({
     nullable: false,
-    default: null,
   })
   aboutUs: string;
 
