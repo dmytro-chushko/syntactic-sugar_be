@@ -7,6 +7,8 @@ export enum Routes {
   SIGNUP_GOOGLE = 'google/signup',
   LOGIN = 'login',
   GOOGLE_LOGIN = 'google/login',
+  FREELANCER = 'freelancer',
+  CREATE_FREELANCER = 'create',
 }
 
 export enum Services {
@@ -14,6 +16,7 @@ export enum Services {
   USER = 'USER_SERVICE',
   MAIL = 'MAIL_SERVICE',
   TOKEN = 'TOKEN_SERVICE',
+  FREELANCER = 'FREELANCER_SERVICE',
 }
 
 export enum UserRoles {
