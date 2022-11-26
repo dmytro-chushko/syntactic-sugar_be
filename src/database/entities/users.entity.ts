@@ -27,23 +27,9 @@ export class User {
   @ApiProperty()
   @Column({
     nullable: true,
-    default: UserRoles.FREELANCER,
+    default: UserRoles.GUEST,
   })
   role: UserRoles;
-
-  @ApiProperty()
-  @Column({
-    nullable: false,
-    default: '',
-  })
-  firstName: string;
-
-  @ApiProperty()
-  @Column({
-    nullable: false,
-    default: '',
-  })
-  lastName: string;
 
   @ApiProperty()
   @Column({
