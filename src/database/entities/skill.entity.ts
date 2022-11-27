@@ -7,7 +7,7 @@ export class Skill {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'C++' })
   @Column({
     nullable: false,
     unique: true,

@@ -7,7 +7,7 @@ export class Category {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Embedded systems' })
   @Column({
     nullable: false,
     unique: true,

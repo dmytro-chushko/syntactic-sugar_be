@@ -22,50 +22,53 @@ export class Freelancer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Elon Mask' })
   @Column({
     nullable: false,
   })
   fullName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Ukraine' })
   @Column({
     nullable: false,
   })
   country: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'less 50$' })
   @Column({ nullable: false })
   hourRate: HourRate;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Junior IOS dev' })
   @Column({ nullable: false })
   position: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Full-time' })
   @Column({ nullable: false })
   availableAmountOfHours: AvailableAmountOfHours;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'remote' })
   @Column({ nullable: false })
   employmentType: EmploymentType;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'without exp' })
   @Column({ nullable: false })
   workExperience: WorkExperience;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Beginner' })
   @Column({ nullable: false })
   englishLevel: EnglishLevel;
 
+  @ApiProperty()
   @OneToOne(() => User, user => user.id)
   @JoinColumn()
   user: User;
 
+  @ApiProperty()
   @OneToOne(() => Category, category => category.id)
   @JoinColumn()
   category: Category;
 
+  @ApiProperty()
   @ManyToMany(() => Skill, skill => skill.freelancers)
   @JoinTable()
   skills: Skill[];

@@ -17,10 +17,13 @@ import { IPayload } from 'src/modules/auth/interfaces/IToken';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
   constructor(@Inject(Services.FREELANCER) private freelancerService: IFreelancerService) {}
+  @ApiBody({ type: CreateFreelancerDto })
+  @ApiResponse({ status: 201, description: 'freelancer is created' })
   @Post(Routes.CREATE_FREELANCER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
