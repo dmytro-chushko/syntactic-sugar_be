@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   Validate,
 } from 'class-validator';
@@ -15,6 +16,8 @@ import { EmploymentType } from 'src/database/enums/EmploymentType';
 import { Skill } from 'src/database/entities/skill.entity';
 import { HourRate } from 'src/database/enums/HourRate';
 import { IsCountry } from 'src/utils/customValidator/IsCountry';
+import { Education } from 'src/database/entities/education.entity';
+import { WorkHistory } from 'src/database/entities/workHistory.entity';
 
 export class CreateFreelancerDto {
   @IsString()
@@ -57,4 +60,16 @@ export class CreateFreelancerDto {
   @IsArray()
   @ArrayMinSize(3)
   skills: Skill[];
+
+  @IsOptional()
+  @IsArray()
+  education: Education[];
+
+  @IsOptional()
+  @IsArray()
+  workHistory: WorkHistory[];
+
+  @IsOptional()
+  @IsString()
+  otherExperience: string;
 }
