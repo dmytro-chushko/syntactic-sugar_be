@@ -16,6 +16,7 @@ export enum Services {
   USER = 'USER_SERVICE',
   MAIL = 'MAIL_SERVICE',
   EMPLOYER = 'EMPLOYER_SERVICE',
+  TOKEN = 'TOKEN_SERVICE',
 }
 
 export enum UserRoles {
@@ -23,3 +24,5 @@ export enum UserRoles {
   FREELANCER = 'FREELANCER',
   GUEST = 'GUEST',
 }
+
+export const ROLES_KEY = 'roles';

@@ -4,14 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
-import { CreateUserDto } from 'src/modules/user/dtos/createUser.dto';
+import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { hashPassword } from 'src/utils/hash';
 
 @Injectable()
 export class UserService implements IUserService {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>,
-  ) {}
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  async createUser(createUserDto: AuthUserDto): Promise<User> {
     try {
       const password = await hashPassword(createUserDto.password);
       const newUser = this.userRepository.create({
@@ -27,12 +26,7 @@ export class UserService implements IUserService {
 
   async findByEmail(email: string): Promise<User | null> {
     try {
-      const user = await this.userRepository
-        .createQueryBuilder()
-        .select('id')
-        .from(User, 'id')
-        .where({ email })
-        .getOne();
+      const user = await this.userRepository.findOneBy({ email: email });
 
       return user;
     } catch (error) {
@@ -42,12 +36,7 @@ export class UserService implements IUserService {
 
   async findById(id: string): Promise<User | null> {
     try {
-      const user = await this.userRepository
-        .createQueryBuilder()
-        .select('id')
-        .from(User, 'id')
-        .where({ id })
-        .getOne();
+      const user = await this.userRepository.findOneBy({ id: id });
 
       return user;
     } catch (error) {
