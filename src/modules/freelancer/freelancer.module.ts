@@ -9,9 +9,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
+import { Education } from 'src/database/entities/education.entity';
+import { WorkHistory } from 'src/database/entities/workHistory.entity';
 
 @Module({
-  imports: [AuthModule, UserModule, TypeOrmModule.forFeature([Freelancer, Category, Skill])],
+  imports: [
+    AuthModule,
+    UserModule,
+    TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory]),
+  ],
   controllers: [FreelancerController],
   providers: [
     {
