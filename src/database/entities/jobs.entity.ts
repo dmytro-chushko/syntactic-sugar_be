@@ -12,8 +12,8 @@ import {
   EmploymentType,
   HourRate,
   AvailableAmountOfHours,
-  WorkExperiance,
   LevelEnglish,
+  WorkExperience,
 } from 'src/database/enums';
 import { Skill } from './skill.entity';
 import { Country } from './country.entity';
@@ -88,7 +88,7 @@ export class Job {
 
   @ApiProperty()
   @Column()
-  workExperience: WorkExperiance;
+  workExperience: WorkExperience;
 
   @ManyToMany(() => Skill)
   @JoinTable()

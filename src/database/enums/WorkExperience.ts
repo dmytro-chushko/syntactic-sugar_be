@@ -1,5 +1,5 @@
-export enum WorkExperiance {
-  noExperiance = 'no experiance',
+export enum WorkExperience {
+  noExperience = 'no experience',
   lessthanYear = 'less than 1 year',
   year = '1 year',
   twoYears = '2 years',

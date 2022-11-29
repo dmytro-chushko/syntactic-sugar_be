@@ -7,7 +7,7 @@ import {
   EmploymentType,
   HourRate,
   LevelEnglish,
-  WorkExperiance,
+  WorkExperience,
 } from 'src/database/enums';
 
 export class CreateJobDto {
@@ -25,7 +25,6 @@ export class CreateJobDto {
   countries: Country[];
 
   @IsNotEmpty()
-  @IsString()
   category: Category;
 
   @IsNotEmpty()
@@ -45,8 +44,8 @@ export class CreateJobDto {
   availableAmountOfHours: AvailableAmountOfHours;
 
   @IsNotEmpty()
-  @IsEnum(WorkExperiance)
-  workExperience: WorkExperiance;
+  @IsEnum(WorkExperience)
+  workExperience: WorkExperience;
 
   @IsNotEmpty()
   @IsArray()
