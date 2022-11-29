@@ -6,6 +6,7 @@ import { AuthModule } from 'src/modules/auth/auth.module';
 import { entities } from 'src/database/index';
 import { MailModule } from './modules/mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
+import { JobsModule } from './modules/jobs/jobs.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { JwtModule } from '@nestjs/jwt';
     AuthModule,
     MailModule,
     JwtModule,
+    JobsModule,
   ],
   controllers: [],
   providers: [],
