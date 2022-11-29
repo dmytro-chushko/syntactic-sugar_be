@@ -1,7 +1,10 @@
-import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { Category } from 'src/database/entities/category.entity';
-import { Country } from 'src/database/entities/country.entity';
-import { Skill } from 'src/database/entities/skill.entity';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+
+// Will be added after merging Freelancer and Employer entity
+
+// import { Category } from 'src/database/entities/category.entity';
+// import { Country } from 'src/database/entities/country.entity';
+// import { Skill } from 'src/database/entities/skill.entity';
 import {
   AvailableAmountOfHours,
   EmploymentType,
@@ -19,13 +22,17 @@ export class CreateJobDto {
   @IsNotEmpty()
   description: string;
 
-  @IsNotEmpty()
-  @IsArray()
-  @ArrayMinSize(5)
-  countries: Country[];
+  // Will be added after merging Freelancer and Employer entity
 
-  @IsNotEmpty()
-  category: Category;
+  // @IsNotEmpty()
+  // @IsArray()
+  // @ArrayMinSize(5)
+  // countries: Country[];
+
+  // Will be added after merging Freelancer and Employer entity
+
+  // @IsNotEmpty()
+  // category: Category;
 
   @IsNotEmpty()
   @IsString()
@@ -47,10 +54,12 @@ export class CreateJobDto {
   @IsEnum(WorkExperience)
   workExperience: WorkExperience;
 
-  @IsNotEmpty()
-  @IsArray()
-  @ArrayMinSize(3)
-  skills: Skill[];
+  // Will be added after merging Freelancer and Employer entity
+
+  // @IsNotEmpty()
+  // @IsArray()
+  // @ArrayMinSize(3)
+  // skills: Skill[];
 
   @IsNotEmpty()
   @IsEnum(LevelEnglish)

@@ -2,10 +2,13 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
+
+  // Will be added after merging Freelancer and Employer entity
+
+  // JoinColumn,
+  // JoinTable,
+  // ManyToMany,
+  // ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -15,39 +18,13 @@ import {
   LevelEnglish,
   WorkExperience,
 } from 'src/database/enums';
-import { Skill } from './skill.entity';
-import { Country } from './country.entity';
-import { Category } from './category.entity';
 
-// type EmployerCategory =
-//   | 'Service sector'
-//   | 'Skilled trades & manufacturing'
-//   | 'Sales & procurement'
-//   | 'Retail'
-//   | 'Hotels, restaurants & tourism'
-//   | 'Administration & middle management'
-//   | 'It, computers & Internet'
-//   | 'Logistics, warehouse & internetional commerce'
-//   | 'Transportation & auto industry'
-//   | 'Medicine & pharmaceuticals'
-//   | 'Marketing, advertising & PR'
-//   | 'Accounting & auditing'
-//   | 'Secretarial, clerical & administrative assistants'
-//   | 'Education & science'
-//   | 'Telecommunications'
-//   | 'Finance & banking'
-//   | 'Construction & architecture'
-//   | 'Design & creativity'
-//   | 'Beuty, fitness & sports'
-//   | 'Journalism, publishing & printing'
-//   | 'HR & personnel management'
-//   | 'Upper & senior management'
-//   | 'Agriculture & agribusiness'
-//   | 'Security & guarding'
-//   | 'Legal'
-//   | 'Real estate'
-//   | 'Culture, music & entertainment'
-//   | 'Insurance';
+// Will be added after merging Freelancer and Employer entity
+
+// import { Skill } from './skill.entity';
+// import { Country } from './country.entity';
+// import { Category } from './category.entity';
+
 @Entity({ name: 'jobs' })
 export class Job {
   @ApiProperty()
@@ -62,13 +39,16 @@ export class Job {
   @Column()
   description: string;
 
-  @ManyToMany(() => Country)
-  @JoinTable()
-  countries: Country[];
+  // Will be added after merging Freelancer and Employer entity
 
-  @ManyToOne(() => Category, category => category.jobs)
-  @JoinColumn()
-  category: Category;
+  // @ManyToMany(() => Country)
+  // @JoinTable()
+  // countries: Country[];
+
+  // @ManyToOne(() => Category, category => category.jobs)
+
+  // @JoinColumn()
+  // category: Category;
 
   @ApiProperty()
   @Column()
@@ -90,9 +70,11 @@ export class Job {
   @Column()
   workExperience: WorkExperience;
 
-  @ManyToMany(() => Skill)
-  @JoinTable()
-  skills: Skill[];
+  // Will be added after merging Freelancer and Employer entity
+
+  // @ManyToMany(() => Skill)
+  // @JoinTable()
+  // skills: Skill[];
 
   @ApiProperty()
   @Column()

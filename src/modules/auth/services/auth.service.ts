@@ -136,7 +136,6 @@ export class AuthService implements IAuthService {
         throw new BadRequestException(`Your link has expired`);
       }
       const password = await hashPassword(resetPasswordDto.password);
-
       await this.userRepository.update(user.id, { password });
 
       return true;

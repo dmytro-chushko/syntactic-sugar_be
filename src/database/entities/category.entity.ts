@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Job } from './jobs.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+// Will be added after merging Freelancer and Employer entity
+
+// import { Job } from './jobs.entity';
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -12,6 +15,8 @@ export class Category {
   @Column({ unique: true })
   name: string;
 
-  @OneToMany(() => Job, job => job.category)
-  jobs: Job[];
+  // Will be added after merging Freelancer and Employer entity
+
+  // @OneToMany(() => Job, job => job.category)
+  // jobs: Job[];
 }

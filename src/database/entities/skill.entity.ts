@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Job } from './jobs.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+// Will be added after merging Freelancer and Employer entity
+
+// import { Job } from './jobs.entity';
 
 @Entity({ name: 'skills' })
 export class Skill {
@@ -13,6 +16,8 @@ export class Skill {
   })
   name: string;
 
-  @ManyToMany(() => Job, job => job.skills)
-  jobs: Job[];
+  // Will be added after merging Freelancer and Employer entity
+
+  // @ManyToMany(() => Job, job => job.skills)
+  // jobs: Job[];
 }
