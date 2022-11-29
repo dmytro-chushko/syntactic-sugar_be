@@ -27,8 +27,8 @@ export class FreelancerController {
   @Post(Routes.CREATE_FREELANCER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
-  createFreelancer(@Auth() { id }: IPayload, @Body() createFreelancerDto: CreateFreelancerDto) {
-    return this.freelancerService.createFreelancer(id, createFreelancerDto);
+  createFreelancer(@Auth() user, @Body() createFreelancerDto: CreateFreelancerDto) {
+    return this.freelancerService.createFreelancer(user, createFreelancerDto);
   }
 
   @Get('testing')

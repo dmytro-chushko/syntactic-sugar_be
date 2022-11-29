@@ -8,6 +8,7 @@ import { Services, UserRoles } from 'src/utils/constants';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { Repository } from 'typeorm';
+import { User } from 'src/database/entities/users.entity';
 
 @Injectable()
 export class FreelancerService implements IFreelancerService {
@@ -17,13 +18,9 @@ export class FreelancerService implements IFreelancerService {
     @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
   ) {}
 
-  async createFreelancer(
-    userId: string,
-    createFreelancerDto: CreateFreelancerDto,
-  ): Promise<IToken> {
+  async createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken> {
     try {
-      const user = await this.userService.findById(userId);
-      const isEmployer = await this.isEmployer(userId);
+      const isEmployer = await this.isEmployer(user);
       if (isEmployer) {
         throw new ConflictException();
       }
@@ -41,18 +38,18 @@ export class FreelancerService implements IFreelancerService {
         user: user,
       });
       await this.freelancerRepository.save(freelancer);
-      user.role = UserRoles.FREELANCER;
+      await this.userService.changeRole(user, UserRoles.FREELANCER);
 
       return this.tokenService.generateToken(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  async isEmployer(userId: string): Promise<boolean> {
+  async isEmployer(user: User): Promise<boolean> {
     //this func will check if user already exists in employer repo
     //right now i haven`t implementation of employer module yet
     //when it will be on develop i will fix , while i haven`t returns false
-    console.log(userId);
+    console.log(user);
 
     return false;
   }
