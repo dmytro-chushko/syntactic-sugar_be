@@ -47,6 +47,9 @@ export class FreelancerService implements IFreelancerService {
         workExperience: createFreelancerDto.workExperience,
         englishLevel: createFreelancerDto.englishLevel,
         skills: createFreelancerDto.skills,
+        education: createFreelancerDto.education,
+        workHistory: createFreelancerDto.workHistory,
+        otherExperience: createFreelancerDto.otherExperience,
         user: user,
       });
       await this.freelancerRepository.save(freelancer);
