@@ -1,8 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Freelancer } from './freelancer.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // Will be added after merging Freelancer and Employer entity
 
@@ -16,8 +14,6 @@ export class Skill {
   @ApiProperty({ example: 'C++' })
   @Column({
     nullable: false,
-  @ApiProperty()
-  @Column({
     unique: true,
   })
   name: string;

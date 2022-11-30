@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsString,
   Validate,
+  IsOptional,
 } from 'class-validator';
 import { WorkExperience } from 'src/database/enums/WorkExperience';
 import { Category } from 'src/database/entities/category.entity';
@@ -13,6 +14,8 @@ import { EnglishLevel } from 'src/database/enums/EnglishLevel';
 import { AvailableAmountOfHours } from 'src/database/enums/AvailableAmountOfHours';
 import { EmploymentType } from 'src/database/enums/EmploymentType';
 import { Skill } from 'src/database/entities/skill.entity';
+import { Education } from 'src/database/entities/education.entity';
+import { WorkHistory } from 'src/database/entities/workHistory.entity';
 import { HourRate } from 'src/database/enums/HourRate';
 import { IsCountry } from 'src/utils/customValidator/IsCountry';
 import { ApiProperty } from '@nestjs/swagger';
@@ -68,4 +71,40 @@ export class CreateFreelancerDto {
   @IsArray()
   @ArrayMinSize(3)
   skills: Skill[];
+
+  @ApiProperty({
+    description: 'Educations of the freelancer',
+    example: [
+      {
+        institute: 'University of Developers',
+        occupation: 'FullStack Developer',
+        period: '3 years',
+      },
+    ],
+  })
+  @IsOptional()
+  @IsArray()
+  education: Education[];
+
+  @ApiProperty({
+    description: 'Work History of the freelancer',
+    example: [
+      {
+        company: 'Developers Company',
+        workPosition: 'FullStack Developer',
+        period: '3 years',
+      },
+    ],
+  })
+  @IsOptional()
+  @IsArray()
+  workHistory: WorkHistory[];
+
+  @ApiProperty({
+    description: 'Other experiences of the freelancer',
+    example: 'Data Analyst at Infra Tech Company',
+  })
+  @IsOptional()
+  @IsString()
+  otherExperience: string;
 }
