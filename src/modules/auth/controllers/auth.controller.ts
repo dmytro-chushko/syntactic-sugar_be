@@ -10,7 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Routes, Services, UserRoles } from 'src/utils/constants';
+import { Routes, Services } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
@@ -20,7 +20,6 @@ import { TokenDto } from 'src/modules/auth/dtos/token.dto';
 import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
-import { Roles } from 'src/utils/decorators/roles';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 
@@ -90,8 +89,6 @@ export class AuthController {
   @ApiBody({ type: AddRoleDto })
   @ApiResponse({ status: 200, description: 'Role added' })
   @UsePipes(ValidationPipe)
-  // For example how does AuthRolesGuard works
-  @Roles(UserRoles.JOB_OWNER)
   @UseGuards(AuthJwtGuard)
   @Post('role/:id')
   addUserRole(@Body() roleDto: AddRoleDto, @Param('id') userId: string): Promise<IToken> {

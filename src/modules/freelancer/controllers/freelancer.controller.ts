@@ -1,10 +1,12 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   Inject,
   Post,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,6 +20,7 @@ import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelance
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { EditPublishedDto } from '../dtos/editPublished.dto';
 
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
@@ -25,10 +28,18 @@ export class FreelancerController {
   @ApiBody({ type: CreateFreelancerDto })
   @ApiResponse({ status: 201, description: 'freelancer is created' })
   @Post(Routes.CREATE_FREELANCER)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
   createFreelancer(@Auth() user, @Body() createFreelancerDto: CreateFreelancerDto) {
     return this.freelancerService.createFreelancer(user, createFreelancerDto);
+  }
+
+  @Post(Routes.EDIT_PUBLISHED)
+  @UseGuards(AuthJwtGuard)
+  @UsePipes(ValidationPipe)
+  isPublished(@Auth() user, @Body() editPublishedDto: EditPublishedDto) {
+    return this.freelancerService.editPublished(user, editPublishedDto.isPublished);
   }
 
   @Get('testing')

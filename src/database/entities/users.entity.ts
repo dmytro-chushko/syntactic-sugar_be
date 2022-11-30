@@ -37,4 +37,8 @@ export class User {
     default: false,
   })
   isActivated: boolean;
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }

@@ -62,6 +62,12 @@ export class Freelancer {
   @Column({ nullable: false })
   englishLevel: EnglishLevel;
 
+  @ApiProperty({ example: 'true' })
+  @Column({
+    default: false,
+  })
+  isPublished: boolean;
+
   @ApiProperty()
   @OneToOne(() => User, user => user.id)
   @JoinColumn()

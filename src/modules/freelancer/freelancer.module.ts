@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { FreelancerController } from 'src/modules/freelancer/controllers/freelancer.controller';
 import { FreelancerService } from 'src/modules/freelancer/services/freelancer.service';
 import { AuthModule } from 'src/modules/auth/auth.module';
@@ -11,11 +11,13 @@ import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
 import { Education } from 'src/database/entities/education.entity';
 import { WorkHistory } from 'src/database/entities/workHistory.entity';
+import { EmployerModule } from '../employer/employer.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    forwardRef(() => EmployerModule),
     TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory]),
   ],
   controllers: [FreelancerController],
@@ -25,6 +27,12 @@ import { WorkHistory } from 'src/database/entities/workHistory.entity';
       useClass: FreelancerService,
     },
     JwtService,
+  ],
+  exports: [
+    {
+      provide: Services.FREELANCER,
+      useClass: FreelancerService,
+    },
   ],
 })
 export class FreelancerModule {}
