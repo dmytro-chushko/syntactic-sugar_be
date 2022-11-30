@@ -62,4 +62,12 @@ export class FreelancerService implements IFreelancerService {
 
     return freelancer || null;
   }
+
+  async editPublished(user: User, publ: boolean): Promise<Freelancer | null> {
+    const freelancer = await this.freelancerRepository.findOneBy({ user: user });
+    freelancer.isPublished = publ;
+    await this.freelancerRepository.save(freelancer);
+
+    return freelancer || null;
+  }
 }
