@@ -70,12 +70,12 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Email has been sent' })
   @Post(Routes.FORGOT_PASS)
   // eslint-disable-next-line prettier/prettier
-  forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<boolean> {
+  forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<void> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
   }
 
   @ApiResponse({ status: 200, description: 'Your password has updated' })
-  @Post('resetpassword')
+  @Post(Routes.RESET_PASS)
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<boolean> {
     return this.authService.resetPassword(resetPasswordDto);
   }

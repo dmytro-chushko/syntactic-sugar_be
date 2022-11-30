@@ -1,0 +1,16 @@
+export enum CountryName {
+  ukraine = 'Ukraine',
+  germany = 'Germany',
+  france = 'France',
+  italy = 'Italy',
+  latvia = 'Latvia',
+  lithuania = 'Lithuania',
+  spain = 'Spain',
+  poland = 'Poland',
+  moldova = 'Moldova',
+  romania = 'Romania',
+  us = 'US',
+  uk = 'UK',
+  allEuCountries = 'all EU countries',
+  otherCountries = 'other Countries',
+}

@@ -7,6 +7,7 @@ import { entities } from 'src/database/index';
 import { MailModule } from 'src/modules/mail/mail.module';
 import { EmployerModule } from 'src/modules/employer/employer.module';
 import { JwtModule } from '@nestjs/jwt';
+import { JobsModule } from './modules/jobs/jobs.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { JwtModule } from '@nestjs/jwt';
     MailModule,
     EmployerModule,
     JwtModule,
+    JobsModule,
   ],
   controllers: [],
   providers: [],
