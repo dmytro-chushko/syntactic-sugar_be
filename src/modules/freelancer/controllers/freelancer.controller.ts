@@ -29,7 +29,7 @@ export class FreelancerController {
   @ApiResponse({ status: 201, description: 'freelancer is created' })
   @Post(Routes.CREATE_FREELANCER)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseGuards(AuthJwtGuard)
+  @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
   createFreelancer(@Auth() user, @Body() createFreelancerDto: CreateFreelancerDto) {
     return this.freelancerService.createFreelancer(user, createFreelancerDto);
