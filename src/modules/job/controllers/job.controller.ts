@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ActivatedGuard } from '../../auth/guards/activated.guard';
 import { RolesGuard } from '../../auth/guards/role.guard';
 import { AuthJwtGuard } from '../../auth/guards/authJwt.guard';
@@ -24,5 +24,12 @@ export class JobController {
   @Roles(UserRoles.EMPLOYER)
   getJobs(@Auth() user) {
     return this.jobsService.getEmployerJobs(user);
+  }
+
+  @Patch(':id')
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  @Roles(UserRoles.EMPLOYER)
+  publishJob(@Auth() user, @Param('id') id: string) {
+    return this.jobsService.publishJob(user, id);
   }
 }

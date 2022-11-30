@@ -39,4 +39,17 @@ export class JobService implements IJobService {
 
     return jobs;
   }
+
+  async publishJob(user: User, jobId: string): Promise<void> {
+    const job = await this.jobRepository
+      .createQueryBuilder('job')
+      .leftJoinAndSelect('job.employer', 'employer')
+      .where({
+        employer: { user: user },
+        id: jobId,
+      })
+      .getOne();
+    job.isPublished = true;
+    await this.jobRepository.save(job);
+  }
 }

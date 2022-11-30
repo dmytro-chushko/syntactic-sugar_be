@@ -4,7 +4,7 @@ import { Employer } from './employer.entity';
 @Entity({ name: 'jobs' })
 export class Job {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({
     nullable: false,
@@ -13,6 +13,12 @@ export class Job {
 
   @Column({ nullable: false })
   description: string;
+
+  @Column({
+    default: false,
+    nullable: false,
+  })
+  isPublished: boolean;
 
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
