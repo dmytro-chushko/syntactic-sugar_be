@@ -110,23 +110,18 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async forgotPassword(email: string): Promise<boolean> {
+  async forgotPassword(email: string): Promise<void> {
     try {
       const existingUser = await this.userService.findByEmail(email);
-      if (!existingUser) {
-        throw new BadRequestException(`user with email ${email} does not exists`);
-      }
       const token = await this.tokenService.generateToken(existingUser);
       const resetPassLink = `${this.configService.get<string>(
         'RESET_PASSWOPRD_LINK',
-        token.token,
-      )}`;
+      )}resetpassword/${token.token}`;
+
       await this.mailService.sendActivationMail(
         existingUser.email,
         postMailServiceHtml('resetPassword', resetPassLink),
       );
-
-      return true;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -134,7 +129,9 @@ export class AuthService implements IAuthService {
 
   async resetPassword(resetPasswordDto: ResetPasswordDto): Promise<boolean> {
     try {
-      const user = this.jwtService.verify<User>(resetPasswordDto.token);
+      const user = this.jwtService.verify<User>(resetPasswordDto.token, {
+        secret: this.configService.get('SECRET_JWT'),
+      });
       if (!user) {
         throw new BadRequestException(`Your link has expired`);
       }

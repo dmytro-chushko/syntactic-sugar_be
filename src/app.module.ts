@@ -4,9 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { entities } from 'src/database/index';
-import { MailModule } from './modules/mail/mail.module';
+import { MailModule } from 'src/modules/mail/mail.module';
+import { EmployerModule } from 'src/modules/employer/employer.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
+import { JobsModule } from './modules/jobs/jobs.module';
 
 @Module({
   imports: [
@@ -26,8 +28,10 @@ import { FreelancerModule } from './modules/freelancer/freelancer.module';
     UserModule,
     AuthModule,
     MailModule,
+    EmployerModule,
     JwtModule,
     FreelancerModule,
+    JobsModule,
   ],
   controllers: [],
   providers: [],
