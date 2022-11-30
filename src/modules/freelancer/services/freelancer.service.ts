@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   forwardRef,
   HttpException,
@@ -16,11 +17,15 @@ import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { IEmployerService } from '../../employer/interfaces/IEmployerService';
+import { Category } from '../../../database/entities/category.entity';
+import { Skill } from '../../../database/entities/skill.entity';
 
 @Injectable()
 export class FreelancerService implements IFreelancerService {
   constructor(
     @InjectRepository(Freelancer) private readonly freelancerRepository: Repository<Freelancer>,
+    @InjectRepository(Category) private readonly categoryRepository: Repository<Category>,
+    @InjectRepository(Skill) private readonly skillRepository: Repository<Skill>,
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
     @Inject(forwardRef(() => Services.EMPLOYER))
@@ -36,9 +41,28 @@ export class FreelancerService implements IFreelancerService {
       if (isEmployer) {
         throw new ConflictException();
       }
+      const category = await this.categoryRepository
+        .createQueryBuilder('category')
+        .where('category.name = :name', { name: createFreelancerDto.category })
+        .getOne();
+
+      const skills = await Promise.all(
+        createFreelancerDto.skills.map(async skill => {
+          skill = await this.skillRepository
+            .createQueryBuilder('skill')
+            .where('skill.name = :name', { name: skill.name })
+            .getOne();
+          if (!skill) {
+            throw new BadRequestException();
+          }
+
+          return skill;
+        }),
+      );
+
       const freelancer = this.freelancerRepository.create({
         fullName: createFreelancerDto.fullName,
-        category: createFreelancerDto.category,
+        category: category,
         country: createFreelancerDto.country,
         hourRate: createFreelancerDto.hourRate,
         position: createFreelancerDto.position,
@@ -46,7 +70,7 @@ export class FreelancerService implements IFreelancerService {
         employmentType: createFreelancerDto.employmentType,
         workExperience: createFreelancerDto.workExperience,
         englishLevel: createFreelancerDto.englishLevel,
-        skills: createFreelancerDto.skills,
+        skills: skills,
         user: user,
       });
       await this.freelancerRepository.save(freelancer);

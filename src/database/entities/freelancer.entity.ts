@@ -64,12 +64,12 @@ export class Freelancer {
   user: User;
 
   @ApiProperty()
-  @OneToOne(() => Category, category => category.id)
+  @OneToOne(() => Category, category => category.id, { nullable: false })
   @JoinColumn()
   category: Category;
 
   @ApiProperty()
-  @ManyToMany(() => Skill, skill => skill.freelancers)
+  @ManyToMany(() => Skill, skill => skill.freelancers, { nullable: false })
   @JoinTable()
   skills: Skill[];
 }

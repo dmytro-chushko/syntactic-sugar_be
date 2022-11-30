@@ -14,6 +14,6 @@ export class Skill {
   })
   name: string;
 
-  @ManyToMany(() => Freelancer, freelancer => freelancer.skills)
+  @ManyToMany(() => Freelancer, freelancer => freelancer.skills, { nullable: false })
   freelancers: Freelancer[];
 }
