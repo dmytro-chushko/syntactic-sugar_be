@@ -10,14 +10,14 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'ElonMask@gmail.com' })
   @Column({
     unique: true,
     nullable: false,
   })
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'qwertyuiop' })
   @Exclude()
   @Column({
     nullable: true,
@@ -25,14 +25,14 @@ export class User {
   })
   password: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Employer' })
   @Column({
     nullable: true,
     default: UserRoles.GUEST,
   })
   role: UserRoles;
 
-  @ApiProperty()
+  @ApiProperty({ example: 0 })
   @Column({
     nullable: false,
     default: false,
