@@ -13,6 +13,7 @@ export enum Routes {
   CREATE_EMPLOYER = 'create',
   JOB = 'job',
   JOB_CREATE = 'create',
+  EDIT_PUBLISHED = 'published',
 }
 
 export enum Services {

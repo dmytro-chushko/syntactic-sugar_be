@@ -1,4 +1,12 @@
-import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsString, Validate } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  Validate,
+} from 'class-validator';
 import { WorkExperience } from 'src/database/enums/WorkExperience';
 import { Category } from 'src/database/entities/category.entity';
 import { EnglishLevel } from 'src/database/enums/EnglishLevel';
@@ -17,6 +25,7 @@ export class CreateFreelancerDto {
 
   @ApiProperty({ example: 'Embedded systems' })
   @IsNotEmpty()
+  @IsNumber()
   category: Category;
 
   @ApiProperty({ example: 'Ukraine' })

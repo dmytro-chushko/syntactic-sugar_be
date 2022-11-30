@@ -9,6 +9,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
+import { Education } from 'src/database/entities/education.entity';
+import { WorkHistory } from 'src/database/entities/workHistory.entity';
 import { EmployerModule } from '../employer/employer.module';
 
 @Module({
@@ -16,7 +18,7 @@ import { EmployerModule } from '../employer/employer.module';
     AuthModule,
     UserModule,
     forwardRef(() => EmployerModule),
-    TypeOrmModule.forFeature([Freelancer, Category, Skill]),
+    TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory]),
   ],
   controllers: [FreelancerController],
   providers: [
