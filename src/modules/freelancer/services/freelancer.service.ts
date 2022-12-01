@@ -56,4 +56,12 @@ export class FreelancerService implements IFreelancerService {
 
     return false;
   }
+
+  async editPublished(user: User, publ: boolean): Promise<IToken> {
+    const freelancer = await this.freelancerRepository.findOneBy({ user: user });
+    freelancer.isPublished = publ;
+    await this.freelancerRepository.save(freelancer);
+
+    return this.tokenService.generateToken(user);
+  }
 }
