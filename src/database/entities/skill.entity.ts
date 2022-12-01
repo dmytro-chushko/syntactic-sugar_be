@@ -1,14 +1,19 @@
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Freelancer } from './freelancer.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'skills' })
 export class Skill {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'C++' })
   @Column({
+    nullable: false,
     unique: true,
   })
   name: string;
+
+  @ManyToMany(() => Freelancer, freelancer => freelancer.skills)
+  freelancers: Freelancer[];
 }

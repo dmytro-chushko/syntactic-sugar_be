@@ -1,4 +1,9 @@
 export enum WorkExperience {
+  withoutExperience = 'withoutExperience',
+  lessOneYear = 'lessOneYear',
+  oneToThree = 'oneToThree',
+  threeToFive = 'threeToFive',
+  moreThanFive = 'moreThanFive',
   noExperience = 'no experience',
   lessthanYear = 'less than 1 year',
   year = '1 year',

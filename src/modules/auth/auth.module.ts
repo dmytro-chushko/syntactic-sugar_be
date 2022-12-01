@@ -33,6 +33,12 @@ import { JwtStrategy } from 'src/modules/auth/strategies/jwtStrategy';
     JwtStrategy,
     JwtService,
   ],
-  exports: [JwtModule],
+  exports: [
+    JwtModule,
+    {
+      provide: Services.TOKEN,
+      useClass: TokenService,
+    },
+  ],
 })
 export class AuthModule {}
