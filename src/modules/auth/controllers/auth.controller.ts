@@ -23,6 +23,7 @@ import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
 import { Roles } from 'src/utils/decorators/roles';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
+import { ITokenAndRole } from '../interfaces/ITokenAndRole';
 
 @ApiTags('auth')
 @Controller(Routes.AUTH)
@@ -55,7 +56,7 @@ export class AuthController {
   @Post(Routes.LOGIN)
   @UsePipes(ValidationPipe)
   @UseGuards(ActivatedGuard)
-  login(@Body() authUserDto: AuthUserDto): Promise<IToken> {
+  login(@Body() authUserDto: AuthUserDto): Promise<ITokenAndRole> {
     return this.authService.login(authUserDto);
   }
 

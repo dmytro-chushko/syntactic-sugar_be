@@ -22,6 +22,7 @@ import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { comparePassword, hashPassword } from 'src/utils/hash';
 import { postMailServiceHtml } from 'src/utils/postMailServiceHtml';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
+import { ITokenAndRole } from '../interfaces/ITokenAndRole';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -52,13 +53,15 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async login(authUserDto: AuthUserDto): Promise<IToken> {
+  async login(authUserDto: AuthUserDto): Promise<ITokenAndRole> {
     try {
       const user = await this.userService.findByEmail(authUserDto.email);
       if (user) {
         const passwordEquals = await comparePassword(authUserDto.password, user.password);
         if (passwordEquals) {
-          return this.tokenService.generateToken(user);
+          const token = await this.tokenService.generateToken(user);
+
+          return { token: token.token, role: user.role };
         }
       }
       throw new UnauthorizedException(`Authorization error`);
