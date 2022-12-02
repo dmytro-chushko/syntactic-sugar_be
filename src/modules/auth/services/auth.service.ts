@@ -96,7 +96,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async loginByGoogle(token: string): Promise<IToken> {
+  async loginByGoogle(token: string): Promise<ITokenAndRole> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -105,7 +105,9 @@ export class AuthService implements IAuthService {
       const ticket = await client.getTokenInfo(token);
       const user = await this.userService.findByEmail(ticket.email);
       if (user) {
-        return this.tokenService.generateToken(user);
+        const token = await this.tokenService.generateToken(user);
+
+        return { token: token.token, role: user.role };
       }
       throw new UnauthorizedException(`User with email: ${ticket.email} doesn't exist`);
     } catch (error) {
