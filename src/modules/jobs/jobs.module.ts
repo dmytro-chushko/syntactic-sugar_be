@@ -5,7 +5,7 @@ import { Country } from 'src/database/entities/country.entity';
 import { Job } from 'src/database/entities/jobs.entity';
 import { Skill } from 'src/database/entities/skill.entity';
 import { Services } from 'src/utils/constants';
-import { JobsController } from './controllers/jobs.controller';
+import { JobsController } from 'src/modules/jobs/controllers/jobs.controller';
 import { JobsService } from './services/jobs.service';
 
 @Module({
