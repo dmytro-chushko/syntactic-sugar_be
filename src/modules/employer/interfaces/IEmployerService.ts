@@ -4,5 +4,4 @@ import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto'
 
 export interface IEmployerService {
   createEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<IToken>;
-  isFreelancer(user: User): Promise<boolean>;
 }
