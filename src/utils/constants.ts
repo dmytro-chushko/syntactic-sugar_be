@@ -14,6 +14,7 @@ export enum Routes {
   JOBS = 'jobs',
   CREATE_JOB = 'create-new-job',
   CREATE_EMPLOYER = 'create/employer',
+  GET_JOBS = 'getJobs',
 }
 
 export enum Services {

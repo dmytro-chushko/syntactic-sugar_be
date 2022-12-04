@@ -1,31 +1,48 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { IJobService } from 'src/modules/jobs/interfaces/IJobService';
+import { User } from 'src/database/entities/users.entity';
+import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
+import { Job } from 'src/database/entities/job.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Job } from 'src/database/entities/jobs.entity';
+import { Employer } from 'src/database/entities/employer.entity';
 import { Repository } from 'typeorm';
-import { CreateJobDto } from '../dto/createJobDto';
-import { IJobsService } from '../interfaces';
+import { Services } from 'src/utils/constants';
+import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 
 @Injectable()
-export class JobsService implements IJobsService {
-  constructor(@InjectRepository(Job) private readonly jobRepository: Repository<Job>) {}
+export class JobService implements IJobService {
+  constructor(
+    @InjectRepository(Job) private readonly jobRepository: Repository<Job>,
+    @InjectRepository(Employer) private readonly employerRepository: Repository<Employer>,
+    @Inject(Services.EMPLOYER) private readonly employerService: IEmployerService,
+  ) {}
 
-  async createJob(createJobDto: CreateJobDto): Promise<Job> {
-    try {
-      const job = this.jobRepository.create({
-        title: createJobDto.title,
-        description: createJobDto.description,
-        position: createJobDto.position,
-        employmentType: createJobDto.employmentType,
-        hourRate: createJobDto.hourRate,
-        availableAmountOfHours: createJobDto.availableAmountOfHours,
-        workExperience: createJobDto.workExperience,
-        levelEnglish: createJobDto.levelEnglish,
-        otherRequirenments: createJobDto.otherRequirenments,
-      });
+  async createJob(user: User, createJobDto: CreateJobDto): Promise<Job> {
+    const employer = await this.employerService.findEmployer(user);
+    const job = this.jobRepository.create({
+      title: createJobDto.title,
+      description: createJobDto.description,
+      position: createJobDto.position,
+      employmentType: createJobDto.employmentType,
+      hourRate: createJobDto.hourRate,
+      availableAmountOfHours: createJobDto.availableAmountOfHours,
+      workExperience: createJobDto.workExperience,
+      levelEnglish: createJobDto.levelEnglish,
+      otherRequirements: createJobDto.otherRequirements,
+      employer: employer,
+    });
+    await this.jobRepository.save(job);
 
-      return await this.jobRepository.save(job);
-    } catch (error) {
-      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    return job;
+  }
+
+  async getEmployerJobs(user: User): Promise<Job[]> {
+    const jobs = await this.jobRepository
+      .createQueryBuilder('job')
+      .leftJoinAndSelect('job.employer', 'employer')
+      .where({ employer: { user: user } })
+      .getMany();
+
+    return jobs;
   }
 }

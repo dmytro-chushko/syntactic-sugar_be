@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
+import { Job } from './job.entity';
 
 @Entity({ name: 'employer' })
 export class Employer {
@@ -56,4 +57,7 @@ export class Employer {
   @OneToOne(() => User, user => user.id)
   @JoinColumn()
   user: User;
+
+  @OneToMany(() => Job, job => job.employer)
+  jobs: Job[];
 }

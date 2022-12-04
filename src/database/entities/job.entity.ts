@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   Entity,
+  ManyToOne,
 
   // Will be added after merging Freelancer and Employer entity
 
@@ -18,6 +19,7 @@ import {
   LevelEnglish,
   WorkExperience,
 } from 'src/database/enums';
+import { Employer } from './employer.entity';
 
 // Will be added after merging Freelancer and Employer entity
 
@@ -82,5 +84,8 @@ export class Job {
 
   @ApiProperty()
   @Column()
-  otherRequirenments: string;
+  otherRequirements: string;
+
+  @ManyToOne(() => Employer, employer => employer.jobs)
+  employer: Employer;
 }

@@ -80,5 +80,5 @@ export class CreateJobDto {
   @ApiProperty({ example: 'All the other requirenments of the job' })
   @IsNotEmpty()
   @IsString()
-  otherRequirenments: string;
+  otherRequirements: string;
 }

@@ -2,7 +2,7 @@ import { User } from 'src/database/entities/users.entity';
 import { Category } from './entities/category.entity';
 import { Freelancer } from './entities/freelancer.entity';
 import { Country } from './entities/country.entity';
-import { Job } from './entities/jobs.entity';
+import { Job } from './entities/job.entity';
 import { Skill } from './entities/skill.entity';
 import { Employer } from 'src/database/entities/employer.entity';
 import { Education } from './entities/education.entity';
