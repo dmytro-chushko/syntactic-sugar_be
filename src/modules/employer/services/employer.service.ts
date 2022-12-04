@@ -1,23 +1,28 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Services } from 'src/utils/constants';
+import { Services, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employer } from 'src/database/entities/employer.entity';
 import { Repository } from 'typeorm';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
+import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
+import { User } from 'src/database/entities/users.entity';
+import { IToken } from 'src/modules/auth/interfaces/IToken';
+import { Roles } from 'src/utils/decorators/roles';
 
 @Injectable()
+@Roles(UserRoles.JOB_OWNER)
 export class EmployerService implements IEmployerService {
   constructor(
     @Inject(Services.USER) private readonly userService: IUserService,
+    @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
     @InjectRepository(Employer)
     private readonly employerRepository: Repository<Employer>,
   ) {}
 
-  async createEmployer(createEmployerDto: CreateEmployerDto) {
+  async createEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<IToken> {
     try {
-      // here will be cheking for existing user by token
       const employer = this.employerRepository.create({
         fullName: createEmployerDto.fullName,
         companyName: createEmployerDto.companyName,
@@ -26,12 +31,12 @@ export class EmployerService implements IEmployerService {
         linkedIn: createEmployerDto.linkedIn,
         website: createEmployerDto.website,
         aboutUs: createEmployerDto.aboutUs,
-        // user: user (after we providet jwt logic)
+        user: user,
       });
       await this.employerRepository.save(employer);
-      // user.role = UserRole.Employer;
+      await this.userService.changeRole(user, UserRoles.JOB_OWNER);
 
-      return employer;
+      return this.tokenService.generateToken(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
