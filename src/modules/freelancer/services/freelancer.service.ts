@@ -70,6 +70,9 @@ export class FreelancerService implements IFreelancerService {
         employmentType: createFreelancerDto.employmentType,
         workExperience: createFreelancerDto.workExperience,
         englishLevel: createFreelancerDto.englishLevel,
+        education: createFreelancerDto.education,
+        workHistory: createFreelancerDto.workHistory,
+        otherExperience: createFreelancerDto.otherExperience,
         skills: skills,
         user: user,
       });

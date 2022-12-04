@@ -17,7 +17,6 @@ async function start() {
     SwaggerModule.setup('api', app, document);
     app.useGlobalPipes(new ValidationPipe());
     app.enableCors({
-      allowedHeaders: ['content-type'],
       origin: process.env.CLIENT_HOST,
       credentials: true,
     });

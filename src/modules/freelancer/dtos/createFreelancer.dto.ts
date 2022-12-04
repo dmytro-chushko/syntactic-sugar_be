@@ -3,7 +3,7 @@ import {
   IsArray,
   IsEnum,
   IsNotEmpty,
-  IsNumber,
+  IsOptional,
   IsString,
   Validate,
 } from 'class-validator';
@@ -16,6 +16,8 @@ import { Skill } from 'src/database/entities/skill.entity';
 import { HourRate } from 'src/database/enums/HourRate';
 import { IsCountry } from 'src/utils/customValidator/IsCountry';
 import { ApiProperty } from '@nestjs/swagger';
+import { WorkHistory } from '../../../database/entities/workHistory.entity';
+import { Education } from '../../../database/entities/education.entity';
 
 export class CreateFreelancerDto {
   @ApiProperty({ example: 'Shadow Fiend' })
@@ -25,7 +27,6 @@ export class CreateFreelancerDto {
 
   @ApiProperty({ example: 'Embedded systems' })
   @IsNotEmpty()
-  @IsNumber()
   category: Category;
 
   @ApiProperty({ example: 'Ukraine' })
@@ -68,4 +69,16 @@ export class CreateFreelancerDto {
   @IsArray()
   @ArrayMinSize(3)
   skills: Skill[];
+
+  @IsOptional()
+  @IsArray()
+  education: Education[];
+
+  @IsOptional()
+  @IsArray()
+  workHistory: WorkHistory[];
+
+  @IsOptional()
+  @IsString()
+  otherExperience: string;
 }
