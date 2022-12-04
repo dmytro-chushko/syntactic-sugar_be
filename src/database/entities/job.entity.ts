@@ -86,6 +86,12 @@ export class Job {
   @Column()
   otherRequirements: string;
 
+  @Column({
+    default: false,
+    nullable: false,
+  })
+  isPublished: boolean;
+
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
 }
