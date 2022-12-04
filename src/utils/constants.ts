@@ -27,7 +27,7 @@ export enum Services {
 }
 
 export enum UserRoles {
-  JOB_OWNER = 'JOB_OWNER',
+  EMPLOYER = 'EMPLOYER',
   FREELANCER = 'FREELANCER',
   GUEST = 'GUEST',
 }

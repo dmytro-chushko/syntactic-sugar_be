@@ -92,7 +92,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Role added' })
   @UsePipes(ValidationPipe)
   // For example how does AuthRolesGuard works
-  @Roles(UserRoles.JOB_OWNER)
+  @Roles(UserRoles.EMPLOYER)
   @UseGuards(AuthJwtGuard)
   @Post('role/:id')
   addUserRole(@Body() roleDto: AddRoleDto, @Param('id') userId: string): Promise<IToken> {

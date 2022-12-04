@@ -1,10 +1,12 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   Inject,
   Post,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -25,6 +27,7 @@ export class FreelancerController {
   @ApiBody({ type: CreateFreelancerDto })
   @ApiResponse({ status: 201, description: 'freelancer is created' })
   @Post(Routes.CREATE_FREELANCER)
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
   createFreelancer(@Auth() user, @Body() createFreelancerDto: CreateFreelancerDto) {

@@ -118,6 +118,6 @@ export class Freelancer {
     example: 'Data Analyst at Infra Tech Company',
   })
   @IsOptional()
-  @Column()
+  @Column({ nullable: true })
   otherExperience: string;
 }

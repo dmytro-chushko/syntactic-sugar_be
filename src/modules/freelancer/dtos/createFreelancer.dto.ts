@@ -3,7 +3,6 @@ import {
   IsArray,
   IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsString,
   Validate,
   IsOptional,
@@ -28,7 +27,6 @@ export class CreateFreelancerDto {
 
   @ApiProperty({ example: 'Embedded systems' })
   @IsNotEmpty()
-  @IsNumber()
   category: Category;
 
   @ApiProperty({ example: 'Ukraine' })

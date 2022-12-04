@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployerController } from './controllers/employer.controller';
 import { Employer } from 'src/database/entities/employer.entity';
@@ -7,11 +7,13 @@ import { MailModule } from 'src/modules/mail/mail.module';
 import { UserModule } from 'src/modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { Services } from 'src/utils/constants';
+import { FreelancerModule } from 'src/modules/freelancer/freelancer.module';
 
 @Module({
   imports: [
     UserModule,
     MailModule,
+    forwardRef(() => FreelancerModule),
     TypeOrmModule.forFeature([Employer]),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
