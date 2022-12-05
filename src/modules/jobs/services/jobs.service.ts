@@ -18,7 +18,6 @@ export class JobService implements IJobService {
   ) {}
 
   async createJob(user: User, createJobDto: CreateJobDto): Promise<Job> {
-    const employer = await this.employerService.findEmployer(user);
     const job = this.jobRepository.create({
       title: createJobDto.title,
       description: createJobDto.description,
@@ -29,7 +28,11 @@ export class JobService implements IJobService {
       workExperience: createJobDto.workExperience,
       levelEnglish: createJobDto.levelEnglish,
       otherRequirements: createJobDto.otherRequirements,
-      employer: employer,
+      employer: await this.employerRepository
+        .createQueryBuilder('employer')
+        .leftJoinAndSelect('employer.user', 'user')
+        .where({ user: user })
+        .getOne(),
     });
     await this.jobRepository.save(job);
 
