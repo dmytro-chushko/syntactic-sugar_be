@@ -1,16 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Column,
-  Entity,
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // JoinColumn,
-  // JoinTable,
-  // ManyToMany,
-  // ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import {
   EmploymentType,
   HourRate,
@@ -18,12 +7,6 @@ import {
   LevelEnglish,
   WorkExperience,
 } from 'src/database/enums';
-
-// Will be added after merging Freelancer and Employer entity
-
-// import { Skill } from './skill.entity';
-// import { Country } from './country.entity';
-// import { Category } from './category.entity';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -38,17 +21,6 @@ export class Job {
   @ApiProperty()
   @Column()
   description: string;
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // @ManyToMany(() => Country)
-  // @JoinTable()
-  // countries: Country[];
-
-  // @ManyToOne(() => Category, category => category.jobs)
-
-  // @JoinColumn()
-  // category: Category;
 
   @ApiProperty()
   @Column()
@@ -69,12 +41,6 @@ export class Job {
   @ApiProperty()
   @Column()
   workExperience: WorkExperience;
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // @ManyToMany(() => Skill)
-  // @JoinTable()
-  // skills: Skill[];
 
   @ApiProperty()
   @Column()

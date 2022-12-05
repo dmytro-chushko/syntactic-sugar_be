@@ -1,11 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
-// Will be added after merging Freelancer and Employer entity
-
-// import { Category } from 'src/database/entities/category.entity';
-// import { Country } from 'src/database/entities/country.entity';
-// import { Skill } from 'src/database/entities/skill.entity';
 import {
   AvailableAmountOfHours,
   EmploymentType,
@@ -24,20 +19,6 @@ export class CreateJobDto {
   @IsString()
   @IsNotEmpty()
   description: string;
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // @ApiProperty()
-  // @IsNotEmpty()
-  // @IsArray()
-  // @ArrayMinSize(5)
-  // countries: Country[];
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // @ApiProperty()
-  // @IsNotEmpty()
-  // category: Category;
 
   @ApiProperty({ example: 'Fullstack developer' })
   @IsNotEmpty()
@@ -63,14 +44,6 @@ export class CreateJobDto {
   @IsNotEmpty()
   @IsEnum(WorkExperience)
   workExperience: WorkExperience;
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // @ApiProperty()
-  // @IsNotEmpty()
-  // @IsArray()
-  // @ArrayMinSize(3)
-  // skills: Skill[];
 
   @ApiProperty({ example: 'intermediate' })
   @IsNotEmpty()

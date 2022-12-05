@@ -1,7 +1,7 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { Routes, Services } from 'src/utils/constants';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
-import { IJobsService } from '../interfaces';
+import { IJobsService } from 'src/modules/jobs/interfaces';
 import { Job } from 'src/database/entities/jobs.entity';
 
 @Controller(Routes.JOBS)

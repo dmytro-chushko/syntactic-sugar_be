@@ -21,6 +21,7 @@ import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
+import { ITokenAndRole } from '../interfaces/ITokenAndRole';
 import { Auth } from 'src/utils/decorators/auth';
 import { User } from 'src/database/entities/users.entity';
 
@@ -55,7 +56,7 @@ export class AuthController {
   @Post(Routes.LOGIN)
   @UsePipes(ValidationPipe)
   @UseGuards(ActivatedGuard)
-  login(@Body() authUserDto: AuthUserDto): Promise<IToken> {
+  login(@Body() authUserDto: AuthUserDto): Promise<ITokenAndRole> {
     return this.authService.login(authUserDto);
   }
 
@@ -63,7 +64,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Login user' })
   @Post(Routes.GOOGLE_LOGIN)
   @UsePipes(ValidationPipe)
-  loginByGoogle(@Body('token') token: string): Promise<IToken> {
+  loginByGoogle(@Body('token') token: string): Promise<ITokenAndRole> {
     return this.authService.loginByGoogle(token);
   }
 
