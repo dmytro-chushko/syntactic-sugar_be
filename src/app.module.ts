@@ -9,6 +9,8 @@ import { EmployerModule } from 'src/modules/employer/employer.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
 import { JobsModule } from './modules/jobs/jobs.module';
+import { ProposalsModule } from './modules/proposals/proposals.module';
+import { FilesModule } from './modules/files/files.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { JobsModule } from './modules/jobs/jobs.module';
     JwtModule,
     FreelancerModule,
     JobsModule,
+    ProposalsModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

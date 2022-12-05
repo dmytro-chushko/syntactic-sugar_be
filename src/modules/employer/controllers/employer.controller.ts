@@ -4,7 +4,7 @@ import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerServi
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('employer')
+@ApiTags('employers')
 @Controller(Routes.EMPLOYER)
 export class EmployerController {
   constructor(@Inject(Services.EMPLOYER) private employerService: IEmployerService) {}

@@ -40,5 +40,5 @@ export class User {
   isActivated: boolean;
 
   @OneToOne(() => Employer, employer => employer.user)
-  femployer: Employer;
+  employer: Employer;
 }

@@ -4,9 +4,10 @@ import { Freelancer } from './entities/freelancer.entity';
 import { Country } from './entities/country.entity';
 import { Job } from './entities/jobs.entity';
 import { Skill } from './entities/skill.entity';
-import { Employer } from 'src/database/entities/employer.entity';
+import { Employer } from './entities/employer.entity';
 import { Education } from './entities/education.entity';
 import { WorkHistory } from './entities/workHistory.entity';
+import { Proposal } from './entities/proposalFreelancer.entity';
 
 export const entities = [
   User,
@@ -18,6 +19,7 @@ export const entities = [
   Employer,
   Education,
   WorkHistory,
+  Proposal,
 ];
 
 export default entities;

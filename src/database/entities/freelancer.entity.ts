@@ -20,6 +20,7 @@ import { AvailableAmountOfHours } from 'src/database/enums/AvailableAmountOfHour
 import { EmploymentType } from 'src/database/enums/EmploymentType';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
+import { Proposal } from './proposalFreelancer.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -120,4 +121,8 @@ export class Freelancer {
   @IsOptional()
   @Column()
   otherExperience: string;
+
+  @ApiProperty()
+  @OneToMany(() => Proposal, proposal => proposal.freelancers)
+  proposals: Proposal[];
 }
