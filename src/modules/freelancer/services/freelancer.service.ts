@@ -56,4 +56,14 @@ export class FreelancerService implements IFreelancerService {
 
     return false;
   }
+
+  async editPublished(user: User, publ: boolean): Promise<IToken> {
+    try {
+      await this.freelancerRepository.update({ user: user }, { isPublished: publ });
+
+      return this.tokenService.generateToken(user);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
