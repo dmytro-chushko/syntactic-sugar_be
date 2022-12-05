@@ -119,10 +119,18 @@ export class Freelancer {
     example: 'Data Analyst at Infra Tech Company',
   })
   @IsOptional()
-  @Column()
+  @Column({
+    default: '',
+  })
   otherExperience: string;
 
   @ApiProperty()
   @OneToMany(() => Proposal, proposal => proposal.freelancers)
   proposals: Proposal[];
+
+  @ApiProperty({ example: 'true' })
+  @Column({
+    default: false,
+  })
+  isPublished: boolean;
 }

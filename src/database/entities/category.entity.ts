@@ -16,8 +16,4 @@ export class Category {
 
   @OneToOne(() => Freelancer, freelancer => freelancer.category)
   freelancer: Freelancer;
-
-  // Will be added after merging Freelancer and Employer entity
-
-  // import { Job } from './jobs.entity';
 }

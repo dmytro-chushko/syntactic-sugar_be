@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'src/database/entities/jobs.entity';
 import { Repository } from 'typeorm';
-import { CreateJobDto } from '../dto/createJobDto';
-import { IJobsService } from '../interfaces';
+import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
+import { IJobsService } from 'src/modules/jobs/interfaces';
 
 @Injectable()
 export class JobsService implements IJobsService {

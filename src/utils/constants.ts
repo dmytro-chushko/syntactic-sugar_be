@@ -11,6 +11,7 @@ export enum Routes {
   GOOGLE_LOGIN = 'google/login',
   FREELANCER = 'freelancer',
   CREATE_FREELANCER = 'create',
+  EDIT_PUBLISHED = 'create/published',
   JOBS = 'jobs',
   CREATE_JOB = 'create-new-job',
   CREATE_EMPLOYER = 'create',
