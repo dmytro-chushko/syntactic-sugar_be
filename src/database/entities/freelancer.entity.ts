@@ -118,6 +118,14 @@ export class Freelancer {
     example: 'Data Analyst at Infra Tech Company',
   })
   @IsOptional()
-  @Column()
+  @Column({
+    default: '',
+  })
   otherExperience: string;
+
+  @ApiProperty({ example: 'true' })
+  @Column({
+    default: false,
+  })
+  isPublished: boolean;
 }
