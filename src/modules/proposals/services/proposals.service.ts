@@ -18,11 +18,10 @@ export class ProposalsService implements IProposalsService {
     try {
       const filePath = file.path;
 
-      const proposal = await this.proposalRepository.create({
+      const proposal = await this.proposalRepository.save({
         ...createProposalDto,
         filePath: filePath,
       });
-      await this.proposalRepository.save(proposal);
 
       return proposal;
     } catch (error) {
