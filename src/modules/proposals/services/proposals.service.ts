@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Proposal } from 'src/database/entities/proposalFreelancer.entity';
 import { Repository } from 'typeorm';
 import { CreateProposalDto } from 'src/modules/proposals/dtos/createProposal.dto';
-import { IProposalsService } from '../interfaces/IProposalsService';
+import { IProposalsService } from 'src/modules/proposals/interfaces/IProposalsService';
 
 @Injectable()
 export class ProposalsService implements IProposalsService {
