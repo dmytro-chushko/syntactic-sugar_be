@@ -17,6 +17,7 @@ export class ProposalsService implements IProposalsService {
   ): Promise<Proposal> {
     try {
       const filePath = file.path;
+
       const proposal = await this.proposalRepository.create({
         ...createProposalDto,
         filePath: filePath,

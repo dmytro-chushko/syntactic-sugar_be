@@ -9,6 +9,7 @@ import { ParseFile } from 'src/utils/customValidator/parsePipe';
 @Controller(Routes.PROPOSAL)
 export class ProposalsController {
   constructor(@Inject(Services.PROPOSAL) private proposalService: IProposalsService) {}
+
   @ApiBody({ type: CreateProposalDto })
   @ApiResponse({ status: 201, description: 'Proposal created' })
   @Post(Routes.CREATE_PROPOSAL)
