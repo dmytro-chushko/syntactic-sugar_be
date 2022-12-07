@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 import {
   AvailableAmountOfHours,
@@ -54,4 +54,19 @@ export class CreateJobDto {
   @IsNotEmpty()
   @IsString()
   otherRequirenments: string;
+
+  @ApiProperty({ example: 'IT, computers & Internet' })
+  @IsString()
+  @IsNotEmpty()
+  category: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsArray()
+  skills: [];
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsArray()
+  countries: [];
 }

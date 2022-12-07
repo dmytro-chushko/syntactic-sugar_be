@@ -7,9 +7,11 @@ import { MailModule } from 'src/modules/mail/mail.module';
 import { UserModule } from 'src/modules/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { Services } from 'src/utils/constants';
+import { AuthModule } from 'src/modules/auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     UserModule,
     MailModule,
     TypeOrmModule.forFeature([Employer]),
