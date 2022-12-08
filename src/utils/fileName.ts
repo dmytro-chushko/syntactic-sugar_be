@@ -3,11 +3,11 @@ import { extname } from 'path';
 
 export const fileName = (
   _req: Request,
-  file: { originalName: string },
-  callback: (arg1: null, arg2: string) => void,
+  file: Express.Multer.File,
+  callback: (error: Error | null, filename: string) => void,
 ) => {
-  const uniqueSuffix: string = Date.now() + '-' + Math.round(Math.random() * 1e9);
-  const ext: string = extname(file.originalName);
+  const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+  const ext = extname(file.originalname);
   const filename = `${uniqueSuffix}${ext}`;
 
   callback(null, filename);
