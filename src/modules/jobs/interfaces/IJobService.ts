@@ -1,5 +1,5 @@
 import { Job } from 'src/database/entities/jobs.entity';
-import { CreateJobDto } from '../dto/createJobDto';
+import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 
 export interface IJobsService {
   createJob(createJobDto: CreateJobDto): Promise<Job>;

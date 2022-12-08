@@ -1,5 +1,5 @@
 import { Country } from 'src/database/entities/country.entity';
-import { CreateCountryDto } from '../dto/createCountryDto';
+import { CreateCountryDto } from 'src/modules/countries/dto/createCountryDto';
 
 export interface ICountriesService {
   createCountry(createCountryDto: CreateCountryDto): Promise<Country>;
