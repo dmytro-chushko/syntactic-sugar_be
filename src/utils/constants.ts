@@ -14,7 +14,9 @@ export enum Routes {
   EDIT_PUBLISHED = 'create/published',
   JOBS = 'jobs',
   CREATE_JOB = 'create-new-job',
-  CREATE_EMPLOYER = 'create/employer',
+  CREATE_EMPLOYER = 'create',
+  PROPOSAL = 'proposal',
+  CREATE_PROPOSAL = 'create',
 }
 
 export enum Services {
@@ -25,6 +27,8 @@ export enum Services {
   EMPLOYER = 'EMPLOYER_SERVICE',
   TOKEN = 'TOKEN_SERVICE',
   FREELANCER = 'FREELANCER_SERVICE',
+  PROPOSAL = 'PROPOSALS_FREELANCER',
+  FILES = 'FILES',
 }
 
 export enum UserRoles {

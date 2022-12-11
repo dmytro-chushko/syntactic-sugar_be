@@ -153,7 +153,7 @@ export class AuthService implements IAuthService {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
-        this.configService.get('GOOGLE_SECRET_KEY'),
+        this.configService.get('GOOGLE_SECRET'),
       );
       const ticket = await client.getTokenInfo(token);
       const email = await this.userService.findByEmail(ticket.email);

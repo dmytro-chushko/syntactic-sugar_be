@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
 
-@Entity({ name: 'employer' })
+@Entity({ name: 'employers' })
 export class Employer {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
