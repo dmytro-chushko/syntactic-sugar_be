@@ -63,7 +63,7 @@ export class JobsService implements IJobsService {
         hourRate: createJobDto.hourRate,
         availableAmountOfHours: createJobDto.availableAmountOfHours,
         workExperience: createJobDto.workExperience,
-        levelEnglish: createJobDto.levelEnglish,
+        englishLevel: createJobDto.englishLevel,
         otherRequirenments: createJobDto.otherRequirenments,
         category,
         skills,

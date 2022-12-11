@@ -4,7 +4,7 @@ import {
   EmploymentType,
   HourRate,
   AvailableAmountOfHours,
-  LevelEnglish,
+  EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
 import { Category } from './category.entity';
@@ -17,52 +17,52 @@ export class Job {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Java script developer for a big  educational project' })
   @Column()
   title: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Any text wich discribes current job' })
   @Column()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Fullstack developer' })
   @Column()
   position: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Remote' })
   @Column()
   employmentType: EmploymentType;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Less than 500$' })
   @Column()
   hourRate: HourRate;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Part time' })
   @Column()
   availableAmountOfHours: AvailableAmountOfHours;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Less than 1 year' })
   @Column()
   workExperience: WorkExperience;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Intermediate' })
   @Column()
-  levelEnglish: LevelEnglish;
+  englishLevel: EnglishLevel;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'All the other requirenments of the job' })
   @Column()
   otherRequirenments: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'IT, computers & Internet' })
   @ManyToOne(() => Category, category => category.jobs)
   category: Category;
 
-  @ApiProperty()
+  @ApiProperty({ example: ['PHP', 'Java'] })
   @ManyToMany(() => Skill, skill => skill.jobs)
   @JoinTable()
   skills: Skill[];
 
-  @ApiProperty()
+  @ApiProperty({ example: ['Ukraine', 'Germany'] })
   @ManyToMany(() => Country, country => country.jobs)
   @JoinTable()
   countries: Country[];

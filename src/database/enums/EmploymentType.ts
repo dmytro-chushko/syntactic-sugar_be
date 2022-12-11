@@ -1,5 +1,7 @@
 export enum EmploymentType {
-  remote = 'remote',
-  officer = 'officer',
-  freelancer = 'freelancer',
+  remote = 'Remote',
+  officer = 'Office',
+  freelancer = 'Freelancer for a project',
+  changeCity = 'Move to another city',
+  changeCountry = 'Move to another country',
 }

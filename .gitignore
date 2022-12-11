@@ -14,6 +14,8 @@ lerna-debug.log*
 .development.env
 .production.env
 .env
+ecosystem.config.js
+key.pem
 # OS
 .DS_Store
 

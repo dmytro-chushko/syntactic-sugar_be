@@ -1,9 +1,7 @@
 export enum HourRate {
-  less50 = 'less50',
-  more50less100 = 'more50less100',
-  more100 = 'more100',
-  less500 = 'less then 500$',
-  from500 = 'from 500$',
-  from1000 = 'from 1000$',
-  from1500 = 'from 15000$',
+  less500 = 'Less than 500$',
+  more500less100 = 'From 500$ to 1000$',
+  more1000less1500 = 'From 1000$ to 1500$',
+  more1500 = 'From 1500$',
+  from15000 = 'From 15000$',
 }

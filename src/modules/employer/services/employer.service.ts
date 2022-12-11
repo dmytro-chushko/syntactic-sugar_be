@@ -12,7 +12,7 @@ import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { Roles } from 'src/utils/decorators/roles';
 
 @Injectable()
-@Roles(UserRoles.JOB_OWNER)
+@Roles(UserRoles.EMPLOYER)
 export class EmployerService implements IEmployerService {
   constructor(
     @Inject(Services.USER) private readonly userService: IUserService,
@@ -34,7 +34,7 @@ export class EmployerService implements IEmployerService {
         user: user,
       });
       await this.employerRepository.save(employer);
-      await this.userService.changeRole(user, UserRoles.JOB_OWNER);
+      await this.userService.changeRole(user, UserRoles.EMPLOYER);
 
       return this.tokenService.generateToken(user);
     } catch (error) {
