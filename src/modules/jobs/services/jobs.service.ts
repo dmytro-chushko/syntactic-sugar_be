@@ -75,4 +75,14 @@ export class JobsService implements IJobsService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getJobs(): Promise<Job[]> {
+    try {
+      const jobs = this.jobRepository.find({ relations: ['category', 'skills', 'countries'] });
+
+      return jobs;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

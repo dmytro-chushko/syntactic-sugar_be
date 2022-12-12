@@ -19,6 +19,7 @@ import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { EditPublishedDto } from 'src/modules/freelancer/dtos/editPublished.dto';
+import { Freelancer } from 'src/database/entities/freelancer.entity';
 
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
@@ -40,6 +41,14 @@ export class FreelancerController {
   @UsePipes(ValidationPipe)
   isPublished(@Auth() user, @Body() editPublishedDto: EditPublishedDto): Promise<IToken> {
     return this.freelancerService.editPublished(user, editPublishedDto.isPublished);
+  }
+
+  @ApiResponse({ status: 201, description: 'Profile' })
+  @Get(Routes.GET_PROFILE)
+  @Roles(UserRoles.FREELANCER)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  getProfile(@Auth() user): Promise<Freelancer> {
+    return this.freelancerService.getProfile(user);
   }
 
   @Get('testing')
