@@ -40,3 +40,7 @@ key.pem
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Uploads
+!uploads
+uploads/*

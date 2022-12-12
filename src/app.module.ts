@@ -12,6 +12,8 @@ import { JobsModule } from './modules/jobs/jobs.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { SkillsModule } from './modules/skills/skills.module';
 import { CountriesModule } from './modules/countries/countries.module';
+import { ProposalsModule } from './modules/proposals/proposals.module';
+import { FilesModule } from './modules/files/files.module';
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { CountriesModule } from './modules/countries/countries.module';
     CategoriesModule,
     SkillsModule,
     CountriesModule,
+    ProposalsModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

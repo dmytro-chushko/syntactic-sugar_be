@@ -15,26 +15,26 @@ export class CreateEmployerDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  position: string;
+  position?: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  phone: string;
+  phone?: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  linkedIn: string;
+  linkedIn?: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @IsFQDN()
-  website: string;
+  website?: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  aboutUs: string;
+  aboutUs?: string;
 }
