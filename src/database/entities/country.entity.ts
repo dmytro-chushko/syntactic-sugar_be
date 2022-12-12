@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { CountryName } from 'src/database/enums';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Job } from './jobs.entity';
 
 @Entity({ name: 'countries' })
 export class Country {
@@ -11,5 +11,8 @@ export class Country {
   @Column({
     unique: true,
   })
-  name: CountryName;
+  name: string;
+
+  @ManyToMany(() => Job, job => job.skills)
+  jobs: Job[];
 }

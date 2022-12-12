@@ -1,6 +1,6 @@
-export { EmploymentType } from './EmploymentTypes';
+export { EmploymentType } from './EmploymentType';
 export { HourRate } from './HourRate';
-export { AvailableAmountOfHours } from './AvaiavailableAmountOfHours';
+export { AvailableAmountOfHours } from './AvailableAmountOfHours';
 export { WorkExperience } from './WorkExperience';
-export { LevelEnglish } from './LevelEnglish';
+export { EnglishLevel } from './EnglishLevel';
 export { CountryName } from './CountryName';

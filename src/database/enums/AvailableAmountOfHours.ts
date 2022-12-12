@@ -1,4 +1,4 @@
 export enum AvailableAmountOfHours {
-  fullTime = 'fullTime',
-  partTime = 'partTime',
+  fullTime = 'Full time',
+  partTime = 'Part time',
 }

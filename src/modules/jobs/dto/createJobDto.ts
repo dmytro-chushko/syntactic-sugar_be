@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 import {
   AvailableAmountOfHours,
   EmploymentType,
   HourRate,
-  LevelEnglish,
+  EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
 
@@ -25,17 +25,17 @@ export class CreateJobDto {
   @IsString()
   position: string;
 
-  @ApiProperty({ example: 'remote' })
+  @ApiProperty({ example: 'Remote' })
   @IsNotEmpty()
   @IsEnum(EmploymentType)
   employmentType: EmploymentType;
 
-  @ApiProperty({ example: 'less than 500$' })
+  @ApiProperty({ example: 'Less than 500$' })
   @IsNotEmpty()
   @IsEnum(HourRate)
   hourRate: HourRate;
 
-  @ApiProperty({ example: 'part time' })
+  @ApiProperty({ example: 'Part time' })
   @IsNotEmpty()
   @IsEnum(AvailableAmountOfHours)
   availableAmountOfHours: AvailableAmountOfHours;
@@ -45,13 +45,28 @@ export class CreateJobDto {
   @IsEnum(WorkExperience)
   workExperience: WorkExperience;
 
-  @ApiProperty({ example: 'intermediate' })
+  @ApiProperty({ example: 'Intermediate' })
   @IsNotEmpty()
-  @IsEnum(LevelEnglish)
-  levelEnglish: LevelEnglish;
+  @IsEnum(EnglishLevel)
+  englishLevel: EnglishLevel;
 
   @ApiProperty({ example: 'All the other requirenments of the job' })
   @IsNotEmpty()
   @IsString()
   otherRequirenments: string;
+
+  @ApiProperty({ example: 'IT, computers & Internet' })
+  @IsString()
+  @IsNotEmpty()
+  category: string;
+
+  @ApiProperty({ example: ['PHP', 'Java'] })
+  @IsNotEmpty()
+  @IsArray()
+  skills: [];
+
+  @ApiProperty({ example: ['Ukraine', 'Germany'] })
+  @IsNotEmpty()
+  @IsArray()
+  countries: [];
 }

@@ -1,6 +1,7 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Freelancer } from './freelancer.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Job } from './jobs.entity';
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -16,4 +17,7 @@ export class Category {
 
   @OneToOne(() => Freelancer, freelancer => freelancer.category)
   freelancer: Freelancer;
+
+  @OneToMany(() => Job, job => job.category)
+  jobs: Job[];
 }

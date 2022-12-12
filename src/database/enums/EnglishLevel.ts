@@ -1,7 +1,9 @@
 export enum EnglishLevel {
-  beginner = 'beginner',
-  preIntermediate = 'preIntermediate',
-  intermediate = 'intermediate',
-  advanced = 'advanced',
-  master = 'master',
+  beginner = 'Beginner',
+  elementary = 'Elementary',
+  preIntermediate = 'Pre-Intermediate',
+  intermediate = 'Intermediate',
+  upperIntermediate = 'Upper-Intermediate',
+  advanced = 'Advanced',
+  master = 'Master',
 }

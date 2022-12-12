@@ -9,6 +9,9 @@ import { EmployerModule } from 'src/modules/employer/employer.module';
 import { JwtModule } from '@nestjs/jwt';
 import { FreelancerModule } from './modules/freelancer/freelancer.module';
 import { JobsModule } from './modules/jobs/jobs.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { SkillsModule } from './modules/skills/skills.module';
+import { CountriesModule } from './modules/countries/countries.module';
 import { ProposalsModule } from './modules/proposals/proposals.module';
 import { FilesModule } from './modules/files/files.module';
 
@@ -34,6 +37,9 @@ import { FilesModule } from './modules/files/files.module';
     JwtModule,
     FreelancerModule,
     JobsModule,
+    CategoriesModule,
+    SkillsModule,
+    CountriesModule,
     ProposalsModule,
     FilesModule,
   ],
