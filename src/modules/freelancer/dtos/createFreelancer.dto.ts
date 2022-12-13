@@ -1,23 +1,13 @@
-import {
-  ArrayMinSize,
-  IsArray,
-  IsEnum,
-  IsNotEmpty,
-  IsString,
-  Validate,
-  IsOptional,
-} from 'class-validator';
+import { IsArray, IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { WorkExperience } from 'src/database/enums/WorkExperience';
-import { Category } from 'src/database/entities/category.entity';
 import { EnglishLevel } from 'src/database/enums/EnglishLevel';
 import { AvailableAmountOfHours } from 'src/database/enums/AvailableAmountOfHours';
 import { EmploymentType } from 'src/database/enums/EmploymentType';
-import { Skill } from 'src/database/entities/skill.entity';
 import { Education } from 'src/database/entities/education.entity';
 import { WorkHistory } from 'src/database/entities/workHistory.entity';
 import { HourRate } from 'src/database/enums/HourRate';
-import { IsCountry } from 'src/utils/customValidator/IsCountry';
 import { ApiProperty } from '@nestjs/swagger';
+import { Categories, CountryName, Skills } from 'src/database/enums';
 
 export class CreateFreelancerDto {
   @ApiProperty({ example: 'Shadow Fiend' })
@@ -28,12 +18,14 @@ export class CreateFreelancerDto {
   @ApiProperty({ example: 'Embedded systems' })
   @IsNotEmpty()
   @IsString()
-  category: Category;
+  @IsEnum(Categories)
+  category: Categories;
 
   @ApiProperty({ example: 'Ukraine' })
   @IsNotEmpty()
-  @Validate(IsCountry, { message: 'invalid country' })
-  country: string;
+  @IsString()
+  @IsEnum(CountryName, { each: true })
+  country: CountryName;
 
   @ApiProperty({ example: 'less 50$' })
   @IsNotEmpty()
@@ -68,8 +60,8 @@ export class CreateFreelancerDto {
   @ApiProperty({ example: ['Git', 'React', 'Nest.js'] })
   @IsNotEmpty()
   @IsArray()
-  @ArrayMinSize(3)
-  skills: Skill[];
+  @IsEnum(Skills, { each: true })
+  skills: Skills[];
 
   @ApiProperty({
     description: 'Educations of the freelancer',

@@ -45,7 +45,7 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(authUserDto);
-      await this.sendConfirmation(user);
+      // await this.sendConfirmation(user);
 
       return await this.tokenService.generateToken(user);
     } catch (error) {

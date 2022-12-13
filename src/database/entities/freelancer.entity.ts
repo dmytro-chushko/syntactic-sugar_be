@@ -7,6 +7,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { User } from './users.entity';
 import { Category } from './category.entity';
@@ -21,6 +22,7 @@ import { EmploymentType } from 'src/database/enums/EmploymentType';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { Proposal } from './proposalFreelancer.entity';
+import { Country } from './country.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -32,12 +34,6 @@ export class Freelancer {
     nullable: false,
   })
   fullName: string;
-
-  @ApiProperty({ example: 'Ukraine' })
-  @Column({
-    nullable: false,
-  })
-  country: string;
 
   @ApiProperty({ example: 'less 50$' })
   @Column({ nullable: false })
@@ -69,9 +65,12 @@ export class Freelancer {
   user: User;
 
   @ApiProperty()
-  @OneToOne(() => Category, category => category.id)
-  @JoinColumn()
+  @ManyToOne(() => Category, category => category.freelancers)
   category: Category;
+
+  @ApiProperty({ example: 'Ukraine' })
+  @ManyToOne(() => Country, country => country.freelancers)
+  country: Country;
 
   @ApiProperty()
   @ManyToMany(() => Skill, skill => skill.freelancers)

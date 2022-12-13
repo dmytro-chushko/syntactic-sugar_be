@@ -7,6 +7,9 @@ import {
   HourRate,
   EnglishLevel,
   WorkExperience,
+  Categories,
+  Skills,
+  CountryName,
 } from 'src/database/enums';
 
 export class CreateJobDto {
@@ -58,15 +61,18 @@ export class CreateJobDto {
   @ApiProperty({ example: 'IT, computers & Internet' })
   @IsString()
   @IsNotEmpty()
-  category: string;
+  @IsEnum(Categories)
+  category: Categories;
 
   @ApiProperty({ example: ['PHP', 'Java'] })
   @IsNotEmpty()
   @IsArray()
-  skills: [];
+  @IsEnum(Skills, { each: true })
+  skills: Skills[];
 
   @ApiProperty({ example: ['Ukraine', 'Germany'] })
   @IsNotEmpty()
   @IsArray()
-  countries: [];
+  @IsEnum(CountryName, { each: true })
+  countries: CountryName[];
 }

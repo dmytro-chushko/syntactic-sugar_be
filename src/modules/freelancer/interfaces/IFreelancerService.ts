@@ -5,7 +5,7 @@ import { Freelancer } from 'src/database/entities/freelancer.entity';
 
 export interface IFreelancerService {
   createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken>;
-  isEmployer(user: User): Promise<boolean>;
+  // isEmployer(user: User): Promise<boolean>;
   editPublished(user: User, publ: boolean): Promise<IToken>;
   getProfile(user: User): Promise<Freelancer>;
 }

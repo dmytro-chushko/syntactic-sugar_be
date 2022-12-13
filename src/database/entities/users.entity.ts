@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { UserRoles } from 'src/utils/constants';
 import { Employer } from './employer.entity';
+import { Freelancer } from './freelancer.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -38,6 +39,9 @@ export class User {
     default: true,
   })
   isActivated: boolean;
+
+  @OneToOne(() => Freelancer, freelancer => freelancer.user)
+  freelancer: Freelancer;
 
   @OneToOne(() => Employer, employer => employer.user)
   employer: Employer;

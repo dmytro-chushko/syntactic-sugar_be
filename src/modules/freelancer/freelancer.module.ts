@@ -11,12 +11,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
+import { Country } from 'src/database/entities/country.entity';
+import { CategoriesModule } from '../categories/categories.module';
+import { SkillsModule } from '../skills/skills.module';
+import { CountriesModule } from '../countries/countries.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
-    TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory]),
+    CategoriesModule,
+    SkillsModule,
+    CountriesModule,
+    TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory, Country]),
   ],
   controllers: [FreelancerController],
   providers: [
