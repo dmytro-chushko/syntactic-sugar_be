@@ -1,6 +1,8 @@
+import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { UserModule } from 'src/modules/user/user.module';
 import { AuthModule } from 'src/modules/auth/auth.module';
 import { entities } from 'src/database/index';
@@ -19,6 +21,10 @@ import { FilesModule } from './modules/files/files.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'modules/files/static'),
+      // rootPath: path.join(__dirname, '..', 'static'),
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',

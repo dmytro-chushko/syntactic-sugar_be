@@ -6,4 +6,5 @@ export interface IFreelancerService {
   createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken>;
   isEmployer(user: User): Promise<boolean>;
   editPublished(user: User, publ: boolean): Promise<IToken>;
+  createImage(image): Promise<string>;
 }

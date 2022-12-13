@@ -11,11 +11,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from 'src/modules/user/user.module';
 import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
+import { FilesModule } from '../files/files.module';
 
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    FilesModule,
     TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory]),
   ],
   controllers: [FreelancerController],

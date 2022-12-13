@@ -9,5 +9,11 @@ import { FilesService } from './services/files.service';
       useClass: FilesService,
     },
   ],
+  exports: [
+    {
+      provide: Services.FILES,
+      useClass: FilesService,
+    },
+  ],
 })
 export class FilesModule {}

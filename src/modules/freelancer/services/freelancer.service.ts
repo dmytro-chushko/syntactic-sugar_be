@@ -9,6 +9,7 @@ import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/users.entity';
+import { IFilesService } from 'src/modules/files/interfaces/IFilesService';
 
 @Injectable()
 export class FreelancerService implements IFreelancerService {
@@ -16,6 +17,7 @@ export class FreelancerService implements IFreelancerService {
     @InjectRepository(Freelancer) private readonly freelancerRepository: Repository<Freelancer>,
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
+    @Inject(Services.FILES) private readonly filesService: IFilesService,
   ) {}
 
   async createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken> {
@@ -55,6 +57,16 @@ export class FreelancerService implements IFreelancerService {
     console.log(user);
 
     return false;
+  }
+
+  async createImage(image: any): Promise<string> {
+    try {
+      const fileName = await this.filesService.createFile(image);
+
+      return fileName;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async editPublished(user: User, publ: boolean): Promise<IToken> {
