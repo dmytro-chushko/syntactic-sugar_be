@@ -78,7 +78,9 @@ export class JobsService implements IJobsService {
 
   async getJobs(): Promise<Job[]> {
     try {
-      const jobs = this.jobRepository.find({ relations: ['category', 'skills', 'countries'] });
+      const jobs = await this.jobRepository.find({
+        relations: ['category', 'skills', 'countries'],
+      });
 
       return jobs;
     } catch (error) {
