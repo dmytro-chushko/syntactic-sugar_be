@@ -12,9 +12,9 @@ import { UserModule } from 'src/modules/user/user.module';
 import { Services } from 'src/utils/constants';
 import { JwtService } from '@nestjs/jwt';
 import { Country } from 'src/database/entities/country.entity';
-import { CategoriesModule } from '../categories/categories.module';
-import { SkillsModule } from '../skills/skills.module';
-import { CountriesModule } from '../countries/countries.module';
+import { CategoriesModule } from 'src/modules//categories/categories.module';
+import { SkillsModule } from 'src/modules//skills/skills.module';
+import { CountriesModule } from 'src/modules//countries/countries.module';
 
 @Module({
   imports: [
