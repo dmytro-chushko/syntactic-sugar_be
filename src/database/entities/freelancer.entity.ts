@@ -9,20 +9,20 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
-import { User } from './users.entity';
-import { Category } from './category.entity';
-import { Skill } from './skill.entity';
-import { Education } from './education.entity';
-import { WorkHistory } from './workHistory.entity';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 import { HourRate } from 'src/database/enums/HourRate';
 import { WorkExperience } from 'src/database/enums/WorkExperience';
 import { EnglishLevel } from 'src/database/enums/EnglishLevel';
 import { AvailableAmountOfHours } from 'src/database/enums/AvailableAmountOfHours';
 import { EmploymentType } from 'src/database/enums/EmploymentType';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
 import { Proposal } from './proposalFreelancer.entity';
 import { Country } from './country.entity';
+import { User } from './users.entity';
+import { Category } from './category.entity';
+import { Skill } from './skill.entity';
+import { Education } from './education.entity';
+import { WorkHistory } from './workHistory.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {

@@ -1,9 +1,9 @@
 import { Body, Controller, Inject, Post, Get } from '@nestjs/common';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Routes, Services } from 'src/utils/constants';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Job } from 'src/database/entities/jobs.entity';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @Controller(Routes.JOBS)
 export class JobsController {

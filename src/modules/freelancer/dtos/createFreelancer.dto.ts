@@ -1,4 +1,5 @@
 import { IsArray, IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { WorkExperience } from 'src/database/enums/WorkExperience';
 import { EnglishLevel } from 'src/database/enums/EnglishLevel';
 import { AvailableAmountOfHours } from 'src/database/enums/AvailableAmountOfHours';
@@ -6,7 +7,6 @@ import { EmploymentType } from 'src/database/enums/EmploymentType';
 import { Education } from 'src/database/entities/education.entity';
 import { WorkHistory } from 'src/database/entities/workHistory.entity';
 import { HourRate } from 'src/database/enums/HourRate';
-import { ApiProperty } from '@nestjs/swagger';
 import { Categories, CountryName, Skills } from 'src/database/enums';
 
 export class CreateFreelancerDto {

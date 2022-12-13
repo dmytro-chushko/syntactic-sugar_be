@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { Services } from 'src/utils/constants';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
-import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/users.entity';
 import { ICategoriesService } from 'src/modules/categories/interfaces/ICategoriesService';
 import { ISkillsService } from 'src/modules/skills/interfaces/ISkillsService';

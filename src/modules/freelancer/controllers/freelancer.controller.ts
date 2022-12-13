@@ -8,6 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -17,7 +18,6 @@ import { IPayload, IToken } from 'src/modules/auth/interfaces/IToken';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { EditPublishedDto } from 'src/modules/freelancer/dtos/editPublished.dto';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 
