@@ -1,14 +1,17 @@
-import { ConflictException, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
-import { Services, UserRoles } from 'src/utils/constants';
+import { Services } from 'src/utils/constants';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
-import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/users.entity';
+import { ICategoriesService } from 'src/modules/categories/interfaces/ICategoriesService';
+import { ISkillsService } from 'src/modules/skills/interfaces/ISkillsService';
+import { ICountriesService } from 'src/modules/countries/interfaces/ICountriesService';
 
 @Injectable()
 export class FreelancerService implements IFreelancerService {
@@ -16,45 +19,59 @@ export class FreelancerService implements IFreelancerService {
     @InjectRepository(Freelancer) private readonly freelancerRepository: Repository<Freelancer>,
     @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
+    @Inject(Services.CATEGORIES) private readonly categoriesService: ICategoriesService,
+    @Inject(Services.SKILLS) private readonly skillsService: ISkillsService,
+    @Inject(Services.COUNTRIES) private readonly countriesService: ICountriesService,
   ) {}
 
   async createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken> {
     try {
-      const isEmployer = await this.isEmployer(user);
-      if (isEmployer) {
-        throw new ConflictException();
+      let country = await this.countriesService.getCountryByName(createFreelancerDto.country);
+      if (!country) {
+        country = await this.countriesService.createCountry({ name: createFreelancerDto.country });
       }
+      let category = await this.categoriesService.getCategoryByName(createFreelancerDto.category);
+      if (!category) {
+        category = await this.categoriesService.createCategory({
+          name: createFreelancerDto.category,
+        });
+      }
+      const skills = await Promise.all(
+        createFreelancerDto.skills.map(async skill => {
+          try {
+            const existingSkill = await this.skillsService.getSkillByName(skill);
+            if (!existingSkill) {
+              return await this.skillsService.createSkill({ name: skill });
+            }
+
+            return existingSkill;
+          } catch (error) {
+            throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
+        }),
+      );
       const freelancer = this.freelancerRepository.create({
         fullName: createFreelancerDto.fullName,
-        category: createFreelancerDto.category,
-        country: createFreelancerDto.country,
+        category,
+        country,
         hourRate: createFreelancerDto.hourRate,
         position: createFreelancerDto.position,
         availableAmountOfHours: createFreelancerDto.availableAmountOfHours,
         employmentType: createFreelancerDto.employmentType,
         workExperience: createFreelancerDto.workExperience,
         englishLevel: createFreelancerDto.englishLevel,
-        skills: createFreelancerDto.skills,
+        skills,
         education: createFreelancerDto.education,
         workHistory: createFreelancerDto.workHistory,
         otherExperience: createFreelancerDto.otherExperience,
         user: user,
       });
       await this.freelancerRepository.save(freelancer);
-      await this.userService.changeRole(user, UserRoles.FREELANCER);
 
       return this.tokenService.generateToken(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-  }
-  async isEmployer(user: User): Promise<boolean> {
-    //this func will check if user already exists in employer repo
-    //right now i haven`t implementation of employer module yet
-    //when it will be on develop i will fix , while i haven`t returns false
-    console.log(user);
-
-    return false;
   }
 
   async editPublished(user: User, publ: boolean): Promise<IToken> {
@@ -62,6 +79,19 @@ export class FreelancerService implements IFreelancerService {
       await this.freelancerRepository.update({ user: user }, { isPublished: publ });
 
       return this.tokenService.generateToken(user);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getProfile(user: User): Promise<Freelancer> {
+    try {
+      const profile = await this.freelancerRepository.findOne({
+        where: { user: user },
+        relations: ['skills', 'category', 'country'],
+      });
+
+      return profile;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

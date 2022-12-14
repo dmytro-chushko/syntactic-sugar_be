@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'src/database/entities/jobs.entity';
-import { Repository } from 'typeorm';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
@@ -71,6 +71,18 @@ export class JobsService implements IJobsService {
       });
 
       return await this.jobRepository.save(job);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getJobs(): Promise<Job[]> {
+    try {
+      const jobs = await this.jobRepository.find({
+        relations: ['category', 'skills', 'countries'],
+      });
+
+      return jobs;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
