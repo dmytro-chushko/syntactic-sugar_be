@@ -13,7 +13,7 @@ export class FilesService {
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      fs.writeFileSync(path.join(filePath, fileName), file.buffer);
+      await fs.writeFileSync(path.join(filePath, fileName), file.buffer);
 
       return { file: fileName };
     } catch (error) {
