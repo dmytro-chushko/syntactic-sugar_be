@@ -2,39 +2,38 @@ import { IsFQDN, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateEmployerDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'Shadow Fiend' })
   @IsNotEmpty()
   fullName: string;
 
-  //add size check for password , don`t do it now cause its should be easier for testing
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
   companyName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'HR' })
   @IsString()
   @IsNotEmpty()
-  position?: string;
+  position: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '0445690789' })
   @IsString()
   @IsNotEmpty()
-  phone?: string;
+  phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'linkedin.com' })
   @IsString()
   @IsNotEmpty()
-  linkedIn?: string;
+  linkedIn: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'www.mysite.com' })
   @IsString()
   @IsNotEmpty()
   @IsFQDN()
-  website?: string;
+  website: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'We provide best business solutions' })
   @IsString()
   @IsNotEmpty()
-  aboutUs?: string;
+  aboutUs: string;
 }

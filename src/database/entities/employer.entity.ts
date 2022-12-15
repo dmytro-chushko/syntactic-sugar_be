@@ -9,45 +9,45 @@ export class Employer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Elon Mask' })
   @Column({
     unique: false,
     default: null,
   })
   fullName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Dream company' })
   @Exclude()
   @Column({
     default: null,
   })
   companyName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'HR' })
   @Column({
     default: null,
   })
   position: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '04423576893' })
   @Column({
     default: null,
   })
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'linkedin.com' })
   @Column({
     default: null,
   })
   linkedIn: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'www.mysite.com' })
   @Column({
     default: null,
   })
   website: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'We provide best business solutions' })
   @Column({
     default: null,
   })

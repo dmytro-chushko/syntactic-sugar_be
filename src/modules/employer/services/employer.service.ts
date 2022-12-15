@@ -41,4 +41,16 @@ export class EmployerService implements IEmployerService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getProfile(user: User): Promise<Employer> {
+    try {
+      const profile = await this.employerRepository.findOne({
+        where: { user: user },
+      });
+
+      return profile;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
