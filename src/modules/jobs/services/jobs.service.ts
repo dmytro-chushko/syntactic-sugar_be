@@ -1,13 +1,14 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Job } from 'src/database/entities/jobs.entity';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
 import { ICategoriesService } from 'src/modules/categories/interfaces/ICategoriesService';
 import { ISkillsService } from 'src/modules/skills/interfaces/ISkillsService';
 import { ICountriesService } from 'src/modules/countries/interfaces/ICountriesService';
+import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
+import { User, Job } from 'src/database/entities';
 
 @Injectable()
 export class JobsService implements IJobsService {
@@ -16,9 +17,10 @@ export class JobsService implements IJobsService {
     @Inject(Services.CATEGORIES) private readonly categoriesService: ICategoriesService,
     @Inject(Services.SKILLS) private readonly skillsService: ISkillsService,
     @Inject(Services.COUNTRIES) private readonly countriesService: ICountriesService,
+    @Inject(Services.EMPLOYER) private readonly employerService: IEmployerService,
   ) {}
 
-  async createJob(createJobDto: CreateJobDto): Promise<Job> {
+  async createJob(user: User, createJobDto: CreateJobDto): Promise<Job> {
     try {
       const countries = await Promise.all(
         createJobDto.countries.map(async country => {
@@ -55,6 +57,8 @@ export class JobsService implements IJobsService {
         category = await this.categoriesService.createCategory({ name: createJobDto.category });
       }
 
+      const employer = await this.employerService.getEmployer(user);
+
       const job = this.jobRepository.create({
         title: createJobDto.title,
         description: createJobDto.description,
@@ -68,6 +72,7 @@ export class JobsService implements IJobsService {
         category,
         skills,
         countries,
+        employer,
       });
 
       return await this.jobRepository.save(job);

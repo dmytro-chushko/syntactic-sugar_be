@@ -7,9 +7,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category } from './category.entity';
-import { Skill } from './skill.entity';
-import { Country } from './country.entity';
+import { Category, Skill, Country, Employer } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -66,4 +64,7 @@ export class Job {
   @ManyToMany(() => Country, country => country.jobs)
   @JoinTable()
   countries: Country[];
+
+  @ManyToOne(() => Employer, employer => employer.jobs)
+  employer: Employer;
 }

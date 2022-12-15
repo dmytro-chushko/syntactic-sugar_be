@@ -1,9 +1,20 @@
-import { Controller, Inject, Post, UsePipes, ValidationPipe, Body } from '@nestjs/common';
+import {
+  Controller,
+  Inject,
+  Post,
+  UsePipes,
+  ValidationPipe,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services } from 'src/utils/constants';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/database/entities/users.entity';
+import { User } from 'src/database/entities';
+import { Auth } from 'src/utils/decorators/auth';
+import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
+import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 
 @ApiTags('employers')
 @Controller(Routes.EMPLOYER)
@@ -14,7 +25,8 @@ export class EmployerController {
   @ApiResponse({ status: 201, description: 'created new employer' })
   @Post(Routes.CREATE_EMPLOYER)
   @UsePipes(ValidationPipe)
-  createEmployer(@Body() user: User, createEmployerDto: CreateEmployerDto) {
+  @UseGuards(AuthJwtGuard, ActivatedGuard)
+  createEmployer(@Auth() user: User, @Body() createEmployerDto: CreateEmployerDto) {
     return this.employerService.createEmployer(user, createEmployerDto);
   }
 }
