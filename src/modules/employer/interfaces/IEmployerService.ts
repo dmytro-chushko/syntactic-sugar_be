@@ -5,5 +5,5 @@ import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto'
 
 export interface IEmployerService {
   createEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<IToken>;
-  getProfile(user: User): Promise<Employer>;
+  getEmployer(user: User): Promise<Employer | null>;
 }

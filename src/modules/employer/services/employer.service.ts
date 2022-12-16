@@ -1,21 +1,18 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Services, UserRoles } from 'src/utils/constants';
-import { IUserService } from 'src/modules/user/interfaces/IUserService';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Employer } from 'src/database/entities/employer.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Services, UserRoles } from 'src/utils/constants';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
-import { User } from 'src/database/entities/users.entity';
 import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { Roles } from 'src/utils/decorators/roles';
+import { User, Employer } from 'src/database/entities';
 
 @Injectable()
 @Roles(UserRoles.EMPLOYER)
 export class EmployerService implements IEmployerService {
   constructor(
-    @Inject(Services.USER) private readonly userService: IUserService,
     @Inject(Services.TOKEN) private readonly tokenService: ITokenService,
     @InjectRepository(Employer)
     private readonly employerRepository: Repository<Employer>,
@@ -34,7 +31,6 @@ export class EmployerService implements IEmployerService {
         user: user,
       });
       await this.employerRepository.save(employer);
-      await this.userService.changeRole(user, UserRoles.EMPLOYER);
 
       return this.tokenService.generateToken(user);
     } catch (error) {
@@ -42,13 +38,14 @@ export class EmployerService implements IEmployerService {
     }
   }
 
-  async getProfile(user: User): Promise<Employer> {
+  async getEmployer(user: User): Promise<Employer | null> {
     try {
-      const profile = await this.employerRepository.findOne({
-        where: { user: user },
+      const employer = await this.employerRepository.findOne({
+        where: { user },
+        relations: ['user'],
       });
 
-      return profile;
+      return employer;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
