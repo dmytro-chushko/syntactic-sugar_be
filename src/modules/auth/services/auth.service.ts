@@ -172,7 +172,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async addUserRole(id: string, role: UserRoles): Promise<IToken> {
+  async addUserRole(id: string, role: UserRoles): Promise<ITokenAndRole> {
     try {
       const user = await this.userService.findById(id);
       if (user) {
@@ -180,7 +180,7 @@ export class AuthService implements IAuthService {
         await this.userRepository.save(user);
         const token = await this.tokenService.generateToken(user);
 
-        return token;
+        return { token: token.token, role: user.role };
       }
       throw new UnauthorizedException(`User doesn't exist`);
     } catch (error) {
