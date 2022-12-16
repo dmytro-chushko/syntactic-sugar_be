@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'src/app.module';
 import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { AppModule } from 'src/app.module';
 
 async function start() {
   try {
@@ -17,7 +17,7 @@ async function start() {
     SwaggerModule.setup('api', app, document);
     app.useGlobalPipes(new ValidationPipe());
     app.enableCors({
-      allowedHeaders: ['content-type'],
+      allowedHeaders: ['content-type', 'authorization'],
       origin: process.env.CLIENT_HOST,
       credentials: true,
     });

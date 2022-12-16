@@ -59,6 +59,10 @@ export class Freelancer {
   @Column({ nullable: false })
   englishLevel: EnglishLevel;
 
+  @ApiProperty({ example: '9e58b950-f346-498f-a586-77034553f9b4.jpg' })
+  @Column({ nullable: true })
+  image: string;
+
   @ApiProperty()
   @OneToOne(() => User, user => user.id)
   @JoinColumn()

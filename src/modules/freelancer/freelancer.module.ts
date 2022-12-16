@@ -15,6 +15,7 @@ import { Country } from 'src/database/entities/country.entity';
 import { CategoriesModule } from 'src/modules/categories/categories.module';
 import { SkillsModule } from 'src/modules/skills/skills.module';
 import { CountriesModule } from 'src/modules/countries/countries.module';
+import { FilesModule } from 'src/modules/files/files.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CountriesModule } from 'src/modules/countries/countries.module';
     CategoriesModule,
     SkillsModule,
     CountriesModule,
+    FilesModule,
     TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory, Country]),
   ],
   controllers: [FreelancerController],

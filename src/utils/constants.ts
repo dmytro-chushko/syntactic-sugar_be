@@ -19,6 +19,8 @@ export enum Routes {
   CREATE_EMPLOYER = 'create',
   PROPOSAL = 'proposal',
   CREATE_PROPOSAL = 'create',
+  UPLOAD_IMAGE = 'image',
+  FILES = 'files',
 }
 
 export enum Services {
