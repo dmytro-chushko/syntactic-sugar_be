@@ -13,6 +13,6 @@ export interface IAuthService {
   forgotPassword(email: string);
   resetPassword(resetPasswordDto: ResetPasswordDto);
   signupGoogle(token: string);
-  loginByGoogle(token: string);
-  addUserRole(id: string, role: UserRoles): Promise<IToken>;
+  loginByGoogle(token: string): Promise<ITokenAndRole>;
+  addUserRole(id: string, role: UserRoles): Promise<ITokenAndRole>;
 }
