@@ -28,4 +28,12 @@ export class JobsController {
   getJobs(): Promise<Job[]> {
     return this.jobsService.getJobs();
   }
+
+  @ApiResponse({ status: 201, description: 'Get all jobs by Employer' })
+  @Get(Routes.GET_JOBS_BY_EMPLOYER)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  @Roles(UserRoles.EMPLOYER)
+  getJobsByEmployer(@Auth() user: User): Promise<Job[]> {
+    return this.jobsService.getJobsByEmployer(user);
+  }
 }

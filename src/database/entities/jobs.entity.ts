@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import {
   EmploymentType,
   HourRate,
@@ -12,8 +21,8 @@ import { Category, Skill, Country, Employer } from 'src/database/entities';
 @Entity({ name: 'jobs' })
 export class Job {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ApiProperty({ example: 'Java script developer for a big  educational project' })
   @Column()
@@ -67,4 +76,10 @@ export class Job {
 
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 }

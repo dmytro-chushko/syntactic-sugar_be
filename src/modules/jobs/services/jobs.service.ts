@@ -84,7 +84,23 @@ export class JobsService implements IJobsService {
   async getJobs(): Promise<Job[]> {
     try {
       const jobs = await this.jobRepository.find({
-        relations: ['category', 'skills', 'countries'],
+        relations: ['employer', 'category', 'skills', 'countries'],
+      });
+
+      return jobs;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getJobsByEmployer(user: User): Promise<Job[]> {
+    try {
+      const employer = await this.employerService.getEmployer(user);
+
+      const jobs = await this.jobRepository.find({
+        relations: ['employer', 'category', 'skills', 'countries'],
+        where: { employer },
+        order: { createdDate: 'DESC', updatedDate: 'DESC' },
       });
 
       return jobs;
