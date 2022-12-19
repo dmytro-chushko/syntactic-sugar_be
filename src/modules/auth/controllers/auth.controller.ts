@@ -37,7 +37,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'insert user to db' })
   @Post(Routes.REGISTER)
   @UsePipes(ValidationPipe)
-  register(@Body() createUserDto: AuthUserDto): Promise<IToken> {
+  register(@Body() createUserDto: AuthUserDto): Promise<ITokenAndRole> {
     return this.authService.registration(createUserDto);
   }
 
