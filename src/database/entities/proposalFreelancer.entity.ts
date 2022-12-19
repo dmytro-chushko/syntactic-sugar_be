@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Freelancer } from './freelancer.entity';
-import { Job } from './jobs.entity';
+import { Freelancer } from 'src/database/entities/freelancer.entity';
+import { Job } from 'src/database/entities/jobs.entity';
 
 @Entity({ name: 'proposal_freelancers}' })
 export class Proposal {
