@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import {
   EmploymentType,
   HourRate,
@@ -7,7 +15,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer } from 'src/database/entities';
+import { Category, Skill, Country, Employer, Proposal } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -67,4 +75,7 @@ export class Job {
 
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
+
+  @OneToMany(() => Proposal, proposal => proposal.job)
+  proposals: Proposal[];
 }
