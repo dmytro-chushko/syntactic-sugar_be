@@ -9,7 +9,7 @@ import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
 import { User, Job } from 'src/database/entities';
-import { JobIdDto } from '../dto/jobIdDto';
+import { JobIdDto } from 'src/modules/jobs/dto/jobIdDto';
 
 @Controller(Routes.JOBS)
 export class JobsController {
