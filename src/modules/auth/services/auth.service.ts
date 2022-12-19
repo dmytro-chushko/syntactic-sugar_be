@@ -35,7 +35,7 @@ export class AuthService implements IAuthService {
     private configService: ConfigService,
   ) {}
 
-  async registration(authUserDto: AuthUserDto): Promise<IToken> {
+  async registration(authUserDto: AuthUserDto): Promise<ITokenAndRole> {
     try {
       const existingUser = await this.userService.findByEmail(authUserDto.email);
       if (existingUser) {
@@ -45,9 +45,10 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(authUserDto);
-      await this.sendConfirmation(user);
+      // await this.sendConfirmation(user);
+      const token = await this.tokenService.generateToken(user);
 
-      return await this.tokenService.generateToken(user);
+      return { token: token.token, role: user.role };
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
