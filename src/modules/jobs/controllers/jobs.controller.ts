@@ -9,6 +9,7 @@ import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
 import { User, Job } from 'src/database/entities';
+import { JobIdDto } from 'src/modules/jobs/dto/jobIdDto';
 
 @Controller(Routes.JOBS)
 export class JobsController {
@@ -31,7 +32,7 @@ export class JobsController {
 
   @ApiResponse({ status: 201, description: 'Get job by id' })
   @Get(Routes.GET_JOB_BY_ID)
-  getJobById(id: number): Promise<Job> {
-    return this.jobsService.getJobById(id);
+  getJobById(@Body() jobIdDto: JobIdDto): Promise<Job> {
+    return this.jobsService.getJobById(jobIdDto.id);
   }
 }
