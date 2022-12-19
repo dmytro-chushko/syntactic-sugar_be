@@ -28,4 +28,10 @@ export class JobsController {
   getJobs(): Promise<Job[]> {
     return this.jobsService.getJobs();
   }
+
+  @ApiResponse({ status: 201, description: 'Get job by id' })
+  @Get(Routes.GET_JOB_BY_ID)
+  getJobById(id: number): Promise<Job> {
+    return this.jobsService.getJobById(id);
+  }
 }

@@ -21,6 +21,12 @@ import { User, Job, Employer, Skill, Country, Category } from 'src/database/enti
     UserModule,
     JwtModule,
   ],
+  exports: [
+    {
+      provide: Services.JOBS,
+      useClass: JobsService,
+    },
+  ],
   controllers: [JobsController],
   providers: [{ provide: Services.JOBS, useClass: JobsService }],
 })

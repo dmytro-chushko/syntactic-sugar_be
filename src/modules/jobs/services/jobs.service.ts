@@ -92,4 +92,14 @@ export class JobsService implements IJobsService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getJobById(id: number): Promise<Job> {
+    try {
+      const jobById = await this.jobRepository.findOneBy({ id });
+
+      return jobById;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
