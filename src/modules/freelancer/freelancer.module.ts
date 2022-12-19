@@ -27,6 +27,12 @@ import { FilesModule } from 'src/modules/files/files.module';
     FilesModule,
     TypeOrmModule.forFeature([Freelancer, Category, Skill, Education, WorkHistory, Country]),
   ],
+  exports: [
+    {
+      provide: Services.FREELANCER,
+      useClass: FreelancerService,
+    },
+  ],
   controllers: [FreelancerController],
   providers: [
     {

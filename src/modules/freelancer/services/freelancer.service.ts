@@ -89,7 +89,7 @@ export class FreelancerService implements IFreelancerService {
     try {
       const profile = await this.freelancerRepository.findOne({
         where: { user: user },
-        relations: ['skills', 'category', 'country'],
+        relations: ['user'],
       });
 
       return profile;

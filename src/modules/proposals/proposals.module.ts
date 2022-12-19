@@ -1,12 +1,22 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Proposal } from 'src/database/entities/proposalFreelancer.entity';
 import { Services } from 'src/utils/constants';
+import { FreelancerModule } from '../freelancer/freelancer.module';
+import { JobsModule } from '../jobs/jobs.module';
+import { UserModule } from '../user/user.module';
 import { ProposalsController } from './controllers/proposals.controller';
 import { ProposalsService } from './services/proposals.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Proposal])],
+  imports: [
+    TypeOrmModule.forFeature([Proposal]),
+    JobsModule,
+    FreelancerModule,
+    UserModule,
+    JwtModule,
+  ],
   controllers: [ProposalsController],
   providers: [
     {

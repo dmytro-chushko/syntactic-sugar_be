@@ -6,7 +6,7 @@ export enum Skills {
   python = 'Python',
   php = 'PHP',
   node = 'Node.js',
-  ios = 'IOS',
+  ios = 'iOS',
   android = 'Android',
   c = 'C',
   c_plus = 'C++',
