@@ -14,12 +14,13 @@ import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelance
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { Auth } from 'src/utils/decorators/auth';
-import { IPayload, IToken } from 'src/modules/auth/interfaces/IToken';
+import { IPayload } from 'src/modules/auth/interfaces/IToken';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { EditPublishedDto } from 'src/modules/freelancer/dtos/editPublished.dto';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
+import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
@@ -29,7 +30,10 @@ export class FreelancerController {
   @Post(Routes.CREATE_FREELANCER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
-  createFreelancer(@Auth() user, @Body() createFreelancerDto: CreateFreelancerDto) {
+  createFreelancer(
+    @Auth() user,
+    @Body() createFreelancerDto: CreateFreelancerDto,
+  ): Promise<ITokenAndRole> {
     return this.freelancerService.createFreelancer(user, createFreelancerDto);
   }
 
@@ -39,7 +43,7 @@ export class FreelancerController {
   @UseGuards(AuthJwtGuard)
   @Roles(UserRoles.FREELANCER)
   @UsePipes(ValidationPipe)
-  isPublished(@Auth() user, @Body() editPublishedDto: EditPublishedDto): Promise<IToken> {
+  isPublished(@Auth() user, @Body() editPublishedDto: EditPublishedDto): Promise<string> {
     return this.freelancerService.editPublished(user, editPublishedDto.isPublished);
   }
 
