@@ -1,10 +1,8 @@
 import {
   Body,
   Controller,
-  Get,
   Inject,
   Post,
-  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -42,9 +40,9 @@ export class AuthController {
     status: 200,
     description: 'updated field isActivated=true for user',
   })
-  @Get(Routes.CONFIRM)
-  confirm(@Query(ValidationPipe) query: ConfirmAccountDto): Promise<void> {
-    return this.authService.confirmEmail(query.id);
+  @Post(Routes.CONFIRM)
+  confirm(@Body() confirmAccountDto: ConfirmAccountDto): Promise<void> {
+    return this.authService.confirmEmail(confirmAccountDto.id);
   }
 
   @ApiBody({ type: AuthUserDto })
