@@ -128,7 +128,7 @@ export class Freelancer {
   otherExperience: string;
 
   @ApiProperty()
-  @OneToMany(() => Proposal, proposal => proposal.freelancers)
+  @OneToMany(() => Proposal, proposal => proposal.freelancer)
   proposals: Proposal[];
 
   @ApiProperty({ example: 'true' })

@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
-import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { Services } from 'src/utils/constants';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -12,6 +11,7 @@ import { User } from 'src/database/entities/users.entity';
 import { ICategoriesService } from 'src/modules/categories/interfaces/ICategoriesService';
 import { ISkillsService } from 'src/modules/skills/interfaces/ISkillsService';
 import { ICountriesService } from 'src/modules/countries/interfaces/ICountriesService';
+import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 @Injectable()
 export class FreelancerService implements IFreelancerService {
@@ -24,7 +24,10 @@ export class FreelancerService implements IFreelancerService {
     @Inject(Services.COUNTRIES) private readonly countriesService: ICountriesService,
   ) {}
 
-  async createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<IToken> {
+  async createFreelancer(
+    user: User,
+    createFreelancerDto: CreateFreelancerDto,
+  ): Promise<ITokenAndRole> {
     try {
       let country = await this.countriesService.getCountryByName(createFreelancerDto.country);
       if (!country) {
@@ -68,18 +71,20 @@ export class FreelancerService implements IFreelancerService {
         user: user,
       });
       await this.freelancerRepository.save(freelancer);
+      const token = await this.tokenService.generateToken(user);
 
-      return this.tokenService.generateToken(user);
+      return { token: token.token, role: user.role };
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async editPublished(user: User, publ: boolean): Promise<IToken> {
+  async editPublished(user: User, publ: boolean): Promise<string> {
     try {
       await this.freelancerRepository.update({ user: user }, { isPublished: publ });
+      const message = 'Freelancer profile is published';
 
-      return this.tokenService.generateToken(user);
+      return message;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -89,7 +94,13 @@ export class FreelancerService implements IFreelancerService {
     try {
       const profile = await this.freelancerRepository.findOne({
         where: { user: user },
-        relations: ['skills', 'category', 'country'],
+        relations: ['skills', 'category', 'country', 'user'],
+        select: {
+          user: {
+            id: true,
+            email: true,
+          },
+        },
       });
 
       return profile;

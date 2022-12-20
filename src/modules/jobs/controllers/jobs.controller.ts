@@ -10,6 +10,7 @@ import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
 import { User, Job } from 'src/database/entities';
+import { JobIdDto } from 'src/modules/jobs/dto/jobIdDto';
 
 @Controller(Routes.JOBS)
 export class JobsController {
@@ -55,5 +56,11 @@ export class JobsController {
   @Delete(Routes.REMOVE_JOB_BY_ID)
   removeJobById(@Param('id') id: string): Promise<DeleteResult> {
     return this.jobsService.removeJobById(id);
+  }
+
+  @ApiResponse({ status: 201, description: 'Get job by id' })
+  @Get(Routes.GET_JOB_BY_ID)
+  getJobById(@Body() jobIdDto: JobIdDto): Promise<Job> {
+    return this.jobsService.getJobById(jobIdDto.id);
   }
 }

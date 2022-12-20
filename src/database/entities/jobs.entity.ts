@@ -8,6 +8,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import {
   EmploymentType,
@@ -16,7 +17,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer } from 'src/database/entities';
+import { Category, Skill, Country, Employer, Proposal } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -82,4 +83,7 @@ export class Job {
 
   @UpdateDateColumn()
   updatedDate: Date;
+
+  @OneToMany(() => Proposal, proposal => proposal.job)
+  proposals: Proposal[];
 }
