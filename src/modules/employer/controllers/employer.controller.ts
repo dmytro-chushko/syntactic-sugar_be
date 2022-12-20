@@ -18,6 +18,7 @@ import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
+import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 @ApiTags('employers')
 @Controller(Routes.EMPLOYER)
@@ -30,7 +31,10 @@ export class EmployerController {
   @Roles(UserRoles.EMPLOYER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
-  createEmployer(@Auth() user: User, @Body() createEmployerDto: CreateEmployerDto) {
+  createEmployer(
+    @Auth() user: User,
+    @Body() createEmployerDto: CreateEmployerDto,
+  ): Promise<ITokenAndRole> {
     return this.employerService.createEmployer(user, createEmployerDto);
   }
 
