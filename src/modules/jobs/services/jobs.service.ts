@@ -129,7 +129,7 @@ export class JobsService implements IJobsService {
     }
   }
 
-  async getJobByProposal(user: User): Promise<Job[]> {
+  async getJobsWithProposals(user: User): Promise<Job[]> {
     try {
       const jobsWithProposals = await this.jobRepository.find({
         where: { proposals: { freelancer: { user } } },
