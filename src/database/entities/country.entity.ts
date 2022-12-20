@@ -1,12 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Freelancer } from './freelancer.entity';
-import { Job } from './jobs.entity';
+import { Freelancer, Job } from './index';
 
 @Entity({ name: 'countries' })
 export class Country {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @ApiProperty()
   @Column({

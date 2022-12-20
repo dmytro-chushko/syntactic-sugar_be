@@ -9,8 +9,8 @@ export enum CountryName {
   poland = 'Poland',
   moldova = 'Moldova',
   romania = 'Romania',
-  us = 'US',
-  uk = 'UK',
+  us = 'United States of America',
+  uk = 'United Kingdom',
   allEuCountries = 'all EU countries',
   otherCountries = 'other Countries',
 }
