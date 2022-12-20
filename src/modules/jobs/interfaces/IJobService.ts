@@ -5,4 +5,5 @@ export interface IJobsService {
   createJob(user: User, createJobDto: CreateJobDto): Promise<Job>;
   getJobs(): Promise<Job[]>;
   getJobById(id: number): Promise<Job>;
+  getJobByProposal(user: User): Promise<Job[]>;
 }
