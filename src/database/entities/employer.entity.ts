@@ -54,6 +54,10 @@ export class Employer {
   })
   aboutUs: string;
 
+  @ApiProperty({ example: '9e58b950-f346-498f-a586-77034553f9b4.jpg' })
+  @Column({ nullable: true })
+  image: string;
+
   @OneToOne(() => User, user => user.id)
   @JoinColumn()
   user: User;

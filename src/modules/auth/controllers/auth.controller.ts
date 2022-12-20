@@ -10,7 +10,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Routes, Services } from 'src/utils/constants';
-import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
@@ -21,23 +20,20 @@ import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
-import { ITokenAndRole } from '../interfaces/ITokenAndRole';
+import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 import { Auth } from 'src/utils/decorators/auth';
 import { User } from 'src/database/entities/users.entity';
 
 @ApiTags('auth')
 @Controller(Routes.AUTH)
 export class AuthController {
-  constructor(
-    @Inject(Services.AUTH) private authService: IAuthService,
-    @Inject(Services.USER) private userService: IUserService,
-  ) {}
+  constructor(@Inject(Services.AUTH) private authService: IAuthService) {}
 
   @ApiBody({ type: AuthUserDto })
   @ApiResponse({ status: 200, description: 'insert user to db' })
   @Post(Routes.REGISTER)
   @UsePipes(ValidationPipe)
-  register(@Body() createUserDto: AuthUserDto): Promise<IToken> {
+  register(@Body() createUserDto: AuthUserDto): Promise<ITokenAndRole> {
     return this.authService.registration(createUserDto);
   }
 
@@ -70,7 +66,6 @@ export class AuthController {
 
   @ApiResponse({ status: 200, description: 'Email has been sent' })
   @Post(Routes.FORGOT_PASS)
-  // eslint-disable-next-line prettier/prettier
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<void> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
   }

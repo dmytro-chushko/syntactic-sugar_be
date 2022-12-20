@@ -36,4 +36,8 @@ export class CreateEmployerDto {
   @IsString()
   @IsNotEmpty()
   aboutUs: string;
+
+  @ApiProperty({ example: '9e58b950-f346-498f-a586-77034553f9b4.jpg' })
+  @IsString()
+  image: string;
 }
