@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { Job } from 'src/database/entities/jobs.entity';
 
-@Entity({ name: 'proposal_freelancers}' })
+@Entity({ name: 'proposal_freelancers' })
 export class Proposal {
   @PrimaryGeneratedColumn('uuid')
   id: string;

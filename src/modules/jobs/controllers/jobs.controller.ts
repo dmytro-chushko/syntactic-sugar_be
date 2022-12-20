@@ -63,4 +63,10 @@ export class JobsController {
   getJobById(@Body() jobIdDto: JobIdDto): Promise<Job> {
     return this.jobsService.getJobById(jobIdDto.id);
   }
+
+  @ApiResponse({ status: 201, description: 'Get jobs with proposals' })
+  @Get(Routes.GET_JOB_BY_PROPOSALS)
+  getJobsWithProposals(@Body() user: User): Promise<Job[]> {
+    return this.jobsService.getJobsWithProposals(user);
+  }
 }

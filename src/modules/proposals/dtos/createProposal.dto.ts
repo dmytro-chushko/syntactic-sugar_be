@@ -5,7 +5,7 @@ export class CreateProposalDto {
   @ApiProperty({ example: 1 })
   @IsString()
   @IsNotEmpty()
-  id: number;
+  id: string;
 
   @ApiProperty({ example: 'Hello! This is my cover letter!' })
   @IsString()
