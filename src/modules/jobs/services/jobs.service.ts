@@ -121,7 +121,7 @@ export class JobsService implements IJobsService {
 
   async getJobById(id: string): Promise<Job> {
     try {
-      const jobById = await this.jobRepository.findOneBy({ id });
+      const jobById = await this.jobRepository.findOne({ where: { id }, relations: ['employer'] });
 
       return jobById;
     } catch (error) {
