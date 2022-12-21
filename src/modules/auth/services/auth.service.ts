@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
-import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { Services, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -151,7 +150,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async signupGoogle(token: string): Promise<IToken> {
+  async signupGoogle(token: string): Promise<ITokenAndRole> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -166,9 +165,9 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createGoogleUser(ticket.email);
-      const tokenJwt = this.tokenService.generateToken(user);
+      const userToken = await this.tokenService.generateToken(user);
 
-      return tokenJwt;
+      return { token: userToken.token, role: user.role };
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
