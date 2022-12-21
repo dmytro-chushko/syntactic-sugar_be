@@ -11,7 +11,7 @@ export interface IAuthService {
   confirmEmail(id: string): Promise<void>;
   forgotPassword(email: string);
   resetPassword(resetPasswordDto: ResetPasswordDto);
-  signupGoogle(token: string);
+  signupGoogle(token: string): Promise<ITokenAndRole>;
   loginByGoogle(token: string): Promise<ITokenAndRole>;
   addUserRole(id: string, role: UserRoles): Promise<ITokenAndRole>;
 }

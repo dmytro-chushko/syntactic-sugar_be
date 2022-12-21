@@ -94,7 +94,7 @@ export class JobsService implements IJobsService {
   async getJobs(): Promise<Job[]> {
     try {
       const jobs = await this.jobRepository.find({
-        relations: ['employer', 'category', 'skills', 'countries'],
+        relations: ['employer', 'category', 'skills', 'countries', 'proposals'],
       });
 
       return jobs;
@@ -121,9 +121,22 @@ export class JobsService implements IJobsService {
 
   async getJobById(id: string): Promise<Job> {
     try {
-      const jobById = await this.jobRepository.findOneBy({ id });
+      const jobById = await this.jobRepository.findOne({ where: { id }, relations: ['employer'] });
 
       return jobById;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getJobsWithProposals(user: User): Promise<Job[]> {
+    try {
+      const jobsWithProposals = await this.jobRepository.find({
+        where: { proposals: { freelancer: { user } } },
+        relations: ['category', 'skills', 'countries'],
+      });
+
+      return jobsWithProposals;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

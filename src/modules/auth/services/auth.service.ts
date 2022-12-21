@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
-import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { Services, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
@@ -22,7 +21,7 @@ import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { comparePassword, hashPassword } from 'src/utils/hash';
 import { postMailServiceHtml } from 'src/utils/postMailServiceHtml';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
-import { ITokenAndRole } from '../interfaces/ITokenAndRole';
+import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -45,7 +44,7 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createUser(authUserDto);
-      // await this.sendConfirmation(user);
+      await this.sendConfirmation(user);
       const token = await this.tokenService.generateToken(user);
 
       return { token: token.token, role: user.role };
@@ -88,9 +87,10 @@ export class AuthService implements IAuthService {
     try {
       const user = await this.userService.findById(id);
       if (!user) {
-        throw new HttpException('not found', HttpStatus.BAD_REQUEST);
+        throw new HttpException('User doesnt exist', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+
       await this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -150,7 +150,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  async signupGoogle(token: string): Promise<IToken> {
+  async signupGoogle(token: string): Promise<ITokenAndRole> {
     try {
       const client = new OAuth2Client(
         this.configService.get('GOOGLE_CLIENT_ID'),
@@ -165,9 +165,9 @@ export class AuthService implements IAuthService {
         );
       }
       const user = await this.userService.createGoogleUser(ticket.email);
-      const tokenJwt = this.tokenService.generateToken(user);
+      const userToken = await this.tokenService.generateToken(user);
 
-      return tokenJwt;
+      return { token: userToken.token, role: user.role };
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
