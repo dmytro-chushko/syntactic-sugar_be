@@ -16,7 +16,6 @@ import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from 'src/modules/auth/dtos/token.dto';
 import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
-import { IToken } from 'src/modules/auth/interfaces/IToken';
 import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -80,7 +79,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Registered with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
   @UsePipes(ValidationPipe)
-  signupGoogle(@Body('token') token: string): Promise<IToken> {
+  signupGoogle(@Body('token') token: string): Promise<ITokenAndRole> {
     return this.authService.signupGoogle(token);
   }
 
