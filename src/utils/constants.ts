@@ -19,7 +19,7 @@ export enum Routes {
   GET_JOBS_BY_EMPLOYER = 'get-jobs-by-employer',
   UPDATE_JOB_BY_ID = 'udate-job/:id',
   REMOVE_JOB_BY_ID = 'remove-job/:id',
-  GET_JOB_BY_ID = 'get-job-by-id',
+  GET_JOB_BY_ID = 'get-job-by-id/:id',
   CREATE_EMPLOYER = 'create',
   PROPOSAL = 'proposal',
   CREATE_PROPOSAL = 'create',
