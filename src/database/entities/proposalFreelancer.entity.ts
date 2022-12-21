@@ -19,6 +19,10 @@ export class Proposal {
   filePath: string;
 
   @ApiProperty()
+  @Column()
+  offer: boolean;
+
+  @ApiProperty()
   @ManyToOne(() => Freelancer, freelancer => freelancer.proposals)
   @JoinColumn()
   freelancer: Freelancer;

@@ -133,7 +133,7 @@ export class JobsService implements IJobsService {
     try {
       const jobsWithProposals = await this.jobRepository.find({
         where: { proposals: { freelancer: { user } } },
-        relations: ['category', 'skills', 'countries'],
+        relations: ['category', 'skills', 'countries', 'proposals'],
       });
 
       return jobsWithProposals;

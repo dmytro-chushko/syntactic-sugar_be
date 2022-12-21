@@ -66,7 +66,9 @@ export class JobsController {
 
   @ApiResponse({ status: 201, description: 'Get jobs with proposals' })
   @Get(Routes.GET_JOB_BY_PROPOSALS)
-  getJobsWithProposals(@Body() user: User): Promise<Job[]> {
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  @Roles(UserRoles.FREELANCER)
+  getJobsWithProposals(@Auth() user: User): Promise<Job[]> {
     return this.jobsService.getJobsWithProposals(user);
   }
 }
