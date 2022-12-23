@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { HttpException, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as express from 'express';
+import * as path from 'path';
 import { AppModule } from 'src/app.module';
 
 async function start() {
@@ -21,6 +23,7 @@ async function start() {
       origin: process.env.CLIENT_HOST,
       credentials: true,
     });
+    app.use(express.static(path.resolve(__dirname, 'modules/files/static')));
 
     return await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
