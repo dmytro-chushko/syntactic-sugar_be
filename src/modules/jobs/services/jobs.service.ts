@@ -95,6 +95,13 @@ export class JobsService implements IJobsService {
     try {
       const jobs = await this.jobRepository.find({
         relations: ['employer', 'category', 'skills', 'countries', 'proposals'],
+        order: { createdDate: 'DESC', updatedDate: 'DESC' },
+        select: {
+          proposals: {
+            id: true,
+            coverLetter: true,
+          },
+        },
       });
 
       return jobs;
@@ -121,7 +128,16 @@ export class JobsService implements IJobsService {
 
   async getJobById(id: string): Promise<Job> {
     try {
-      const jobById = await this.jobRepository.findOne({ where: { id }, relations: ['employer'] });
+      const jobById = await this.jobRepository.findOne({
+        where: { id },
+        relations: ['employer', 'skills', 'category', 'countries', 'proposals'],
+        select: {
+          proposals: {
+            id: true,
+            coverLetter: true,
+          },
+        },
+      });
 
       return jobById;
     } catch (error) {
