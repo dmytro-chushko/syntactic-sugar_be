@@ -133,7 +133,7 @@ export class JobsService implements IJobsService {
     try {
       const jobsWithProposals = await this.jobRepository.find({
         where: { proposals: { freelancer: { user } } },
-        relations: ['category', 'skills', 'countries'],
+        relations: ['category', 'skills', 'countries', 'proposals'],
       });
 
       return jobsWithProposals;
@@ -148,6 +148,25 @@ export class JobsService implements IJobsService {
       const updatedJob = await this.jobRepository.update(id, { ...job });
 
       return updatedJob;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async toggleIsPublishedJob(user: User, id: string): Promise<void> {
+    try {
+      const employer = await this.employerService.getEmployer(user);
+      const job = await this.getJobById(id);
+      const result = await this.jobRepository.update(
+        { id, employer },
+        { isPublished: !job.isPublished },
+      );
+      if (!result.affected) {
+        throw new HttpException(
+          'You cannot change this job because it does not belong to you',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

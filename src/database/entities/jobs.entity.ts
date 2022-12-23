@@ -75,6 +75,10 @@ export class Job {
   @JoinTable()
   countries: Country[];
 
+  @ApiProperty({ example: 1 })
+  @Column({ default: false })
+  isPublished: boolean;
+
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
 
