@@ -30,7 +30,7 @@ export class Job {
   title: string;
 
   @ApiProperty({ example: 'Any text wich discribes current job' })
-  @Column()
+  @Column({ type: 'text', length: 600 })
   description: string;
 
   @ApiProperty({ example: 'Fullstack developer' })
@@ -58,7 +58,7 @@ export class Job {
   englishLevel: EnglishLevel;
 
   @ApiProperty({ example: 'All the other requirenments of the job' })
-  @Column()
+  @Column({ type: 'text', length: 600 })
   otherRequirenments: string;
 
   @ApiProperty({ example: 'IT, computers & Internet' })
@@ -75,7 +75,7 @@ export class Job {
   @JoinTable()
   countries: Country[];
 
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: true })
   @Column({ default: false })
   isPublished: boolean;
 
