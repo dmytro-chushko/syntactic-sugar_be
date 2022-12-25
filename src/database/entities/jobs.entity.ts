@@ -30,7 +30,7 @@ export class Job {
   title: string;
 
   @ApiProperty({ example: 'Any text wich discribes current job' })
-  @Column({ type: 'text', length: 600 })
+  @Column({ type: 'text' })
   description: string;
 
   @ApiProperty({ example: 'Fullstack developer' })
@@ -58,7 +58,7 @@ export class Job {
   englishLevel: EnglishLevel;
 
   @ApiProperty({ example: 'All the other requirenments of the job' })
-  @Column({ type: 'text', length: 600 })
+  @Column({ type: 'text' })
   otherRequirenments: string;
 
   @ApiProperty({ example: 'IT, computers & Internet' })
