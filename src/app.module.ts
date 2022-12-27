@@ -16,6 +16,9 @@ import { SkillsModule } from './modules/skills/skills.module';
 import { CountriesModule } from './modules/countries/countries.module';
 import { ProposalsModule } from './modules/proposals/proposals.module';
 import { FilesModule } from './modules/files/files.module';
+import { ChatModule } from './modules/chat/chat.module';
+import { MessagesModule } from './modules/messages/messages.module';
+import { GatewayModule } from './modules/gateway/gateway.module';
 
 @Module({
   imports: [
@@ -47,6 +50,9 @@ import { FilesModule } from './modules/files/files.module';
     CountriesModule,
     ProposalsModule,
     FilesModule,
+    MessagesModule,
+    ChatModule,
+    GatewayModule,
   ],
   controllers: [],
   providers: [],

@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
 import { Job } from './jobs.entity';
+import { Chat } from './chat.entity';
 
 @Entity({ name: 'employers' })
 export class Employer {
@@ -64,4 +65,7 @@ export class Employer {
 
   @OneToMany(() => Job, job => job.employer)
   jobs: Job[];
+
+  @OneToMany(() => Chat, chat => chat.employer)
+  chats: Chat[];
 }

@@ -26,6 +26,12 @@ export enum Routes {
   CREATE_PROPOSAL = 'create',
   UPLOAD_IMAGE = 'image',
   FILES = 'files',
+  CHAT = 'chat',
+  MESSAGES = 'messages',
+  CREATE_CHAT = 'create-chat',
+  CREATE_MESSAGE = 'create-message',
+  GET_CHAT_MESSAGES = 'messages/:id',
+  GET_CHATS_BY_USER = 'get-chats-by-user',
 }
 
 export enum Services {
@@ -40,7 +46,15 @@ export enum Services {
   SKILLS = 'SKILLS_SERVICE',
   COUNTRIES = 'COUNTRIES_SERVICE',
   PROPOSAL = 'PROPOSALS_FREELANCER',
-  FILES = 'FILES',
+  FILES = 'FILES_SERVICE',
+  MESSAGES = 'MESSAGES_SERVICE',
+  CHAT = 'CHAT_SERVICE',
+}
+
+export enum WS_EVENTS {
+  MESSAGE = 'message',
+  JOIN = 'join',
+  LEAVE = 'leave',
 }
 
 export enum UserRoles {

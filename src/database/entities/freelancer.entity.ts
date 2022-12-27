@@ -23,6 +23,7 @@ import { Category } from './category.entity';
 import { Skill } from './skill.entity';
 import { Education } from './education.entity';
 import { WorkHistory } from './workHistory.entity';
+import { Chat } from './chat.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -130,6 +131,10 @@ export class Freelancer {
   @ApiProperty()
   @OneToMany(() => Proposal, proposal => proposal.freelancer)
   proposals: Proposal[];
+
+  @ApiProperty()
+  @OneToMany(() => Chat, chat => chat.freelancer)
+  chats: Chat[];
 
   @ApiProperty({ example: 'true' })
   @Column({
