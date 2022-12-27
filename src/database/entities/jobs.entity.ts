@@ -30,7 +30,7 @@ export class Job {
   title: string;
 
   @ApiProperty({ example: 'Any text wich discribes current job' })
-  @Column()
+  @Column({ type: 'text' })
   description: string;
 
   @ApiProperty({ example: 'Fullstack developer' })
@@ -58,7 +58,7 @@ export class Job {
   englishLevel: EnglishLevel;
 
   @ApiProperty({ example: 'All the other requirenments of the job' })
-  @Column()
+  @Column({ type: 'text' })
   otherRequirenments: string;
 
   @ApiProperty({ example: 'IT, computers & Internet' })
@@ -74,6 +74,10 @@ export class Job {
   @ManyToMany(() => Country, country => country.jobs)
   @JoinTable()
   countries: Country[];
+
+  @ApiProperty({ example: true })
+  @Column({ default: false })
+  isPublished: boolean;
 
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;

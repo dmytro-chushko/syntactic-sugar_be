@@ -11,4 +11,5 @@ export interface IJobsService {
   getJobById(id: string): Promise<Job>;
   updateJobById(user: User, id: string, createJobDto: CreateJobDto): Promise<UpdateResult>;
   removeJobById(id: string): Promise<DeleteResult>;
+  toggleIsPublishedJob(user: User, id: string): Promise<void>;
 }
