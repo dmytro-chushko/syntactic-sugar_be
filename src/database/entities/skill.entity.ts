@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Freelancer, Job } from '../../../index';
+import { Freelancer, Job } from './index';
 
 @Entity({ name: 'skills' })
 export class Skill {
