@@ -17,7 +17,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer, Proposal } from 'index';
+import { Category, Skill, Country, Employer, Proposal } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {

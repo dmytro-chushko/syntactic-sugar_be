@@ -12,7 +12,7 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
-import { User, Employer } from 'index';
+import { User, Employer } from 'src/database/entities';
 import { Auth } from 'src/utils/decorators/auth';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
