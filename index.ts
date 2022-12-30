@@ -1,0 +1,10 @@
+export { Category } from './src/database/entities/category.entity';
+export { Country } from './src/database/entities/country.entity';
+export { Education } from './src/database/entities/education.entity';
+export { Employer } from './src/database/entities/employer.entity';
+export { Freelancer } from './src/database/entities/freelancer.entity';
+export { Job } from './src/database/entities/jobs.entity';
+export { Proposal } from './src/database/entities/proposalFreelancer.entity';
+export { Skill } from './src/database/entities/skill.entity';
+export { User } from './src/database/entities/users.entity';
+export { WorkHistory } from './src/database/entities/workHistory.entity';

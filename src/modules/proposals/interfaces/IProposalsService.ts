@@ -1,4 +1,4 @@
-import { User } from 'src/database/entities';
+import { User } from 'index';
 import { Proposal } from 'src/database/entities/proposalFreelancer.entity';
 import { CreateProposalDto } from 'src/modules/proposals/dtos/createProposal.dto';
 

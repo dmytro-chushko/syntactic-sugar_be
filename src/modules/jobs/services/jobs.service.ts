@@ -8,7 +8,7 @@ import { ICategoriesService } from 'src/modules/categories/interfaces/ICategorie
 import { ISkillsService } from 'src/modules/skills/interfaces/ISkillsService';
 import { ICountriesService } from 'src/modules/countries/interfaces/ICountriesService';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
-import { User, Job } from 'src/database/entities';
+import { User, Job } from 'index';
 
 @Injectable()
 export class JobsService implements IJobsService {

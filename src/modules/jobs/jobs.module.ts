@@ -9,7 +9,7 @@ import { SkillsModule } from 'src/modules/skills/skills.module';
 import { CountriesModule } from 'src/modules/countries/countries.module';
 import { EmployerModule } from 'src/modules/employer/employer.module';
 import { UserModule } from 'src/modules/user/user.module';
-import { User, Job, Employer, Skill, Country, Category } from 'src/database/entities';
+import { User, Job, Employer, Skill, Country, Category } from 'index';
 
 @Module({
   imports: [

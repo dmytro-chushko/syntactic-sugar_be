@@ -1,5 +1,5 @@
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { User, Job } from 'src/database/entities';
+import { User, Job } from 'index';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 
 export interface IJobsService {

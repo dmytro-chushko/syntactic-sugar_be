@@ -6,7 +6,7 @@ import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerServi
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
 import { ITokenService } from 'src/modules/auth/interfaces/ITokenService';
 import { Roles } from 'src/utils/decorators/roles';
-import { User, Employer } from 'src/database/entities';
+import { User, Employer } from 'index';
 import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 @Injectable()

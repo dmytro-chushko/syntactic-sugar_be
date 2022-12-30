@@ -20,7 +20,7 @@ import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
-import { User, Job } from 'src/database/entities';
+import { User, Job } from 'index';
 
 @Controller(Routes.JOBS)
 export class JobsController {

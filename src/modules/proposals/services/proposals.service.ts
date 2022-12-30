@@ -7,7 +7,7 @@ import { IProposalsService } from 'src/modules/proposals/interfaces/IProposalsSe
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
-import { User } from 'src/database/entities';
+import { User } from 'index';
 
 @Injectable()
 export class ProposalsService implements IProposalsService {
@@ -29,6 +29,7 @@ export class ProposalsService implements IProposalsService {
 
       const proposal = await this.proposalRepository.save({
         coverLetter: createProposalDto.coverLetter,
+        hourRate: createProposalDto.hourRate,
         filePath: filePath,
         freelancer,
         job,
