@@ -10,7 +10,7 @@ import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
-import { User } from 'index';
+import { User } from 'src/database/entities';
 
 @Controller(Routes.PROPOSAL)
 export class ProposalsController {
