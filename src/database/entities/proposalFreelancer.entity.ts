@@ -11,8 +11,15 @@ export class Proposal {
   @ApiProperty({ example: 'Hello! I`m junior fullstack developer and this is my cover letter.' })
   @Column({
     nullable: false,
+    length: 1000,
   })
   coverLetter: string;
+
+  @ApiProperty({ example: '500' })
+  @Column({
+    nullable: true,
+  })
+  hourRate: string;
 
   @ApiProperty()
   @Column()

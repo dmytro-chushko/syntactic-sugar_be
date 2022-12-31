@@ -51,6 +51,7 @@ export class Employer {
   @ApiProperty({ example: 'We provide best business solutions' })
   @Column({
     default: null,
+    length: 1000,
   })
   aboutUs: string;
 
