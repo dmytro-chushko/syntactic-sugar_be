@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { HourRate } from 'src/database/enums';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateProposalDto {
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: '1' })
   @IsString()
   @IsNotEmpty()
   id: string;
@@ -13,8 +12,7 @@ export class CreateProposalDto {
   @IsNotEmpty()
   coverLetter: string;
 
-  @ApiProperty({ example: 'Less than 500$' })
-  @IsNotEmpty()
-  @IsEnum(HourRate)
-  hourRate?: HourRate;
+  @ApiProperty({ example: 500 })
+  @IsString()
+  hourRate?: string;
 }

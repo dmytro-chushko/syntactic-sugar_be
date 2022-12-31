@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { Job } from 'src/database/entities/jobs.entity';
-import { HourRate } from 'src/database/enums';
 
 @Entity({ name: 'proposal_freelancers' })
 export class Proposal {
@@ -16,11 +15,11 @@ export class Proposal {
   })
   coverLetter: string;
 
-  @ApiProperty({ example: 'Less 500$' })
+  @ApiProperty({ example: '500' })
   @Column({
     nullable: true,
   })
-  hourRate: HourRate;
+  hourRate: string;
 
   @ApiProperty()
   @Column()
