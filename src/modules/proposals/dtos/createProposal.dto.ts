@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateProposalDto {
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: '1' })
   @IsString()
   @IsNotEmpty()
   id: string;

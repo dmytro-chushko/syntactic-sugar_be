@@ -8,3 +8,4 @@ export { Proposal } from './proposalFreelancer.entity';
 export { Skill } from './skill.entity';
 export { User } from './users.entity';
 export { WorkHistory } from './workHistory.entity';
+export { Invitation } from './invitation.entity';

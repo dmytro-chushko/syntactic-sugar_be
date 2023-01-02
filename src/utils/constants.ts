@@ -27,6 +27,8 @@ export enum Routes {
   CREATE_PROPOSAL = 'create',
   UPLOAD_IMAGE = 'image',
   FILES = 'files',
+  INVITATION = 'invitation',
+  SEND = 'send-invitation',
 }
 
 export enum Services {
@@ -42,6 +44,7 @@ export enum Services {
   COUNTRIES = 'COUNTRIES_SERVICE',
   PROPOSAL = 'PROPOSALS_FREELANCER',
   FILES = 'FILES',
+  INVITATION = 'INVITATION',
 }
 
 export enum UserRoles {
