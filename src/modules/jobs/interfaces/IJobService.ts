@@ -1,4 +1,4 @@
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { DeleteResult } from 'typeorm';
 import { User, Job } from 'src/database/entities';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 
@@ -9,7 +9,7 @@ export interface IJobsService {
   getJobsWithProposals(user: User): Promise<Job[]>;
   getJobsByEmployer(user: User): Promise<Job[]>;
   getJobById(id: string): Promise<Job>;
-  updateJobById(user: User, id: string, createJobDto: CreateJobDto): Promise<UpdateResult>;
+  updateJobById(user: User, id: string, createJobDto: CreateJobDto): Promise<void>;
   removeJobById(id: string): Promise<DeleteResult>;
   toggleIsPublishedJob(user: User, id: string): Promise<void>;
 }

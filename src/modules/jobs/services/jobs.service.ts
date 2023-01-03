@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
@@ -115,7 +115,13 @@ export class JobsService implements IJobsService {
       const employer = await this.employerService.getEmployer(user);
 
       const jobs = await this.jobRepository.find({
-        relations: ['employer', 'category', 'skills', 'countries'],
+        relations: ['employer', 'category', 'skills', 'countries', 'proposals'],
+        select: {
+          proposals: {
+            id: true,
+            coverLetter: true,
+          },
+        },
         where: { employer },
         order: { createdDate: 'DESC', updatedDate: 'DESC' },
       });
@@ -158,12 +164,14 @@ export class JobsService implements IJobsService {
     }
   }
 
-  async updateJobById(user: User, id: string, createJobDto: CreateJobDto): Promise<UpdateResult> {
+  async updateJobById(user: User, id: string, createJobDto: CreateJobDto): Promise<void> {
     try {
-      const job = await this.createJob(user, createJobDto);
-      const updatedJob = await this.jobRepository.update(id, { ...job });
+      const newJob = await this.createJob(user, createJobDto);
+      const job = await this.jobRepository.findOne({
+        where: { id },
+      });
 
-      return updatedJob;
+      await this.jobRepository.save({ ...job, ...newJob });
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

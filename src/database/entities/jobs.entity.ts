@@ -76,7 +76,7 @@ export class Job {
   countries: Country[];
 
   @ApiProperty({ example: true })
-  @Column({ default: false })
+  @Column({ default: true })
   isPublished: boolean;
 
   @ManyToOne(() => Employer, employer => employer.jobs)
