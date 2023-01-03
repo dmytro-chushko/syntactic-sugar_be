@@ -8,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
@@ -140,4 +142,10 @@ export class Freelancer {
 
   @OneToOne(() => Invitation, invitation => invitation.freelancer)
   invitation: Invitation;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 }

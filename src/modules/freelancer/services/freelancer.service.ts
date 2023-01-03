@@ -109,7 +109,7 @@ export class FreelancerService implements IFreelancerService {
     }
   }
 
-  async getById(id: string): Promise<Freelancer> {
+  async getFreelancerById(id: string): Promise<Freelancer> {
     try {
       const profile = await this.freelancerRepository.findOneBy({ id: id });
 

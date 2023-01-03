@@ -18,7 +18,9 @@ export class InvitationService implements InvitationService {
   async sendInvitation(user: User, invitationDto: InvitationDto): Promise<Invitation> {
     try {
       const job = await this.jobService.getJobById(invitationDto.job_id);
-      const freelancer = await this.freelancerService.getById(invitationDto.freelancer_id);
+      const freelancer = await this.freelancerService.getFreelancerById(
+        invitationDto.freelancer_id,
+      );
 
       const invitation = await this.invitationRepository.save({
         employer: user,
