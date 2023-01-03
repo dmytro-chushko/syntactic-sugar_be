@@ -29,6 +29,7 @@ export class ProposalsService implements IProposalsService {
 
       const proposal = await this.proposalRepository.save({
         coverLetter: createProposalDto.coverLetter,
+        hourRate: createProposalDto.hourRate,
         filePath: filePath,
         freelancer,
         job,
