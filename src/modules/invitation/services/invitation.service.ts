@@ -6,14 +6,12 @@ import { InvitationDto } from 'src/modules/invitation/dtos/invitation.dto';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
-import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 
 @Injectable()
 export class InvitationService implements InvitationService {
   constructor(
     @InjectRepository(Invitation) private readonly invitationRepository: Repository<Invitation>,
     @Inject(Services.JOBS) private readonly jobService: IJobsService,
-    @Inject(Services.EMPLOYER) private readonly employerService: IEmployerService,
     @Inject(Services.FREELANCER) private readonly freelancerService: IFreelancerService,
   ) {}
 
