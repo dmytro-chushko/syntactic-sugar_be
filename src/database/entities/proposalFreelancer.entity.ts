@@ -30,6 +30,7 @@ export class Proposal {
   @JoinColumn()
   freelancer: Freelancer;
 
+  @ApiProperty()
   @ManyToOne(() => Job, job => job.proposals)
   job: Job;
 }

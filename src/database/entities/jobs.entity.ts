@@ -17,7 +17,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer, Proposal } from 'src/database/entities';
+import { Category, Skill, Country, Employer, Proposal, Invitation } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -90,4 +90,7 @@ export class Job {
 
   @OneToMany(() => Proposal, proposal => proposal.job)
   proposals: Proposal[];
+
+  @OneToMany(() => Invitation, invitation => invitation.job)
+  invitation: Invitation[];
 }
