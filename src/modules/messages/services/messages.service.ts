@@ -23,7 +23,20 @@ export class MessagesService implements IMessageService {
         chat,
       });
 
-      return message;
+      return await this.messageRepository.save(message);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async getChatMessages(id: string): Promise<Message[]> {
+    try {
+      const messages = await this.messageRepository.find({
+        where: { chat: { id } },
+        order: { createdAt: 'ASC' },
+      });
+
+      return messages;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

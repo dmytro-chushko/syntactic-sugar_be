@@ -30,7 +30,7 @@ export class ChatService implements IChatService {
         job,
       });
 
-      return chat;
+      return await this.chatRepository.save(chat);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -47,6 +47,7 @@ export class ChatService implements IChatService {
   }
 
   async getChatMessages(id: string): Promise<Message[]> {
+    console.log(id);
     try {
       const chat = await this.chatRepository.findOne({ where: { id } });
 
@@ -60,12 +61,22 @@ export class ChatService implements IChatService {
     try {
       if (user.role === UserRoles.EMPLOYER) {
         const employer = await this.employerService.getEmployer(user);
+        const chats = await this.chatRepository.find({
+          relations: ['employer', 'freelancer', 'job', 'messages'],
+          where: { employer },
+          order: { messages: { createdAt: 'DESC' } },
+        });
 
-        return employer.chats;
+        return chats;
       } else {
         const freelancer = await this.freelancerService.getProfile(user);
+        const chats = await this.chatRepository.find({
+          relations: ['freelancer', 'employer', 'job', 'messages'],
+          where: { freelancer },
+          order: { messages: { createdAt: 'DESC' } },
+        });
 
-        return freelancer.chats;
+        return chats;
       }
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);

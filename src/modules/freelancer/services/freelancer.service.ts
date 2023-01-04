@@ -111,7 +111,10 @@ export class FreelancerService implements IFreelancerService {
 
   async getFreelancerById(id: string): Promise<Freelancer | null> {
     try {
-      const freelancer = await this.freelancerRepository.findOne({ where: { id } });
+      const freelancer = await this.freelancerRepository.findOne({
+        where: { id },
+        relations: ['chats'],
+      });
 
       return freelancer;
     } catch (error) {
