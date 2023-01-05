@@ -61,4 +61,12 @@ export class FreelancerController {
   testing(@Auth() { id }: IPayload) {
     return id;
   }
+
+  @ApiResponse({ status: 200, description: 'All pofiles' })
+  @Get(Routes.ALL_FREELANCERS)
+  @Roles(UserRoles.EMPLOYER)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  getAllFreelancers(@Auth() user): Promise<Freelancer[]> {
+    return this.freelancerService.getAllFreelancers(user);
+  }
 }

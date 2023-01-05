@@ -29,6 +29,7 @@ export enum Routes {
   FILES = 'files',
   INVITATION = 'invitation',
   SEND = 'send-invitation',
+  ALL_FREELANCERS = 'get-all-profiles',
 }
 
 export enum Services {
