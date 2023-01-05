@@ -8,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
@@ -23,6 +25,7 @@ import { Category } from './category.entity';
 import { Skill } from './skill.entity';
 import { Education } from './education.entity';
 import { WorkHistory } from './workHistory.entity';
+import { Invitation } from './invitation.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -136,4 +139,13 @@ export class Freelancer {
     default: false,
   })
   isPublished: boolean;
+
+  @OneToOne(() => Invitation, invitation => invitation.freelancer)
+  invitation: Invitation;
+
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 }
