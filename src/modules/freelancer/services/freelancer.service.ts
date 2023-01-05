@@ -118,4 +118,17 @@ export class FreelancerService implements IFreelancerService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getAllFreelancers(): Promise<Freelancer[]> {
+    try {
+      const profiles = await this.freelancerRepository.find({
+        relations: ['skills', 'country', 'category'],
+        order: { createdDate: 'DESC', updatedDate: 'DESC' },
+      });
+
+      return profiles;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
