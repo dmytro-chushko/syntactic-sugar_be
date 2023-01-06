@@ -123,7 +123,7 @@ export class JobsService implements IJobsService {
           },
         },
         where: { employer },
-        order: { createdDate: 'DESC', updatedDate: 'DESC' },
+        order: { updatedDate: 'DESC' },
       });
 
       return jobs;
