@@ -30,7 +30,7 @@ export class AppGateway {
       ...payload,
       createdAt: new Date(),
     };
-    // this.messagesService.createMessage(payload);
+    this.messagesService.createMessage(payload);
     this.server.to(String(payload.chatId)).emit('message', message);
   }
 

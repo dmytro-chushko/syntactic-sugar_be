@@ -61,6 +61,7 @@ export class ChatService implements IChatService {
     try {
       if (user.role === UserRoles.EMPLOYER) {
         const employer = await this.employerService.getEmployer(user);
+        console.log(employer);
         const chats = await this.chatRepository.find({
           relations: ['employer', 'freelancer', 'job', 'messages'],
           where: { employer },

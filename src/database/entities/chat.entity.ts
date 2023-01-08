@@ -1,6 +1,7 @@
 import {
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -24,11 +25,14 @@ export class Chat {
   messages: Message[];
 
   @ManyToOne(() => Freelancer, freelancer => freelancer.chats)
+  @JoinColumn()
   freelancer: Freelancer;
 
   @ManyToOne(() => Employer, employer => employer.chats)
+  @JoinColumn()
   employer: Employer;
 
   @ManyToOne(() => Job, job => job.chats)
+  @JoinColumn()
   job: Job;
 }
