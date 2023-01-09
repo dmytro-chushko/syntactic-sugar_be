@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { Job } from 'src/database/entities/jobs.entity';
 
@@ -24,6 +31,9 @@ export class Proposal {
   @ApiProperty()
   @Column()
   filePath: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 
   @ApiProperty()
   @ManyToOne(() => Freelancer, freelancer => freelancer.proposals)
