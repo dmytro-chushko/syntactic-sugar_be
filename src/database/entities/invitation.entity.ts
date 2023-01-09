@@ -11,15 +11,15 @@ export class Invitation {
   id: string;
 
   @ApiProperty({ example: '2f9f5724-a81f-4d80-8571-616e27bff201' })
-  @OneToOne(() => Freelancer, freelancer => freelancer.id)
+  @OneToOne(() => Freelancer, freelancer => freelancer.invitation)
   @JoinColumn()
   freelancer: Freelancer;
 
   @ApiProperty({ example: '2f9f5724-a81f-4d80-8571-616e27bff201' })
-  @ManyToOne(() => Job, job => job.id)
+  @ManyToOne(() => Job, job => job.invitation)
   job: Job;
 
-  @ApiProperty()
+  @ApiProperty({ example: '2f9f5724-a81f-4d80-8571-616e27bff201' })
   @ManyToOne(() => Employer, employer => employer.invitations)
   employer: Employer;
 }

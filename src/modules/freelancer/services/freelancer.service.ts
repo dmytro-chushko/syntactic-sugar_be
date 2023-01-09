@@ -122,7 +122,7 @@ export class FreelancerService implements IFreelancerService {
   async getAllFreelancers(): Promise<Freelancer[]> {
     try {
       const profiles = await this.freelancerRepository.find({
-        relations: ['skills', 'country', 'category'],
+        relations: ['skills', 'country', 'category', 'education'],
         order: { createdDate: 'DESC', updatedDate: 'DESC' },
       });
 
