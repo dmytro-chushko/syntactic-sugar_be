@@ -140,8 +140,9 @@ export class Freelancer {
   })
   isPublished: boolean;
 
-  @OneToOne(() => Invitation, invitation => invitation.freelancer)
-  invitation: Invitation;
+  @ApiProperty()
+  @OneToMany(() => Invitation, invitation => invitation.freelancer)
+  invitation: Invitation[];
 
   @CreateDateColumn()
   createdDate: Date;
