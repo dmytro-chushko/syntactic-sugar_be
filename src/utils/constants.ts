@@ -30,6 +30,7 @@ export enum Routes {
   INVITATION = 'invitation',
   SEND = 'send-invitation',
   ALL_FREELANCERS = 'get-all-profiles',
+  GET_PROPOSALS_BY_JOB_ID = 'get-proposals-by-job-id/:id',
 }
 
 export enum Services {
