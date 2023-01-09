@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
 import { Job } from './jobs.entity';
+import { Invitation } from './invitation.entity';
 
 @Entity({ name: 'employers' })
 export class Employer {
@@ -51,6 +52,7 @@ export class Employer {
   @ApiProperty({ example: 'We provide best business solutions' })
   @Column({
     default: null,
+    length: 1000,
   })
   aboutUs: string;
 
@@ -58,10 +60,16 @@ export class Employer {
   @Column({ nullable: true })
   image: string;
 
+  @ApiProperty({ example: '2f9f5724-a81f-4d80-8571-616e27bff201' })
   @OneToOne(() => User, user => user.id)
   @JoinColumn()
   user: User;
 
+  @ApiProperty()
   @OneToMany(() => Job, job => job.employer)
   jobs: Job[];
+
+  @ApiProperty()
+  @OneToMany(() => Invitation, invitation => invitation.employer)
+  invitations: Invitation[];
 }

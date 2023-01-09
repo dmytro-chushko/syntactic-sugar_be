@@ -17,7 +17,7 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer, Proposal } from 'src/database/entities';
+import { Category, Skill, Country, Employer, Proposal, Invitation } from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -30,7 +30,7 @@ export class Job {
   title: string;
 
   @ApiProperty({ example: 'Any text wich discribes current job' })
-  @Column()
+  @Column({ type: 'text' })
   description: string;
 
   @ApiProperty({ example: 'Fullstack developer' })
@@ -58,7 +58,7 @@ export class Job {
   englishLevel: EnglishLevel;
 
   @ApiProperty({ example: 'All the other requirenments of the job' })
-  @Column()
+  @Column({ type: 'text' })
   otherRequirenments: string;
 
   @ApiProperty({ example: 'IT, computers & Internet' })
@@ -75,6 +75,10 @@ export class Job {
   @JoinTable()
   countries: Country[];
 
+  @ApiProperty({ example: true })
+  @Column({ default: true })
+  isPublished: boolean;
+
   @ManyToOne(() => Employer, employer => employer.jobs)
   employer: Employer;
 
@@ -86,4 +90,7 @@ export class Job {
 
   @OneToMany(() => Proposal, proposal => proposal.job)
   proposals: Proposal[];
+
+  @OneToMany(() => Invitation, invitation => invitation.job)
+  invitation: Invitation[];
 }

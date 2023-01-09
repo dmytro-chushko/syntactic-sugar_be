@@ -1,5 +1,16 @@
-import { Body, Controller, Inject, Post, Get, UseGuards, Param, Put, Delete } from '@nestjs/common';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import {
+  Body,
+  Controller,
+  Inject,
+  Post,
+  Get,
+  UseGuards,
+  Param,
+  Delete,
+  Put,
+  Patch,
+} from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
@@ -47,7 +58,7 @@ export class JobsController {
     @Auth() user: User,
     @Param('id') id: string,
     @Body() createJobDto: CreateJobDto,
-  ): Promise<UpdateResult> {
+  ): Promise<void> {
     return this.jobsService.updateJobById(user, id, createJobDto);
   }
 
@@ -67,5 +78,13 @@ export class JobsController {
   @Get(Routes.GET_JOB_BY_PROPOSALS)
   getJobsWithProposals(@Body() user: User): Promise<Job[]> {
     return this.jobsService.getJobsWithProposals(user);
+  }
+
+  @ApiResponse({ status: 200, description: 'job has published' })
+  @Patch(Routes.PUBLISH_JOB)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  @Roles(UserRoles.EMPLOYER)
+  toggleIsPublishedJob(@Auth() user: User, @Param('id') id: string): Promise<void> {
+    return this.jobsService.toggleIsPublishedJob(user, id);
   }
 }

@@ -7,4 +7,6 @@ export interface IFreelancerService {
   createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<ITokenAndRole>;
   editPublished(user: User, publ: boolean): Promise<string>;
   getProfile(user: User): Promise<Freelancer>;
+  getFreelancerById(id: string): Promise<Freelancer>;
+  getAllFreelancers(user: User): Promise<Freelancer[]>;
 }

@@ -17,15 +17,20 @@ export enum Routes {
   CREATE_JOB = 'create-new-job',
   GET_JOBS = 'get-all-jobs',
   GET_JOBS_BY_EMPLOYER = 'get-jobs-by-employer',
-  UPDATE_JOB_BY_ID = 'udate-job/:id',
+  UPDATE_JOB_BY_ID = 'update-job/:id',
   REMOVE_JOB_BY_ID = 'remove-job/:id',
   GET_JOB_BY_ID = 'get-job-by-id/:id',
   GET_JOB_BY_PROPOSALS = 'get-job-by-proposals',
+  PUBLISH_JOB = 'publish-job/:id',
   CREATE_EMPLOYER = 'create',
   PROPOSAL = 'proposal',
   CREATE_PROPOSAL = 'create',
   UPLOAD_IMAGE = 'image',
   FILES = 'files',
+  INVITATION = 'invitation',
+  SEND = 'send-invitation',
+  ALL_FREELANCERS = 'get-all-profiles',
+  GET_PROPOSALS_BY_JOB_ID = 'get-proposals-by-job-id/:id',
 }
 
 export enum Services {
@@ -41,6 +46,7 @@ export enum Services {
   COUNTRIES = 'COUNTRIES_SERVICE',
   PROPOSAL = 'PROPOSALS_FREELANCER',
   FILES = 'FILES',
+  INVITATION = 'INVITATION',
 }
 
 export enum UserRoles {
