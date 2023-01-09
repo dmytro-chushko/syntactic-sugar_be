@@ -8,4 +8,5 @@ export interface IProposalsService {
     createProposalDto: CreateProposalDto,
     file: Express.Multer.File,
   ): Promise<Proposal>;
+  getProposalsByJobId(user: User, id: string): Promise<Proposal[]>;
 }

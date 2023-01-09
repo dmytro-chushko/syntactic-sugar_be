@@ -40,4 +40,19 @@ export class ProposalsService implements IProposalsService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getProposalsByJobId(user: User, id: string): Promise<Proposal[]> {
+    try {
+      return await this.proposalRepository
+        .createQueryBuilder('proposal')
+        .leftJoinAndSelect('proposal.job', 'job')
+        .leftJoinAndSelect('job.employer', 'employer')
+        .leftJoinAndSelect('proposal.freelancer', 'freelancer')
+        .where('job.id = :id', { id })
+        .andWhere('employer.userId = :userId', { userId: user.id })
+        .getMany();
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
