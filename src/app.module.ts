@@ -15,6 +15,9 @@ import { CountriesModule } from 'src/modules/countries/countries.module';
 import { ProposalsModule } from 'src/modules/proposals/proposals.module';
 import { FilesModule } from 'src/modules/files/files.module';
 import { InvitationModule } from 'src/modules/invitation/invitation.module';
+import { ChatModule } from 'src/modules/chat/chat.module';
+import { MessageModule } from 'src/modules/message/message.module';
+import { GatewayModule } from 'src/modules/gateway/gateway.module';
 
 @Module({
   imports: [
@@ -44,6 +47,9 @@ import { InvitationModule } from 'src/modules/invitation/invitation.module';
     ProposalsModule,
     FilesModule,
     InvitationModule,
+    ChatModule,
+    MessageModule,
+    GatewayModule,
   ],
   controllers: [],
   providers: [],

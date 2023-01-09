@@ -93,16 +93,20 @@ export class JobsService implements IJobsService {
 
   async getJobs(): Promise<Job[]> {
     try {
-      const jobs = await this.jobRepository.find({
-        relations: ['employer', 'category', 'skills', 'countries', 'proposals'],
-        order: { createdDate: 'DESC', updatedDate: 'DESC' },
-        select: {
-          proposals: {
-            id: true,
-            coverLetter: true,
-          },
-        },
-      });
+      const jobs = await this.jobRepository
+        .createQueryBuilder('job')
+        .leftJoinAndSelect('job.proposals', 'proposal')
+        .leftJoinAndSelect('job.employer', 'employer')
+        .leftJoinAndSelect('job.category', 'category')
+        .leftJoinAndSelect('job.skills', 'skills')
+        .leftJoinAndSelect('job.countries', 'countries')
+        .leftJoinAndSelect('proposal.freelancer', 'freelancer')
+        .leftJoinAndSelect('job.chats', 'chat')
+        .leftJoinAndSelect('chat.freelancer', 'freelancerChat')
+        .leftJoinAndSelect('job.invitation', 'invitation')
+        .leftJoinAndSelect('invitation.freelancer', 'freelancerInvitation')
+        .orderBy('job.createdDate', 'DESC')
+        .getMany();
 
       return jobs;
     } catch (error) {

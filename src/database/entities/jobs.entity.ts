@@ -17,7 +17,15 @@ import {
   EnglishLevel,
   WorkExperience,
 } from 'src/database/enums';
-import { Category, Skill, Country, Employer, Proposal, Invitation } from 'src/database/entities';
+import {
+  Category,
+  Skill,
+  Country,
+  Employer,
+  Proposal,
+  Invitation,
+  Chat,
+} from 'src/database/entities';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -93,4 +101,8 @@ export class Job {
 
   @OneToMany(() => Invitation, invitation => invitation.job)
   invitation: Invitation[];
+
+  @ApiProperty()
+  @OneToMany(() => Chat, chat => chat.job)
+  chats: Chat[];
 }

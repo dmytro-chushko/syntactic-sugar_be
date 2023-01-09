@@ -58,4 +58,14 @@ export class EmployerService implements IEmployerService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getEmployerById(id: string): Promise<Employer | null> {
+    try {
+      const employer = await this.employerRepository.findOne({ where: { id } });
+
+      return employer;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

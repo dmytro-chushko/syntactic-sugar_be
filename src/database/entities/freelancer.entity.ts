@@ -26,6 +26,7 @@ import { Skill } from './skill.entity';
 import { Education } from './education.entity';
 import { WorkHistory } from './workHistory.entity';
 import { Invitation } from './invitation.entity';
+import { Chat } from './chat.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -148,4 +149,8 @@ export class Freelancer {
 
   @UpdateDateColumn()
   updatedDate: Date;
+
+  @ApiProperty()
+  @OneToMany(() => Chat, chat => chat.freelancer)
+  chats: Chat[];
 }
