@@ -48,6 +48,11 @@ export class ProposalsService implements IProposalsService {
         .leftJoinAndSelect('proposal.job', 'job')
         .leftJoinAndSelect('job.employer', 'employer')
         .leftJoinAndSelect('proposal.freelancer', 'freelancer')
+        .leftJoinAndSelect('freelancer.country', 'country')
+        .leftJoinAndSelect('freelancer.category', 'category')
+        .leftJoinAndSelect('freelancer.skills', 'skills')
+        .leftJoinAndSelect('freelancer.education', 'education')
+        .leftJoinAndSelect('freelancer.workHistory', 'workHistory')
         .where('job.id = :id', { id })
         .andWhere('employer.userId = :userId', { userId: user.id })
         .getMany();
