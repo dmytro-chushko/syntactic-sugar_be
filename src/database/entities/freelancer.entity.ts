@@ -141,8 +141,8 @@ export class Freelancer {
   })
   isPublished: boolean;
 
-  @OneToOne(() => Invitation, invitation => invitation.freelancer)
-  invitation: Invitation;
+  @OneToMany(() => Invitation, invitation => invitation.freelancer)
+  invitation: Invitation[];
 
   @CreateDateColumn()
   createdDate: Date;
