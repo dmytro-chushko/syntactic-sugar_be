@@ -39,7 +39,6 @@ export class ProposalsController {
     return this.proposalService.createProposalFreelancer(user, dto, file);
   }
 
-  @ApiBody({ type: CreateProposalDto })
   @ApiResponse({ status: 200, description: 'All proposals by job id' })
   @Get(Routes.GET_PROPOSALS_BY_JOB_ID)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)

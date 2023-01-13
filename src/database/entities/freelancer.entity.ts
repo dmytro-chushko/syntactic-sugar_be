@@ -141,6 +141,7 @@ export class Freelancer {
   })
   isPublished: boolean;
 
+  @ApiProperty()
   @OneToMany(() => Invitation, invitation => invitation.freelancer)
   invitation: Invitation[];
 
