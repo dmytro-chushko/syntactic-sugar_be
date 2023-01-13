@@ -9,6 +9,8 @@ import { Education } from './entities/education.entity';
 import { WorkHistory } from './entities/workHistory.entity';
 import { Proposal } from './entities/proposalFreelancer.entity';
 import { Invitation } from './entities/invitation.entity';
+import { Chat } from './entities/chat.entity';
+import { Message } from './entities/message.entity';
 
 export const entities = [
   User,
@@ -22,6 +24,8 @@ export const entities = [
   WorkHistory,
   Proposal,
   Invitation,
+  Chat,
+  Message,
 ];
 
 export default entities;

@@ -32,6 +32,12 @@ export enum Routes {
   ALL_FREELANCERS = 'get-all-profiles',
   GET_PROPOSALS_BY_JOB_ID = 'get-proposals-by-job-id/:id',
   GET_PROPOSAL_BY_ID = 'get-proposal-by-id/:id',
+  CHAT = 'chat',
+  MESSAGES = 'messages',
+  CREATE_CHAT = 'create-chat',
+  CREATE_MESSAGE = 'create-message',
+  GET_CHAT_MESSAGES = 'messages/:id',
+  GET_CHATS_BY_USER = 'get-chats-by-user',
 }
 
 export enum Services {
@@ -48,6 +54,8 @@ export enum Services {
   PROPOSAL = 'PROPOSALS_FREELANCER',
   FILES = 'FILES',
   INVITATION = 'INVITATION',
+  MESSAGES = 'MESSAGES_SERVICE',
+  CHAT = 'CHAT_SERVICE',
 }
 
 export enum UserRoles {
@@ -57,3 +65,9 @@ export enum UserRoles {
 }
 
 export const ROLES_KEY = 'roles';
+
+export enum WS_EVENTS {
+  MESSAGE = 'message',
+  JOIN = 'join',
+  LEAVE = 'leave',
+}

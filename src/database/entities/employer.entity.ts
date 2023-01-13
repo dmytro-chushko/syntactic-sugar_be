@@ -4,6 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { User } from './users.entity';
 import { Job } from './jobs.entity';
 import { Invitation } from './invitation.entity';
+import { Chat } from './chat.entity';
 
 @Entity({ name: 'employers' })
 export class Employer {
@@ -72,4 +73,8 @@ export class Employer {
   @ApiProperty()
   @OneToMany(() => Invitation, invitation => invitation.employer)
   invitations: Invitation[];
+
+  @ApiProperty()
+  @OneToMany(() => Chat, chat => chat.employer)
+  chats: Chat[];
 }
