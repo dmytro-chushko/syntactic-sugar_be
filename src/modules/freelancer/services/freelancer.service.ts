@@ -111,9 +111,13 @@ export class FreelancerService implements IFreelancerService {
 
   async getFreelancerById(id: string): Promise<Freelancer> {
     try {
-      const profile = await this.freelancerRepository.findOneBy({ id: id });
-
-      return profile;
+      return await this.freelancerRepository
+        .createQueryBuilder('freelancer')
+        .leftJoinAndSelect('freelancer.invitation', 'invitations')
+        .leftJoin('invitations.job', 'job')
+        .addSelect(['job.id'])
+        .where('freelancer.id = :id', { id })
+        .getOne();
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
