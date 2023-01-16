@@ -11,6 +11,7 @@ import { Proposal } from './entities/proposalFreelancer.entity';
 import { Invitation } from './entities/invitation.entity';
 import { Chat } from './entities/chat.entity';
 import { Message } from './entities/message.entity';
+import { Offer } from './entities/offers.entity';
 
 export const entities = [
   User,
@@ -26,6 +27,7 @@ export const entities = [
   Invitation,
   Chat,
   Message,
+  Offer,
 ];
 
 export default entities;
