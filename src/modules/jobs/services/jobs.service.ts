@@ -130,7 +130,6 @@ export class JobsService implements IJobsService {
           proposals: {
             id: true,
             coverLetter: true,
-            freelancer: { id: true },
           },
         },
         where: { employer },
