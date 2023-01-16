@@ -16,7 +16,6 @@ export class Offer {
 
   @ApiProperty({ example: 0 })
   @Column({
-    nullable: false,
     default: false,
   })
   isAccepted: boolean;
