@@ -18,7 +18,7 @@ import { InvitationModule } from 'src/modules/invitation/invitation.module';
 import { ChatModule } from 'src/modules/chat/chat.module';
 import { MessageModule } from 'src/modules/message/message.module';
 import { GatewayModule } from 'src/modules/gateway/gateway.module';
-import { OfferModule } from './modules/offer/offer.module';
+import { OfferModule } from 'src/modules/offer/offer.module';
 
 @Module({
   imports: [

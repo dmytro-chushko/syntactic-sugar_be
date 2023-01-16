@@ -1,12 +1,12 @@
+import { Repository } from 'typeorm';
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Offer } from 'src/database/entities/offers.entity';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
-import { Repository } from 'typeorm';
-import { CreateOfferlDto } from '../dto/createOffer.dto';
-import { IOfferService } from '../interfaces/IOfferService';
+import { CreateOfferlDto } from 'src/modules/offer/dto/createOffer.dto';
+import { IOfferService } from 'src/modules/offer/interfaces/IOfferService';
 
 @Injectable()
 export class OfferService implements IOfferService {
