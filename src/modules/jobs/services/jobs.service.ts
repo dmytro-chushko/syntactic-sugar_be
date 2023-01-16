@@ -119,7 +119,13 @@ export class JobsService implements IJobsService {
       const employer = await this.employerService.getEmployer(user);
 
       const jobs = await this.jobRepository.find({
-        relations: ['employer', 'category', 'skills', 'countries', 'proposals'],
+        relations: {
+          employer: true,
+          category: true,
+          skills: true,
+          countries: true,
+          proposals: { freelancer: true },
+        },
         select: {
           proposals: {
             id: true,
