@@ -5,7 +5,7 @@ import { Offer } from 'src/database/entities/offers.entity';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
-import { CreateOfferlDto } from 'src/modules/offer/dto/createOffer.dto';
+import { CreateOfferDto } from 'src/modules/offer/dto/createOffer.dto';
 import { IOfferService } from 'src/modules/offer/interfaces/IOfferService';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class OfferService implements IOfferService {
     @Inject(Services.FREELANCER) private readonly freelancerService: IFreelancerService,
   ) {}
 
-  async createOffer(createOfferDto: CreateOfferlDto): Promise<Offer> {
+  async createOffer(createOfferDto: CreateOfferDto): Promise<Offer> {
     try {
       const freelancer = await this.freelancerService.getFreelancerById(
         createOfferDto.freelancerId,

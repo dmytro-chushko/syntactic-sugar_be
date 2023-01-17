@@ -14,20 +14,20 @@ import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { Roles } from 'src/utils/decorators/roles';
-import { CreateOfferlDto } from 'src/modules/offer/dto/createOffer.dto';
+import { CreateOfferDto } from 'src/modules/offer/dto/createOffer.dto';
 import { IOfferService } from 'src/modules/offer/interfaces/IOfferService';
 
 @Controller('offer')
 export class OfferController {
   constructor(@Inject(Services.OFFER) private offerService: IOfferService) {}
 
-  @ApiBody({ type: CreateOfferlDto })
+  @ApiBody({ type: CreateOfferDto })
   @ApiResponse({ status: 201, description: 'Offer created' })
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
   @Roles(UserRoles.EMPLOYER)
   @UsePipes(ValidationPipe)
   @Post(Routes.CREATE_OFFER)
-  createOffer(@Body() createOfferDto: CreateOfferlDto): Promise<Offer> {
+  createOffer(@Body() createOfferDto: CreateOfferDto): Promise<Offer> {
     return this.offerService.createOffer(createOfferDto);
   }
 }
