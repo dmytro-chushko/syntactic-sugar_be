@@ -7,4 +7,5 @@ export interface IEmployerService {
   createEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<ITokenAndRole>;
   getEmployer(user: User): Promise<Employer | null>;
   getEmployerById(id: string): Promise<Employer | null>;
+  updateEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<void>;
 }
