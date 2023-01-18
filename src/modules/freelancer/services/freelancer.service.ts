@@ -114,6 +114,8 @@ export class FreelancerService implements IFreelancerService {
       return await this.freelancerRepository
         .createQueryBuilder('freelancer')
         .leftJoinAndSelect('freelancer.invitation', 'invitations')
+        .leftJoinAndSelect('freelancer.proposals', 'proposals')
+        .leftJoinAndSelect('proposals.job', 'jobProposal')
         .leftJoin('invitations.job', 'job')
         .addSelect(['job.id'])
         .where('freelancer.id = :id', { id })
