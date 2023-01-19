@@ -9,6 +9,7 @@ import { InvitationDto } from 'src/modules/invitation/dtos/invitation.dto';
 import { User } from 'src/database/entities';
 import { Auth } from 'src/utils/decorators/auth';
 import { Roles } from 'src/utils/decorators/roles';
+
 @ApiTags('invitation')
 @Controller(Routes.INVITATION)
 export class InvitationController {

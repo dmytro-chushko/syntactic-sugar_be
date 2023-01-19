@@ -21,6 +21,7 @@ import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { EditPublishedDto } from 'src/modules/freelancer/dtos/editPublished.dto';
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
+
 @ApiTags('freelancer')
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
