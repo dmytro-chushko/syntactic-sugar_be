@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
@@ -9,7 +9,7 @@ import { InvitationDto } from 'src/modules/invitation/dtos/invitation.dto';
 import { User } from 'src/database/entities';
 import { Auth } from 'src/utils/decorators/auth';
 import { Roles } from 'src/utils/decorators/roles';
-
+@ApiTags('invitation')
 @Controller(Routes.INVITATION)
 export class InvitationController {
   constructor(@Inject(Services.INVITATION) private invitationService: IInvitationService) {}

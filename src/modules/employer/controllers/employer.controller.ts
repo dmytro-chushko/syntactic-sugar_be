@@ -20,7 +20,7 @@ import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
-@ApiTags('employers')
+@ApiTags('employer')
 @Controller(Routes.EMPLOYER)
 export class EmployerController {
   constructor(@Inject(Services.EMPLOYER) private employerService: IEmployerService) {}
