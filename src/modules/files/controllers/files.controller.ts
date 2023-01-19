@@ -15,6 +15,7 @@ import { UploadImageDto } from 'src/modules/files/dtos/uploadImage.dto';
 import { IFileUpload } from 'src/modules/files/interfaces/IFileUpload';
 import { Routes, Services } from 'src/utils/constants';
 import { IFilesService } from 'src/modules/files/interfaces/IFilesService';
+
 @ApiTags('files')
 @Controller(Routes.FILES)
 export class FilesController {
