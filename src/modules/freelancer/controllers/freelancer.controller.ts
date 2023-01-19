@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -14,7 +15,6 @@ import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelance
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { Auth } from 'src/utils/decorators/auth';
-import { IPayload } from 'src/modules/auth/interfaces/IToken';
 import { CreateFreelancerDto } from 'src/modules/freelancer/dtos/createFreelancer.dto';
 import { Roles } from 'src/utils/decorators/roles';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
@@ -55,18 +55,19 @@ export class FreelancerController {
     return this.freelancerService.getProfile(user);
   }
 
-  @Get('testing')
-  @Roles(UserRoles.FREELANCER)
-  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
-  testing(@Auth() { id }: IPayload) {
-    return id;
-  }
-
   @ApiResponse({ status: 200, description: 'All pofiles' })
   @Get(Routes.ALL_FREELANCERS)
   @Roles(UserRoles.EMPLOYER)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
   getAllFreelancers(@Auth() user): Promise<Freelancer[]> {
     return this.freelancerService.getAllFreelancers(user);
+  }
+
+  @ApiResponse({ status: 200, description: 'Get pofile by id' })
+  @Get(Routes.GET_FREELANCER_BY_ID)
+  @Roles(UserRoles.EMPLOYER)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  getFreelancerById(@Param('id') id: string): Promise<Freelancer> {
+    return this.freelancerService.getFreelancerById(id);
   }
 }

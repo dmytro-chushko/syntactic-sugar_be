@@ -23,6 +23,7 @@ export enum Routes {
   GET_JOB_BY_PROPOSALS = 'get-job-by-proposals',
   PUBLISH_JOB = 'publish-job/:id',
   CREATE_EMPLOYER = 'create',
+  UPDATE_EMPLOYER = 'update-employer',
   PROPOSAL = 'proposal',
   CREATE_PROPOSAL = 'create',
   UPLOAD_IMAGE = 'image',
@@ -40,6 +41,7 @@ export enum Routes {
   GET_CHATS_BY_USER = 'get-chats-by-user',
   OFFER = 'offer',
   CREATE_OFFER = 'create-offer',
+  GET_FREELANCER_BY_ID = 'get-freelancer-by-id/:id',
 }
 
 export enum Services {
