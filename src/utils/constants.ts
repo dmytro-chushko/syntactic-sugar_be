@@ -23,6 +23,7 @@ export enum Routes {
   GET_JOB_BY_PROPOSALS = 'get-job-by-proposals',
   PUBLISH_JOB = 'publish-job/:id',
   CREATE_EMPLOYER = 'create',
+  UPDATE_EMPLOYER = 'update-employer',
   PROPOSAL = 'proposal',
   CREATE_PROPOSAL = 'create',
   UPLOAD_IMAGE = 'image',

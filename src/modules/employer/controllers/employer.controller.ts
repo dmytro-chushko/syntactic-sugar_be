@@ -7,6 +7,7 @@ import {
   UseGuards,
   Get,
   Body,
+  Put,
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
@@ -44,5 +45,13 @@ export class EmployerController {
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
   getProfile(@Auth() user: User): Promise<Employer> {
     return this.employerService.getEmployer(user);
+  }
+
+  @ApiResponse({ status: 201, description: 'Profile updated' })
+  @Put(Routes.UPDATE_EMPLOYER)
+  @Roles(UserRoles.EMPLOYER)
+  @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
+  updateProfile(@Auth() user: User, @Body() createEmployerDto: CreateEmployerDto): Promise<void> {
+    return this.employerService.updateEmployer(user, createEmployerDto);
   }
 }

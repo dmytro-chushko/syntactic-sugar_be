@@ -68,4 +68,24 @@ export class EmployerService implements IEmployerService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async updateEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<void> {
+    try {
+      const employer = await this.getEmployer(user);
+
+      await this.employerRepository.save({
+        ...employer,
+        fullName: createEmployerDto.fullName,
+        companyName: createEmployerDto.companyName,
+        position: createEmployerDto.position,
+        phone: createEmployerDto.phone,
+        linkedIn: createEmployerDto.linkedIn,
+        website: createEmployerDto.website,
+        aboutUs: createEmployerDto.aboutUs,
+        image: createEmployerDto.image,
+      });
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
