@@ -128,7 +128,7 @@ export class FreelancerService implements IFreelancerService {
   async getAllFreelancers(): Promise<Freelancer[]> {
     try {
       const profiles = await this.freelancerRepository.find({
-        relations: ['skills', 'country', 'category', 'education'],
+        relations: ['skills', 'country', 'category', 'education', 'invitation'],
         order: { createdDate: 'DESC', updatedDate: 'DESC' },
       });
 
