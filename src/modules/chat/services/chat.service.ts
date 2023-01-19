@@ -60,20 +60,34 @@ export class ChatService implements IChatService {
     try {
       if (user.role === UserRoles.EMPLOYER) {
         const employer = await this.employerService.getEmployer(user);
-        const chats = await this.chatRepository.find({
-          relations: ['employer', 'freelancer', 'job', 'messages'],
-          where: { employer: { id: employer.id } },
-          order: { messages: { createdAt: 'DESC' } },
-        });
+        const chats = await this.chatRepository
+          .createQueryBuilder('chat')
+          .leftJoinAndSelect('chat.employer', 'employer')
+          .leftJoinAndSelect('chat.freelancer', 'freelancer')
+          .leftJoinAndSelect('chat.job', 'job')
+          .leftJoinAndSelect('chat.messages', 'messages')
+          .leftJoinAndSelect('job.offers', 'offers')
+          .leftJoinAndSelect('offers.freelancer', 'freelancerOffers')
+          .where('employer.id = :id', { id: employer.id })
+          .orderBy('chat.updatedAt', 'DESC')
+          .addOrderBy('messages.createdAt', 'ASC')
+          .getMany();
 
         return chats;
       } else {
         const freelancer = await this.freelancerService.getProfile(user);
-        const chats = await this.chatRepository.find({
-          relations: ['freelancer', 'employer', 'job', 'messages'],
-          where: { freelancer: { id: freelancer.id } },
-          order: { messages: { createdAt: 'DESC' } },
-        });
+        const chats = await this.chatRepository
+          .createQueryBuilder('chat')
+          .leftJoinAndSelect('chat.employer', 'employer')
+          .leftJoinAndSelect('chat.freelancer', 'freelancer')
+          .leftJoinAndSelect('chat.job', 'job')
+          .leftJoinAndSelect('chat.messages', 'messages')
+          .leftJoinAndSelect('job.offers', 'offers')
+          .leftJoinAndSelect('offers.freelancer', 'freelancerOffers')
+          .where('freelancer.id = :id', { id: freelancer.id })
+          .orderBy('chat.updatedAt', 'DESC')
+          .addOrderBy('messages.createdAt', 'ASC')
+          .getMany();
 
         return chats;
       }

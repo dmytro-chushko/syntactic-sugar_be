@@ -39,6 +39,8 @@ export enum Routes {
   CREATE_MESSAGE = 'create-message',
   GET_CHAT_MESSAGES = 'messages/:id',
   GET_CHATS_BY_USER = 'get-chats-by-user',
+  OFFER = 'offer',
+  CREATE_OFFER = 'create-offer',
   GET_FREELANCER_BY_ID = 'get-freelancer-by-id/:id',
 }
 
@@ -58,6 +60,7 @@ export enum Services {
   INVITATION = 'INVITATION',
   MESSAGES = 'MESSAGES_SERVICE',
   CHAT = 'CHAT_SERVICE',
+  OFFER = 'OFFER_SERVICE',
 }
 
 export enum UserRoles {

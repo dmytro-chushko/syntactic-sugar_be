@@ -27,6 +27,7 @@ import { Education } from './education.entity';
 import { WorkHistory } from './workHistory.entity';
 import { Invitation } from './invitation.entity';
 import { Chat } from './chat.entity';
+import { Offer } from './offers.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
@@ -154,4 +155,8 @@ export class Freelancer {
   @ApiProperty()
   @OneToMany(() => Chat, chat => chat.freelancer)
   chats: Chat[];
+
+  @ApiProperty()
+  @OneToMany(() => Offer, offer => offer.freelancer)
+  offers: Offer[];
 }
