@@ -94,7 +94,15 @@ export class FreelancerService implements IFreelancerService {
     try {
       const profile = await this.freelancerRepository.findOne({
         where: { user: user },
-        relations: ['skills', 'category', 'country', 'user', 'proposals'],
+        relations: [
+          'skills',
+          'category',
+          'country',
+          'user',
+          'proposals',
+          'education',
+          'workHistory',
+        ],
         select: {
           user: {
             id: true,
