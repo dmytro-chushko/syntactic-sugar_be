@@ -9,7 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -22,6 +22,7 @@ import { EditPublishedDto } from 'src/modules/freelancer/dtos/editPublished.dto'
 import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
+@ApiTags('freelancer')
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
   constructor(@Inject(Services.FREELANCER) private freelancerService: IFreelancerService) {}
