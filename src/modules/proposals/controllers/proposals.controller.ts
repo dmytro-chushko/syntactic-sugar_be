@@ -12,7 +12,7 @@ import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IProposalsService } from 'src/modules/proposals/interfaces/IProposalsService';
 import { CreateProposalDto } from 'src/modules/proposals/dtos/createProposal.dto';
 import { ApiFile } from 'src/utils/decorators/fileUpload';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParseFile } from 'src/utils/customValidator/parsePipe';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
@@ -21,6 +21,7 @@ import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
 import { Proposal, User } from 'src/database/entities';
 
+@ApiTags('proposal')
 @Controller(Routes.PROPOSAL)
 export class ProposalsController {
   constructor(@Inject(Services.PROPOSAL) private proposalService: IProposalsService) {}

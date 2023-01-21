@@ -11,7 +11,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
@@ -22,6 +22,7 @@ import { Roles } from 'src/utils/decorators/roles';
 import { Auth } from 'src/utils/decorators/auth';
 import { User, Job } from 'src/database/entities';
 
+@ApiTags('jobs')
 @Controller(Routes.JOBS)
 export class JobsController {
   constructor(@Inject(Services.JOBS) private jobsService: IJobsService) {}

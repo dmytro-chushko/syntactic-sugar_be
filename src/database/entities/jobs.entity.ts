@@ -26,6 +26,7 @@ import {
   Invitation,
   Chat,
 } from 'src/database/entities';
+import { Offer } from './offers.entity';
 
 @Entity({ name: 'jobs' })
 export class Job {
@@ -105,4 +106,8 @@ export class Job {
   @ApiProperty()
   @OneToMany(() => Chat, chat => chat.job)
   chats: Chat[];
+
+  @ApiProperty()
+  @OneToMany(() => Offer, offer => offer.job)
+  offers: Offer[];
 }

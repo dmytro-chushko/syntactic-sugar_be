@@ -135,6 +135,8 @@ export class FreelancerService implements IFreelancerService {
       return await this.freelancerRepository
         .createQueryBuilder('freelancer')
         .leftJoinAndSelect('freelancer.invitation', 'invitations')
+        .leftJoinAndSelect('freelancer.proposals', 'proposals')
+        .leftJoinAndSelect('proposals.job', 'jobProposal')
         .leftJoin('invitations.job', 'job')
         .addSelect(['job.id'])
         .where('freelancer.id = :id', { id })
@@ -147,7 +149,7 @@ export class FreelancerService implements IFreelancerService {
   async getAllFreelancers(): Promise<Freelancer[]> {
     try {
       const profiles = await this.freelancerRepository.find({
-        relations: ['skills', 'country', 'category', 'education'],
+        relations: ['skills', 'country', 'category', 'education', 'invitation'],
         order: { createdDate: 'DESC', updatedDate: 'DESC' },
       });
 
