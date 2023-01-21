@@ -102,6 +102,7 @@ export class JobsService implements IJobsService {
         .leftJoinAndSelect('job.skills', 'skills')
         .leftJoinAndSelect('job.countries', 'countries')
         .leftJoinAndSelect('proposal.freelancer', 'freelancer')
+        .leftJoinAndSelect('offers.freelancer', 'freelancerOffer')
         .leftJoinAndSelect('job.chats', 'chat')
         .leftJoinAndSelect('chat.freelancer', 'freelancerChat')
         .leftJoinAndSelect('job.invitation', 'invitation')
