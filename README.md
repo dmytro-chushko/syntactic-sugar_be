@@ -135,6 +135,26 @@ $ docker compose up
   * createdDate: datetime, not null, default - current_timetamp;
   * freelancerId: varchar, default - null; 
 
+* proposal_freelancers:
+  * id: varchar, primary key, not null;
+  * coverLetter:  varchar, not null;
+  * hourRate: varchar, default - null;
+  * filePath: varchar, not null;
+  * createdDate: datetime, not null, default - current_timetamp;
+  * freelancerId: varchar, default - null; 
+  * jobId: varchar, default - null; 
+
+* skills:
+  * id: varchar, primary key, not null;
+  * name: varchar, not null, unique;
+
+* work_history:
+  * id: int, primary key, not null, auto increment;
+  * company: varchar, not null;
+  * workPosition: varchar, not null;
+  * period: varchar, not null;
+  * freelancerId: varchar, default - null;
+
 
 ## Running the app
 
