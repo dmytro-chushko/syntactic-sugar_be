@@ -1,6 +1,6 @@
 ## Description
 
-Nest template for the project
+[Nest](https://github.com/nestjs/nest) template for the project
 
 All development must be done from branch - develop
 
@@ -57,6 +57,29 @@ $ docker compose up
   * EXPIRES_IN = time for what jwt token will be valid: milliseconds, msecs, ms, seconds, s, minutes, mins, m, hours, hrs, h, days, d, weeks, w, years, yrs, y
   * SECRET_JWT = some word to secure the jwt token
   * EXPIRES_JWT = time for what jwt token will be valid
+
+## Deploy and update instruction:
+
+Connect to server:
+
+1. Open an SSH client.
+2. Locate your private key file. The key used to launch this instance is key.pem
+3. Run this command, if necessary, to ensure your key is not publicly viewable
+```bash
+$ chmod 400 key.pem
+```
+5. Connect to your instance using its Public IP: Example:
+```bash
+$ ssh -i "key.pem" ubuntu@ec2-54-84-215-172.compute-1.amazonaws.com
+```
+
+Update server from main default branch:
+```bash
+$ git pull
+$ sudo systemctl stop CoffeeLovers.service
+$ npm run build
+$ sudo systemctl start CoffeeLovers.service
+```
 
 ## Database 
 
