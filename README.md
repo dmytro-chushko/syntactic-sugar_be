@@ -22,6 +22,42 @@ In this project there are two ways to connect to MySQL database:
 $ docker compose up
 ```
 
+## Config for .env file:
+
+* **Database**:
+
+  * PORT=5000
+  * MYSQL_HOST=localhost
+  * MYSQL_USER=root
+  * MYSQL_DB=test_freelancer
+  * MYSQL_PASSWORD=12345
+  * MYSQL_PORT=3306
+  * MYSQL_ROOT_PASSWORD=root
+  * CLIENT_HOST = http://localhost:4200
+
+* **GOOGLE OAUTH 2.0**:
+
+  * GOOGLE_CLIENT_ID = "12345678-templateaorap933406d1vg3bbte7j8m.apps.googleusercontent.com"
+  * GOOGLE_SECRET = "TEMPLATE-8IVUyAQhCreZu2KDDqeBhQvKlAnd"
+
+* **EMAIL**:
+
+  * EMAIL_HOST = email smtp server
+  * EMAIL_PORT =email port
+  * EMAIL_USER = email from which email should send
+  * EMAIL_PASS = email password
+  * EMAIL_SENDER = email from which email should send
+  * EMAIL_SUBJECT = Text of email subject title
+
+* **CONFIRM_PATH** = path for confirm email
+
+* **JWT**:
+
+  * PRIVATE_KEY = some word to secure the jwt token
+  * EXPIRES_IN = time for what jwt token will be valid: milliseconds, msecs, ms, seconds, s, minutes, mins, m, hours, hrs, h, days, d, weeks, w, years, yrs, y
+  * SECRET_JWT = some word to secure the jwt token
+  * EXPIRES_JWT = time for what jwt token will be valid
+
 ## Database 
 
 ![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
