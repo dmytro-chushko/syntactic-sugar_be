@@ -26,19 +26,19 @@ $ docker compose up
 
 * **Database**:
 
-  * PORT=5000
-  * MYSQL_HOST=localhost
-  * MYSQL_USER=root
-  * MYSQL_DB=test_freelancer
-  * MYSQL_PASSWORD=12345
-  * MYSQL_PORT=3306
-  * MYSQL_ROOT_PASSWORD=root
-  * CLIENT_HOST = http://localhost:4200
+  * PORT = server port
+  * MYSQL_HOST = database host
+  * MYSQL_USER = database user
+  * MYSQL_DB = database name
+  * MYSQL_PASSWORD = database password
+  * MYSQL_PORT = database port
+  * MYSQL_ROOT_PASSWORD = database user password
+  * CLIENT_HOST = client host
 
 * **GOOGLE OAUTH 2.0**:
 
-  * GOOGLE_CLIENT_ID = "12345678-templateaorap933406d1vg3bbte7j8m.apps.googleusercontent.com"
-  * GOOGLE_SECRET = "TEMPLATE-8IVUyAQhCreZu2KDDqeBhQvKlAnd"
+  * GOOGLE_CLIENT_ID = id from OAUTH 2.0 for a project
+  * GOOGLE_SECRET = client OAUTH 2.0 secret key for project
 
 * **EMAIL**:
 
