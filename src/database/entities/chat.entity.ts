@@ -11,7 +11,7 @@ import { Employer, Freelancer, Job, Message } from '.';
 
 @Entity({ name: 'chat' })
 export class Chat {
-  @ApiProperty()
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

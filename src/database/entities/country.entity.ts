@@ -4,10 +4,11 @@ import { Freelancer, Job } from './index';
 
 @Entity({ name: 'countries' })
 export class Country {
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Ukraine' })
   @Column({
     unique: true,
   })
