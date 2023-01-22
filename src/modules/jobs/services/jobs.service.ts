@@ -96,11 +96,13 @@ export class JobsService implements IJobsService {
       const jobs = await this.jobRepository
         .createQueryBuilder('job')
         .leftJoinAndSelect('job.proposals', 'proposal')
+        .leftJoinAndSelect('job.offers', 'offers')
         .leftJoinAndSelect('job.employer', 'employer')
         .leftJoinAndSelect('job.category', 'category')
         .leftJoinAndSelect('job.skills', 'skills')
         .leftJoinAndSelect('job.countries', 'countries')
         .leftJoinAndSelect('proposal.freelancer', 'freelancer')
+        .leftJoinAndSelect('offers.freelancer', 'freelancerOffer')
         .leftJoinAndSelect('job.chats', 'chat')
         .leftJoinAndSelect('chat.freelancer', 'freelancerChat')
         .leftJoinAndSelect('job.invitation', 'invitation')
