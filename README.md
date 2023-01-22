@@ -24,7 +24,8 @@ $ docker compose up
 
 ## Database 
 
-[db_schema.pdf](https://github.com/ZenBit-Tech/syntactic-sugar_be/files/10474547/db_schema.pdf)
+![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
+
 
 Entities: 
 
@@ -34,7 +35,15 @@ Entities:
   * password: varchar, default - null;
   * role: varchar, default - "GUEST";
 
-* 
+* categories:
+  * id: varchar, primary key, not null;
+  * name: varchar, not null, unique;
+  
+* chat:
+  * id: varchar, primary key, not null;
+  * createdAt: datetime, not null, default - current_timetamp;
+  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
+  * freelancerId: varchar, default - null;
 ## Running the app
 
 ```bash
