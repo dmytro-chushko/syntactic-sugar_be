@@ -22,6 +22,19 @@ In this project there are two ways to connect to MySQL database:
 $ docker compose up
 ```
 
+## Database 
+
+[db_schema.pdf](https://github.com/ZenBit-Tech/syntactic-sugar_be/files/10474547/db_schema.pdf)
+
+Entities: 
+
+* users:
+  * id: varchar, primary key;
+  * email: varchar, unique;
+  * password: varchar, default - null;
+  * role: varchar, default - "GUEST";
+
+* 
 ## Running the app
 
 ```bash
