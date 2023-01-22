@@ -67,86 +67,86 @@ $ docker compose up
 
 * users:
   * id: varchar, primary key;
-  * email: varchar, unique;
-  * password: varchar, default - null;
-  * role: varchar, default - "GUEST";
+  * email: varchar, user email;
+  * password: varchar, user password for app;
+  * role: varchar, example: "GUEST";
 
 * categories:
   * id: varchar, primary key, not null;
-  * name: varchar, not null, unique;
+  * name: varchar, example: IT;
   
 * chat:
   * id: varchar, primary key, not null;
-  * createdAt: datetime, not null, default - current_timetamp;
-  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
-  * freelancerId: varchar, default - null;
+  * createdAt: datetime, example: 10.02.2023;
+  * updatedAt: datetime, example: 10.02.2023;
+  * freelancerId: varchar, freelncer`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
 
 * countries:
   * id: varchar, primary key, not null;
-  * name: varchar, not null, unique;
+  * name: varchar, example: Ukraine;
  
 * education:
   * id: int, not null, primary key, auto increment;
-  * institute: varchar, not null;
-  * occupation: varchar, not null;
-  * period: varchar, not null;
-  * freelancersId: varchar, default - null;
+  * institute: varchar, example: NUFT;
+  * occupation: varchar, example: master;
+  * period: varchar, study years: 2008-2013;
+  * freelancersId: varchar,  freelncer`s id;
 
 * employers: 
   * id: varchar, primary key, not null;
-  * fullName: varchar, default - null;
-  * companyName: varchar, default - null;
-  * position: varchar, default - null;
-  * phone: varchar, default - null;
-  * linkedIn: varchar, default - null;
-  * website: varchar, default - null;
-  * aboutUs: varchar, default - null;
-  * image: varchar, default - null;
-  * userId: varchar, default - null, unique;
+  * fullName: varchar, employer`s name;
+  * companyName: varchar, employer`s company name;
+  * position: varchar, employer`s position in company;
+  * phone: varchar, employer`s phone;
+  * linkedIn: varchar, employer`s prifile link to LinkedIn;
+  * website: varchar, company`s website;
+  * aboutUs: varchar, descriptions of company and its work;
+  * image: varchar, employer`s avatar;
+  * userId: varchar, user id;
 
 * freelancers:
   * id: varchar, primary key, not null;
-  * fullName: varchar, non null;
-  * hourRate: varchar, not null;
-  * position: varchar, not null;
-  * availableAmountOfHours: varchar, not null;
-  * employmentType: varchar, not null;
-  * workExperience: varchar, not null;
-  * englishLevel: varchar, not null;
-  * image: varchar, default - null;
-  * otherExperience: varchar, not null, default - '';
+  * fullName: varchar, frelancer`s full name;
+  * hourRate: varchar, freelancer`s desire salary;
+  * position: varchar, freelancer`s position as he want;
+  * availableAmountOfHours: varchar, fuul time or part time working;
+  * employmentType: varchar, where freelancer want to work: office, remote etc.;
+  * workExperience: varchar, freelancer`s experience in years;
+  * englishLevel: varchar, freelancer`s english level;
+  * image: varchar, freelancer`s avatar;
+  * otherExperience: varchar, other experience if freelancer want to add;
   * isPublished: tinyint, default - '0';
-  * createdAt: datetime, not null, default - current_timetamp;
-  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
-  * userId: varchar, default - null, unique;
-  * categoryId: varchar, default - null;
+  * createdAt: datetime, created date of freelancer profile;
+  * updatedAt: datetime, updated date of freelancer profile;
+  * userId: varchar, id of user;
+  * categoryId: varchar, id of category;
 
 * freelancers_skills_skills:
-  * freelancersId: varchar, primary key, not null;
-  * skillsId: varchar, primary key, not null;
+  * freelancersId: varchar, id of freelancer;
+  * skillsId: varchar, id of freelancer`s skills;
 
 * invitations:
   * id: varchar, primary key, not null;
-  * freelancersId: varchar, default - null;
-  * jobId: varchar, default - null;
-  * employerId: varchar, default - null;
+  * freelancersId: varchar, freelancer`s id for who was sent invitation;
+  * jobId: varchar, job`s id for which was send invitation;
+  * employerId: varchar, employer id who sent invitztion;
 
 * jobs: 
   * id: varchar, primary key, not null;
-  * title: varchar, not null;
-  * description: text, not null;
-  * position: archar, not null;
-  * employmentType: varchar, not null;
-  * hourRate: varchar, not null;
-  * availableAmountOfHours: varchar, not null;
-  * workExperience: varchar, not null;
-  * englishLevel: varchar, not null;
-  * otherExperience: text, not null;
+  * title: varchar, job title;
+  * description: text, description of a job;
+  * position: varchar, position in company for which employer is looking for employee;
+  * employmentType: varchar, working place: remote, office etc.;
+  * hourRate: varchar, salary;
+  * availableAmountOfHours: varchar, full or part time;
+  * workExperience: varchar, required experience;
+  * englishLevel: varchar, required english level;
+  * otherExperience: text, required experience;
   * isPublished: tinyint, default - '1';
-  * createdAt: datetime, not null, default - current_timetamp;
-  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
-  * categoryId: varchar, default - null;
-  * employerId: varchar, default - null;
+  * createdAt: datetime, date when job was created;
+  * updatedAt: datetime, date when job was updated;
+  * categoryId: varchar, category id where employer find emloyee;
+  * employerId: varchar, employer who created a job;
 
 * jobs_countries_countries:
   * jobsId: varchar, primary key, not null;
@@ -158,27 +158,27 @@ $ docker compose up
 
 * message: 
   * id: varchar, primary key, not null;
-  * text: varchar, not null;
-  * sender: varchar, not null;
-  * createdAt: datetime, not null, default - current_timetamp;
-  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
-  * chatId: varchar, default - null;
+  * text: varchar, message text;
+  * sender: varchar, who sent message;
+  * createdAt: datetime, date when message was typed;
+  * updatedAt: datetime, date when message was updated;
+  * chatId: varchar, chat id where message was sent;
 
 * offer:
   * id: varchar, primary key, not null;
-  * hourRate: varchar, default - null;
+  * hourRate: varchar, employer`s proposal for salary;
   * isAccepted: tinyint, not null, default - '0';
-  * createdDate: datetime, not null, default - current_timetamp;
-  * freelancerId: varchar, default - null; 
+  * createdDate: datetime, date when offer was created;
+  * freelancerId: varchar, freelancer id for for who offer was sent; 
 
 * proposal_freelancers:
   * id: varchar, primary key, not null;
-  * coverLetter:  varchar, not null;
-  * hourRate: varchar, default - null;
-  * filePath: varchar, not null;
-  * createdDate: datetime, not null, default - current_timetamp;
-  * freelancerId: varchar, default - null; 
-  * jobId: varchar, default - null; 
+  * coverLetter:  varchar, cover letter of freelancer;
+  * hourRate: varchar, salary;
+  * filePath: varchar, path to freelancer`s CV on server;
+  * createdDate: datetime, date when proposal was created;
+  * freelancerId: varchar,freelancer id who creater this proposal; 
+  * jobId: varchar, job id for which freelancer created proposal; 
 
 * skills:
   * id: varchar, primary key, not null;
@@ -186,10 +186,10 @@ $ docker compose up
 
 * work_history:
   * id: int, primary key, not null, auto increment;
-  * company: varchar, not null;
-  * workPosition: varchar, not null;
-  * period: varchar, not null;
-  * freelancerId: varchar, default - null;
+  * company: varchar, company name where freelancer has worked;
+  * workPosition: varchar, freelancer`s position in that company;
+  * period: varchar, period when freelancer has worked in that company;
+  * freelancerId: varchar, freelancer`s id;
 
 
 ## Running the app
