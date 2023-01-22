@@ -68,6 +68,23 @@ $ docker compose up
   * image: varchar, default - null;
   * userId: varchar, default - null, unique;
 
+* freelancers:
+  * id: varchar, primary key, not null;
+  * fullName: varchar, non null;
+  * hourRate: varchar, not null;
+  * position: varchar, not null;
+  * availableAmountOfHours: varchar, not null;
+  * employmentType: varchar, not null;
+  * workExperience: varchar, not null;
+  * englishLevel: varchar, not null;
+  * image: varchar, default - null;
+  * otherExperience: varchar, not null, default - '';
+  * isPublished: tinyint, default - '0';
+  * createdAt: datetime, not null, default - current_timetamp;
+  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
+  * userId: varchar, default - null, unique;
+  * categoryId: varchar, default - null;
+
 
 
 
