@@ -27,7 +27,7 @@ $ docker compose up
 ![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
 
 
-Entities: 
+**Entities**: 
 
 * users:
   * id: varchar, primary key;
@@ -44,6 +44,19 @@ Entities:
   * createdAt: datetime, not null, default - current_timetamp;
   * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
   * freelancerId: varchar, default - null;
+
+* countries:
+  * id: varchar, primary key, not null;
+  * name: varchar, not null, unique;
+ 
+* education:
+  * id: int, not null, primary key, auto increment;
+  * institute: varchar, not null;
+  * occupation: varchar, not null;
+  * period: varchar, not null;
+  * freelancersId: varchar, default - null;
+
+
 ## Running the app
 
 ```bash
