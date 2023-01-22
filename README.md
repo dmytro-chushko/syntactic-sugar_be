@@ -56,6 +56,20 @@ $ docker compose up
   * period: varchar, not null;
   * freelancersId: varchar, default - null;
 
+* employers: 
+  * id: varchar, primary key, not null;
+  * fullName: varchar, default - null;
+  * companyName: varchar, default - null;
+  * position: varchar, default - null;
+  * phone: varchar, default - null;
+  * linkedIn: varchar, default - null;
+  * website: varchar, default - null;
+  * aboutUs: varchar, default - null;
+  * image: varchar, default - null;
+  * userId: varchar, default - null, unique;
+
+
+
 
 ## Running the app
 
