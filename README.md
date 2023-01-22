@@ -85,6 +85,37 @@ $ docker compose up
   * userId: varchar, default - null, unique;
   * categoryId: varchar, default - null;
 
+* freelancers_skills_skills:
+  * freelancersId: varchar, primary key, not null;
+  * skillsId: varchar, primary key, not null;
+
+* invitations:
+  * id: varchar, primary key, not null;
+  * freelancersId: varchar, default - null;
+  * jobId: varchar, default - null;
+  * employerId: varchar, default - null;
+
+* jobs: 
+  * id: varchar, primary key, not null;
+  * title: varchar, not null;
+  * description: text, not null;
+  * position: archar, not null;
+  * employmentType: varchar, not null;
+  * hourRate: varchar, not null;
+  * availableAmountOfHours: varchar, not null;
+  * workExperience: varchar, not null;
+  * englishLevel: varchar, not null;
+  * otherExperience: text, not null;
+  * isPublished: tinyint, default - '1';
+  * createdAt: datetime, not null, default - current_timetamp;
+  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
+  * categoryId: varchar, default - null;
+  * employerId: varchar, default - null;
+
+* jobs_countries_countries:
+  * jobsId: varchar, primary key, not null;
+  * countriesId: varchar, primary key, not null;
+
 
 
 
