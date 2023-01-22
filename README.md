@@ -24,9 +24,14 @@ $ docker compose up
 
 ## Config for .env file:
 
+* **Port**: 
+  * PORT = application port which it will listen
+  
+* **Host**: 
+  * HOST = application ip or host name
+
 * **Database**:
 
-  * PORT = server port
   * MYSQL_HOST = database host
   * MYSQL_USER = database user
   * MYSQL_DB = database name
