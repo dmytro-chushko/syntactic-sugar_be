@@ -219,6 +219,9 @@ $ sudo systemctl start CoffeeLovers.service
   * period: varchar, period when freelancer has worked in that company;
   * freelancerId: varchar, freelancer`s id;
 
+## API
+You can open Swagger documentation on http://localhost:8000/api
+
 
 ## Running the app
 
