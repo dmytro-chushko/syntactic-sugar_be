@@ -116,7 +116,24 @@ $ docker compose up
   * jobsId: varchar, primary key, not null;
   * countriesId: varchar, primary key, not null;
 
+* jobs_skills_skills:
+  * jobsId: varchar, primary key, not null;
+  * skillsId: varchar, primary key, not null;
 
+* message: 
+  * id: varchar, primary key, not null;
+  * text: varchar, not null;
+  * sender: varchar, not null;
+  * createdAt: datetime, not null, default - current_timetamp;
+  * updatedAt: datetime, not null, default - current_timetamp on update current_timetamp;
+  * chatId: varchar, default - null;
+
+* offer:
+  * id: varchar, primary key, not null;
+  * hourRate: varchar, default - null;
+  * isAccepted: tinyint, not null, default - '0';
+  * createdDate: datetime, not null, default - current_timetamp;
+  * freelancerId: varchar, default - null; 
 
 
 ## Running the app
