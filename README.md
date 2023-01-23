@@ -78,6 +78,14 @@ $ chmod 400 key.pem
 $ ssh -i "key.pem" ubuntu@ec2-54-84-215-172.compute-1.amazonaws.com
 ```
 
+Update:
+```bash
+$ git pull
+$ npm i
+$ npm run build
+$ pm2 restart nestjs
+```
+
 ## Database 
 
 ![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
