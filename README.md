@@ -78,14 +78,6 @@ $ chmod 400 key.pem
 $ ssh -i "key.pem" ubuntu@ec2-54-84-215-172.compute-1.amazonaws.com
 ```
 
-Update server from main default branch:
-```bash
-$ git pull
-$ sudo systemctl stop CoffeeLovers.service
-$ npm run build
-$ sudo systemctl start CoffeeLovers.service
-```
-
 ## Database 
 
 ![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
