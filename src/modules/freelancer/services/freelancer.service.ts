@@ -115,6 +115,8 @@ export class FreelancerService implements IFreelancerService {
           'proposals',
           'education',
           'workHistory',
+          'invitation',
+          'offers',
         ],
         select: {
           user: {
