@@ -27,7 +27,6 @@ async function start() {
 
     return await app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
   } catch (error) {
-    console.log(error);
     throw new HttpException('Server error', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
