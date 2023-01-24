@@ -108,6 +108,8 @@ $ pm2 restart nestjs
   * createdAt: datetime, example: 10.02.2023;
   * updatedAt: datetime, example: 10.02.2023;
   * freelancerId: varchar, freelncer`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
+  * employerId:  varchar, employer`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
+  * jobId:  varchar, job`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
 
 * countries:
   * id: varchar, primary key, not null;
