@@ -3,7 +3,7 @@ import { IsEnum, IsString } from 'class-validator';
 import { UserRoles } from 'src/utils/constants';
 
 export class AddRoleDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'EMPLOYER' })
   @IsString()
   @IsEnum(UserRoles)
   role: UserRoles;
