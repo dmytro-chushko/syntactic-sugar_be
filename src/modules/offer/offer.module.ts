@@ -6,11 +6,19 @@ import { Services } from 'src/utils/constants';
 import { FreelancerModule } from 'src/modules/freelancer/freelancer.module';
 import { JobsModule } from 'src/modules/jobs/jobs.module';
 import { UserModule } from 'src/modules/user/user.module';
+import { MessageModule } from 'src/modules/message/message.module';
 import { OfferController } from './controllers/offer.controller';
 import { OfferService } from './services/offer.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Offer]), JobsModule, FreelancerModule, UserModule, JwtModule],
+  imports: [
+    TypeOrmModule.forFeature([Offer]),
+    JobsModule,
+    FreelancerModule,
+    UserModule,
+    JwtModule,
+    MessageModule,
+  ],
   exports: [],
   controllers: [OfferController],
   providers: [
