@@ -9,7 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiHeader, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiHeader, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Chat, Message, User } from 'src/database/entities';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { Routes, Services } from 'src/utils/constants';
@@ -22,6 +22,7 @@ import { IChatService } from 'src/modules/chat//interfaces/IChatService';
 export class ChatController {
   constructor(@Inject(Services.CHAT) private chatService: IChatService) {}
 
+  @ApiOperation({ summary: 'Create new chat' })
   @ApiBody({ type: CreateChatDto })
   @ApiResponse({ status: 200, description: 'Chat creation' })
   @UsePipes(ValidationPipe)
@@ -30,6 +31,7 @@ export class ChatController {
     return this.chatService.createChat(createChatDto);
   }
 
+  @ApiOperation({ summary: 'Get chat messages' })
   @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'Get messages by chat id' })
   @UsePipes(ValidationPipe)
@@ -38,6 +40,7 @@ export class ChatController {
     return this.chatService.getChatMessages(id);
   }
 
+  @ApiOperation({ summary: 'Get chats by users' })
   @ApiHeader({ name: 'Authorization', description: 'Bearer token' })
   @ApiResponse({ status: 200, description: 'Get chats by user' })
   @Get(Routes.GET_CHATS_BY_USER)

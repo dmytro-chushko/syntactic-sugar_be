@@ -6,7 +6,7 @@ export class CreateEmployerDto {
   @IsNotEmpty()
   fullName: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'IT DREAM' })
   @IsString()
   @IsNotEmpty()
   companyName: string;

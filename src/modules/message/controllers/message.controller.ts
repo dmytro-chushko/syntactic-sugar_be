@@ -8,7 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Message } from 'src/database/entities';
 import { Routes, Services } from 'src/utils/constants';
 import { CreateMessageDto } from 'src/modules/message/dto/createMessage.dto';
@@ -19,6 +19,7 @@ import { IMessageService } from 'src/modules/message/interfaces/IMessageService'
 export class MessageController {
   constructor(@Inject(Services.MESSAGES) private readonly messageService: IMessageService) {}
 
+  @ApiOperation({ summary: 'Create new message' })
   @ApiBody({ type: CreateMessageDto })
   @ApiResponse({ status: 200, description: 'Message creation' })
   @UsePipes(ValidationPipe)
@@ -27,6 +28,7 @@ export class MessageController {
     return this.messageService.createMessage(createMessageDto);
   }
 
+  @ApiOperation({ summary: 'UGet messages from chat' })
   @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'Get messages by chat id' })
   @UsePipes(ValidationPipe)

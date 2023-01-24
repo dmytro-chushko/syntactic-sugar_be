@@ -7,7 +7,7 @@ import { Freelancer } from './freelancer.entity';
 
 @Entity({ name: 'users' })
 export class User {
-  @ApiProperty()
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
