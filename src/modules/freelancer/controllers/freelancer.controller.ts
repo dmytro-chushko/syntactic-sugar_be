@@ -9,7 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -48,6 +48,7 @@ export class FreelancerController {
     return this.freelancerService.editPublished(user, editPublishedDto.isPublished);
   }
 
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 201, description: 'Profile' })
   @Get(Routes.GET_PROFILE)
   @Roles(UserRoles.FREELANCER)
@@ -56,6 +57,7 @@ export class FreelancerController {
     return this.freelancerService.getProfile(user);
   }
 
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 200, description: 'All pofiles' })
   @Get(Routes.ALL_FREELANCERS)
   @Roles(UserRoles.EMPLOYER)
@@ -64,6 +66,7 @@ export class FreelancerController {
     return this.freelancerService.getAllFreelancers(user);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'Get pofile by id' })
   @Get(Routes.GET_FREELANCER_BY_ID)
   @Roles(UserRoles.EMPLOYER)

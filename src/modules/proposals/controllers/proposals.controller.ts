@@ -12,7 +12,7 @@ import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IProposalsService } from 'src/modules/proposals/interfaces/IProposalsService';
 import { CreateProposalDto } from 'src/modules/proposals/dtos/createProposal.dto';
 import { ApiFile } from 'src/utils/decorators/fileUpload';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParseFile } from 'src/utils/customValidator/parsePipe';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
@@ -40,6 +40,7 @@ export class ProposalsController {
     return this.proposalService.createProposalFreelancer(user, dto, file);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'All proposals by job id' })
   @Get(Routes.GET_PROPOSALS_BY_JOB_ID)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
@@ -48,6 +49,7 @@ export class ProposalsController {
     return this.proposalService.getProposalsByJobId(user, id);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'All proposals by job id' })
   @Get(Routes.GET_PROPOSAL_BY_ID)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)

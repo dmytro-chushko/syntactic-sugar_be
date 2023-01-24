@@ -11,7 +11,7 @@ import { Routes, Services } from 'src/utils/constants';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
 import { ConfirmAccountDto, ForgotPasswordDto } from 'src/modules/auth/dtos';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TokenDto } from 'src/modules/auth/dtos/token.dto';
 import { ResetPasswordDto } from 'src/modules/auth/dtos/resetPassword.dto';
 import { AddRoleDto } from 'src/modules/user/dtos/addRole.dto';
@@ -26,6 +26,7 @@ import { User } from 'src/database/entities/users.entity';
 export class AuthController {
   constructor(@Inject(Services.AUTH) private authService: IAuthService) {}
 
+  @ApiOperation({ summary: 'Register new user' })
   @ApiBody({ type: AuthUserDto })
   @ApiResponse({ status: 200, description: 'insert user to db' })
   @Post(Routes.REGISTER)
@@ -34,6 +35,7 @@ export class AuthController {
     return this.authService.registration(createUserDto);
   }
 
+  @ApiOperation({ summary: 'Confirm user`s email' })
   @ApiQuery({ name: 'id' })
   @ApiResponse({
     status: 200,
@@ -44,6 +46,7 @@ export class AuthController {
     return this.authService.confirmEmail(confirmAccountDto.id);
   }
 
+  @ApiOperation({ summary: 'Login user' })
   @ApiBody({ type: AuthUserDto })
   @ApiResponse({ status: 200, description: 'Login user' })
   @Post(Routes.LOGIN)
@@ -53,6 +56,7 @@ export class AuthController {
     return this.authService.login(authUserDto);
   }
 
+  @ApiOperation({ summary: 'Login user with google account' })
   @ApiBody({ type: TokenDto })
   @ApiResponse({ status: 200, description: 'Login user' })
   @Post(Routes.GOOGLE_LOGIN)
@@ -61,18 +65,23 @@ export class AuthController {
     return this.authService.loginByGoogle(token);
   }
 
+  @ApiOperation({ summary: 'Fogot password' })
+  @ApiBody({ type: ForgotPasswordDto })
   @ApiResponse({ status: 200, description: 'Email has been sent' })
   @Post(Routes.FORGOT_PASS)
   forgotPassword(@Body() forgotPasswordDTO: ForgotPasswordDto): Promise<void> {
     return this.authService.forgotPassword(forgotPasswordDTO.email);
   }
 
+  @ApiOperation({ summary: 'Reset password' })
+  @ApiBody({ type: ResetPasswordDto })
   @ApiResponse({ status: 200, description: 'Your password has updated' })
   @Post(Routes.RESET_PASS)
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<boolean> {
     return this.authService.resetPassword(resetPasswordDto);
   }
 
+  @ApiOperation({ summary: 'Register new user with google account' })
   @ApiBody({ type: TokenDto })
   @ApiResponse({ status: 200, description: 'Registered with Google' })
   @Post(Routes.SIGNUP_GOOGLE)
@@ -81,6 +90,7 @@ export class AuthController {
     return this.authService.signupGoogle(token);
   }
 
+  @ApiOperation({ summary: 'Add role to user' })
   @ApiBody({ type: AddRoleDto })
   @ApiResponse({ status: 200, description: 'Role added' })
   @UsePipes(ValidationPipe)

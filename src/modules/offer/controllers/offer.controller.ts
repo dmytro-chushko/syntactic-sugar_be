@@ -7,7 +7,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Offer } from 'src/database/entities/offers.entity';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -17,6 +17,7 @@ import { Roles } from 'src/utils/decorators/roles';
 import { CreateOfferDto } from 'src/modules/offer/dto/createOffer.dto';
 import { IOfferService } from 'src/modules/offer/interfaces/IOfferService';
 
+@ApiTags('offers')
 @Controller('offer')
 export class OfferController {
   constructor(@Inject(Services.OFFER) private offerService: IOfferService) {}

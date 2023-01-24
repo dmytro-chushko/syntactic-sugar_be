@@ -9,7 +9,7 @@ export interface IAuthService {
   login(authUserDto: AuthUserDto): Promise<ITokenAndRole>;
   sendConfirmation(user: User): Promise<void>;
   confirmEmail(id: string): Promise<void>;
-  forgotPassword(email: string);
+  forgotPassword(email: string): Promise<void>;
   resetPassword(resetPasswordDto: ResetPasswordDto);
   signupGoogle(token: string): Promise<ITokenAndRole>;
   loginByGoogle(token: string): Promise<ITokenAndRole>;

@@ -11,7 +11,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { CreateJobDto } from 'src/modules/jobs/dto/createJobDto';
 import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
@@ -33,6 +33,7 @@ export class JobsController {
     return this.jobsService.getJobs();
   }
 
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 201, description: 'Get all jobs by Employer' })
   @Get(Routes.GET_JOBS_BY_EMPLOYER)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)
@@ -63,24 +64,28 @@ export class JobsController {
     return this.jobsService.updateJobById(user, id, createJobDto);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 201, description: 'job has removed' })
   @Delete(Routes.REMOVE_JOB_BY_ID)
   removeJobById(@Param('id') id: string): Promise<DeleteResult> {
     return this.jobsService.removeJobById(id);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 201, description: 'Get job by id' })
   @Get(Routes.GET_JOB_BY_ID)
   getJobById(@Param('id') id: string): Promise<Job> {
     return this.jobsService.getJobById(id);
   }
 
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 201, description: 'Get jobs with proposals' })
   @Get(Routes.GET_JOB_BY_PROPOSALS)
   getJobsWithProposals(@Body() user: User): Promise<Job[]> {
     return this.jobsService.getJobsWithProposals(user);
   }
 
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'job has published' })
   @Patch(Routes.PUBLISH_JOB)
   @UseGuards(AuthJwtGuard, ActivatedGuard, RolesGuard)

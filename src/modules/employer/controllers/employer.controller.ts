@@ -9,7 +9,7 @@ import {
   Body,
   Put,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IEmployerService } from 'src/modules/employer/interfaces/IEmployerService';
 import { CreateEmployerDto } from 'src/modules/employer/dtos/createEmployer.dto';
@@ -26,6 +26,7 @@ import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 export class EmployerController {
   constructor(@Inject(Services.EMPLOYER) private employerService: IEmployerService) {}
 
+  @ApiOperation({ summary: 'Create new employer' })
   @ApiBody({ type: CreateEmployerDto })
   @ApiResponse({ status: 201, description: 'created new employer' })
   @Post(Routes.CREATE_EMPLOYER)
@@ -39,6 +40,8 @@ export class EmployerController {
     return this.employerService.createEmployer(user, createEmployerDto);
   }
 
+  @ApiOperation({ summary: 'Get employer profile' })
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 201, description: 'Profile' })
   @Get(Routes.GET_PROFILE)
   @Roles(UserRoles.EMPLOYER)
@@ -47,6 +50,8 @@ export class EmployerController {
     return this.employerService.getEmployer(user);
   }
 
+  @ApiOperation({ summary: 'Update employer profile' })
+  @ApiBody({ type: CreateEmployerDto })
   @ApiResponse({ status: 201, description: 'Profile updated' })
   @Put(Routes.UPDATE_EMPLOYER)
   @Roles(UserRoles.EMPLOYER)

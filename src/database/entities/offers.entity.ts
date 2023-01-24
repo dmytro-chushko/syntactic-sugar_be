@@ -5,6 +5,7 @@ import { Job } from 'src/database/entities/jobs.entity';
 
 @Entity({ name: 'offer' })
 export class Offer {
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
