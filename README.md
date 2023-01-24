@@ -101,23 +101,6 @@ $ pm2 restart nestjs
   * employerId:  varchar, employer`s id with whoom chat starts;
   * jobId:  varchar, job`s id for which the chat between employer and freelancer is open;
 
-* freelancers:
-  * id: varchar, primary key, not null;
-  * fullName: varchar, frelancer`s full name;
-  * hourRate: varchar, freelancer`s desire salary;
-  * position: varchar, freelancer`s position as he want;
-  * availableAmountOfHours: varchar, fuul time or part time working;
-  * employmentType: varchar, where freelancer want to work: office, remote etc.;
-  * workExperience: varchar, freelancer`s experience in years;
-  * englishLevel: varchar, freelancer`s english level;
-  * image: varchar, freelancer`s avatar;
-  * otherExperience: varchar, other experience if freelancer want to add;
-  * isPublished: tinyint, default - '0';
-  * createdAt: datetime, created date of freelancer profile;
-  * updatedAt: datetime, updated date of freelancer profile;
-  * userId: varchar, id of user;
-  * categoryId: varchar, id of category;
-
 * invitations:
   * id: varchar, primary key, not null;
   * freelancersId: varchar, freelancer`s id for who was sent invitation;
@@ -135,7 +118,7 @@ $ pm2 restart nestjs
   * workExperience: varchar, required experience;
   * englishLevel: varchar, required english level;
   * otherExperience: text, required experience;
-  * isPublished: tinyint, default - '1';
+  * isPublished: tinyint, make job visible for frelancers on search work page;
   * createdAt: datetime, date when job was created;
   * updatedAt: datetime, date when job was updated;
   * categoryId: varchar, category id where employer find emloyee;
