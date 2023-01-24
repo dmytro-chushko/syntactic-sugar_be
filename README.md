@@ -93,46 +93,13 @@ $ pm2 restart nestjs
 
 **Entities**: 
 
-* users:
-  * id: varchar, primary key;
-  * email: varchar, user email;
-  * password: varchar, user password for app;
-  * role: varchar, example: "GUEST";
-
-* categories:
-  * id: varchar, primary key, not null;
-  * name: varchar, example: IT;
-  
 * chat:
   * id: varchar, primary key, not null;
-  * createdAt: datetime, example: 10.02.2023;
-  * updatedAt: datetime, example: 10.02.2023;
-  * freelancerId: varchar, freelncer`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
-  * employerId:  varchar, employer`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
-  * jobId:  varchar, job`s id, example: 986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e;
-
-* countries:
-  * id: varchar, primary key, not null;
-  * name: varchar, example: Ukraine;
- 
-* education:
-  * id: int, not null, primary key, auto increment;
-  * institute: varchar, example: NUFT;
-  * occupation: varchar, example: master;
-  * period: varchar, study years: 2008-2013;
-  * freelancersId: varchar,  freelncer`s id;
-
-* employers: 
-  * id: varchar, primary key, not null;
-  * fullName: varchar, employer`s name;
-  * companyName: varchar, employer`s company name;
-  * position: varchar, employer`s position in company;
-  * phone: varchar, employer`s phone;
-  * linkedIn: varchar, employer`s prifile link to LinkedIn;
-  * website: varchar, company`s website;
-  * aboutUs: varchar, descriptions of company and its work;
-  * image: varchar, employer`s avatar;
-  * userId: varchar, user id;
+  * createdAt: datetime, date, when chat was started;
+  * updatedAt: datetime, date, when chat was updated;
+  * freelancerId: varchar, freelancer`s id with whoom chat starts;
+  * employerId:  varchar, employer`s id with whoom chat starts;
+  * jobId:  varchar, job`s id for which the chat between employer and freelancer is open;
 
 * freelancers:
   * id: varchar, primary key, not null;
@@ -151,15 +118,11 @@ $ pm2 restart nestjs
   * userId: varchar, id of user;
   * categoryId: varchar, id of category;
 
-* freelancers_skills_skills:
-  * freelancersId: varchar, id of freelancer;
-  * skillsId: varchar, id of freelancer`s skills;
-
 * invitations:
   * id: varchar, primary key, not null;
   * freelancersId: varchar, freelancer`s id for who was sent invitation;
-  * jobId: varchar, job`s id for which was send invitation;
-  * employerId: varchar, employer id who sent invitztion;
+  * employerId: varchar, employer's id who sent invitation to freelancer;
+  * jobId: varchar, job`s id to which the invitation was sent;
 
 * jobs: 
   * id: varchar, primary key, not null;
@@ -178,48 +141,22 @@ $ pm2 restart nestjs
   * categoryId: varchar, category id where employer find emloyee;
   * employerId: varchar, employer who created a job;
 
-* jobs_countries_countries:
-  * jobsId: varchar, primary key, not null;
-  * countriesId: varchar, primary key, not null;
-
-* jobs_skills_skills:
-  * jobsId: varchar, primary key, not null;
-  * skillsId: varchar, primary key, not null;
-
-* message: 
-  * id: varchar, primary key, not null;
-  * text: varchar, message text;
-  * sender: varchar, who sent message;
-  * createdAt: datetime, date when message was typed;
-  * updatedAt: datetime, date when message was updated;
-  * chatId: varchar, chat id where message was sent;
-
 * offer:
   * id: varchar, primary key, not null;
-  * hourRate: varchar, employer`s proposal for salary;
+  * hourRate: varchar, employer`s proposal for salary to freelancer;
   * isAccepted: tinyint, not null, default - '0';
   * createdDate: datetime, date when offer was created;
-  * freelancerId: varchar, freelancer id for for who offer was sent; 
+  * freelancerId: varchar, freelancer id for for who offer was sent;
+  * jobId: job`s id to which the invitation was sent to freelancer; 
 
 * proposal_freelancers:
   * id: varchar, primary key, not null;
   * coverLetter:  varchar, cover letter of freelancer;
-  * hourRate: varchar, salary;
+  * hourRate: varchar, salary that freelancer indicate in this proposal;
   * filePath: varchar, path to freelancer`s CV on server;
   * createdDate: datetime, date when proposal was created;
-  * freelancerId: varchar,freelancer id who creater this proposal; 
-  * jobId: varchar, job id for which freelancer created proposal; 
-
-* skills:
-  * id: varchar, primary key, not null;
-  * name: varchar, not null, unique;
-
-* work_history:
-  * id: int, primary key, not null, auto increment;
-  * company: varchar, company name where freelancer has worked;
-  * workPosition: varchar, freelancer`s position in that company;
-  * period: varchar, period when freelancer has worked in that company;
-  * freelancerId: varchar, freelancer`s id;
+  * freelancerId: varchar,freelancer`s id who created this proposal; 
+  * jobId: varchar, job`s id for which freelancer created proposal; 
 
 ## API
 You can open Swagger documentation on http://localhost:8000/api
