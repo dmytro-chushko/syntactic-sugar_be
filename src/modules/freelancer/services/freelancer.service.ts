@@ -27,7 +27,7 @@ export class FreelancerService implements IFreelancerService {
   async createFreelancer(
     user: User,
     createFreelancerDto: CreateFreelancerDto,
-  ): Promise<ITokenAndRole> {
+  ): Promise<Freelancer> {
     try {
       let country = await this.countriesService.getCountryByName(createFreelancerDto.country);
       if (!country) {
@@ -53,7 +53,8 @@ export class FreelancerService implements IFreelancerService {
           }
         }),
       );
-      const freelancer = this.freelancerRepository.create({
+
+      return this.freelancerRepository.create({
         fullName: createFreelancerDto.fullName,
         category,
         country,
@@ -70,8 +71,20 @@ export class FreelancerService implements IFreelancerService {
         otherExperience: createFreelancerDto.otherExperience,
         user: user,
       });
-      await this.freelancerRepository.save(freelancer);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async saveFreelancerProfile(
+    user: User,
+    createFreelancerDto: CreateFreelancerDto,
+  ): Promise<ITokenAndRole> {
+    try {
+      const freelancer = await this.createFreelancer(user, createFreelancerDto);
       const token = await this.tokenService.generateToken(user);
+
+      await this.freelancerRepository.save(freelancer);
 
       return { token: token.token, role: user.role };
     } catch (error) {
@@ -94,7 +107,17 @@ export class FreelancerService implements IFreelancerService {
     try {
       const profile = await this.freelancerRepository.findOne({
         where: { user: user },
-        relations: ['skills', 'category', 'country', 'user', 'proposals'],
+        relations: [
+          'skills',
+          'category',
+          'country',
+          'user',
+          'proposals',
+          'education',
+          'workHistory',
+          'invitation',
+          'offers',
+        ],
         select: {
           user: {
             id: true,
@@ -133,6 +156,20 @@ export class FreelancerService implements IFreelancerService {
       });
 
       return profiles;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async updateFreelancerProfile(
+    user: User,
+    createFreelancerDto: CreateFreelancerDto,
+  ): Promise<void> {
+    try {
+      const freelancer = await this.getProfile(user);
+      const newFreelancer = await this.createFreelancer(user, createFreelancerDto);
+
+      await this.freelancerRepository.save({ ...freelancer, ...newFreelancer });
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
