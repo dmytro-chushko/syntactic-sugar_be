@@ -36,7 +36,7 @@ export class User {
   @ApiProperty({ example: 0 })
   @Column({
     nullable: false,
-    default: true,
+    default: false,
   })
   isActivated: boolean;
 

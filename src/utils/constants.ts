@@ -77,3 +77,8 @@ export enum WS_EVENTS {
   JOIN = 'join',
   LEAVE = 'leave',
 }
+
+export const SUBJECT = {
+  CONFIRM_EMAIL: 'Confirm email address on Freelancer app',
+  RESET_PASSWORD: 'Reset password on Freelance app',
+};
