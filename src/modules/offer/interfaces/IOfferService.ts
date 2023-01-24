@@ -1,6 +1,6 @@
 import { Offer } from 'src/database/entities/offers.entity';
 import { CreateOfferDto } from 'src/modules/offer/dto/createOffer.dto';
-import { UpdateOfferDto } from '../dto/updateOffer.dto';
+import { UpdateOfferDto } from 'src/modules/offer/dto/updateOffer.dto';
 
 export interface IOfferService {
   createOffer(createOfferDto: CreateOfferDto): Promise<Offer>;
