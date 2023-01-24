@@ -9,7 +9,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { UploadImageDto } from 'src/modules/files/dtos/uploadImage.dto';
 import { IFileUpload } from 'src/modules/files/interfaces/IFileUpload';
@@ -21,6 +21,7 @@ import { IFilesService } from 'src/modules/files/interfaces/IFilesService';
 export class FilesController {
   constructor(@Inject(Services.FILES) private filesService: IFilesService) {}
 
+  @ApiOperation({ summary: 'Add avatar to user`s profile' })
   @ApiBody({ type: UploadImageDto })
   @ApiResponse({ status: 201, description: 'Image uploaded' })
   @Post(Routes.UPLOAD_IMAGE)

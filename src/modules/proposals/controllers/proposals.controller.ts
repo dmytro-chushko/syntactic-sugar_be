@@ -12,7 +12,7 @@ import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IProposalsService } from 'src/modules/proposals/interfaces/IProposalsService';
 import { CreateProposalDto } from 'src/modules/proposals/dtos/createProposal.dto';
 import { ApiFile } from 'src/utils/decorators/fileUpload';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ParseFile } from 'src/utils/customValidator/parsePipe';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
@@ -26,6 +26,7 @@ import { Proposal, User } from 'src/database/entities';
 export class ProposalsController {
   constructor(@Inject(Services.PROPOSAL) private proposalService: IProposalsService) {}
 
+  @ApiOperation({ summary: 'Create proposal for a job' })
   @ApiBody({ type: CreateProposalDto })
   @ApiResponse({ status: 201, description: 'Proposal created' })
   @Post(Routes.CREATE_PROPOSAL)
@@ -40,6 +41,7 @@ export class ProposalsController {
     return this.proposalService.createProposalFreelancer(user, dto, file);
   }
 
+  @ApiOperation({ summary: 'Get all proposals for the job' })
   @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'All proposals by job id' })
   @Get(Routes.GET_PROPOSALS_BY_JOB_ID)
@@ -49,6 +51,7 @@ export class ProposalsController {
     return this.proposalService.getProposalsByJobId(user, id);
   }
 
+  @ApiOperation({ summary: 'Get proposal by id' })
   @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'All proposals by job id' })
   @Get(Routes.GET_PROPOSAL_BY_ID)
