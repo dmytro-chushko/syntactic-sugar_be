@@ -100,6 +100,6 @@ $ pm2 restart nestjs
 You can open Swagger documentation on http://localhost:8000/api
 
 ## Test
-``bash
+```bash
 $ npm run test
 ```
