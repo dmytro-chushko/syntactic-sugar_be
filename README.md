@@ -86,64 +86,8 @@ $ npm run build
 $ pm2 restart nestjs
 ```
 
-## Database 
-
-![image](https://user-images.githubusercontent.com/93491902/213924105-8fea848c-8bf7-4226-a1f4-407c97817483.png)
-
-
-**Entities**: 
-
-* chat:
-  * id: varchar, primary key, not null;
-  * createdAt: datetime, date, when chat was started;
-  * updatedAt: datetime, date, when chat was updated;
-  * freelancerId: varchar, freelancer`s id with whoom chat starts;
-  * employerId:  varchar, employer`s id with whoom chat starts;
-  * jobId:  varchar, job`s id for which the chat between employer and freelancer is open;
-
-* invitations:
-  * id: varchar, primary key, not null;
-  * freelancersId: varchar, freelancer`s id for who was sent invitation;
-  * employerId: varchar, employer's id who sent invitation to freelancer;
-  * jobId: varchar, job`s id to which the invitation was sent;
-
-* jobs: 
-  * id: varchar, primary key, not null;
-  * title: varchar, job title;
-  * description: text, description of a job;
-  * position: varchar, position in company for which employer is looking for employee;
-  * employmentType: varchar, working place: remote, office etc.;
-  * hourRate: varchar, salary;
-  * availableAmountOfHours: varchar, full or part time;
-  * workExperience: varchar, required experience;
-  * englishLevel: varchar, required english level;
-  * otherExperience: text, required experience;
-  * isPublished: tinyint, make job visible for frelancers on search work page;
-  * createdAt: datetime, date when job was created;
-  * updatedAt: datetime, date when job was updated;
-  * categoryId: varchar, category id where employer find emloyee;
-  * employerId: varchar, employer who created a job;
-
-* offer:
-  * id: varchar, primary key, not null;
-  * hourRate: varchar, employer`s proposal for salary to freelancer;
-  * isAccepted: tinyint, not null, default - '0';
-  * createdDate: datetime, date when offer was created;
-  * freelancerId: varchar, freelancer id for for who offer was sent;
-  * jobId: job`s id to which the invitation was sent to freelancer; 
-
-* proposal_freelancers:
-  * id: varchar, primary key, not null;
-  * coverLetter:  varchar, cover letter of freelancer;
-  * hourRate: varchar, salary that freelancer indicate in this proposal;
-  * filePath: varchar, path to freelancer`s CV on server;
-  * createdDate: datetime, date when proposal was created;
-  * freelancerId: varchar,freelancer`s id who created this proposal; 
-  * jobId: varchar, job`s id for which freelancer created proposal; 
-
 ## API
 You can open Swagger documentation on http://localhost:8000/api
-
 
 ## Running the app
 
