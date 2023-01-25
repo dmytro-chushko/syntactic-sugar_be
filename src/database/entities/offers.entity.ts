@@ -21,6 +21,12 @@ export class Offer {
   })
   isAccepted: boolean;
 
+  @ApiProperty({ example: 0 })
+  @Column({
+    default: false,
+  })
+  acceptance: boolean;
+
   @CreateDateColumn()
   createdDate: Date;
 
