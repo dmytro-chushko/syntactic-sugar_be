@@ -102,3 +102,4 @@ You can open Swagger documentation on http://localhost:8000/api
 ## Test
 ``bash
 $ npm run test
+```
