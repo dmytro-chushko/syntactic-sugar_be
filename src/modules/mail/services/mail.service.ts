@@ -6,12 +6,12 @@ import { IMailService } from 'src/modules/mail/interfaces/IMailService';
 export class MailService implements IMailService {
   constructor(private mailer: MailerService) {}
 
-  async sendActivationMail(to: string, html: string) {
+  async sendActivationMail(to: string, html: string, subject: string) {
     try {
       await this.mailer.sendMail({
         to,
         from: process.env.EMAIL_USER,
-        subject: process.env.EMAIL_SUBJECT,
+        subject,
         text: 'some text',
         html,
       });

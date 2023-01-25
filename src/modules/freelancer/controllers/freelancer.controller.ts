@@ -10,7 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { IFreelancerService } from 'src/modules/freelancer/interfaces/IFreelancerService';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
@@ -28,6 +28,8 @@ import { User } from 'src/database/entities';
 @Controller(Routes.FREELANCER)
 export class FreelancerController {
   constructor(@Inject(Services.FREELANCER) private freelancerService: IFreelancerService) {}
+
+  @ApiOperation({ summary: 'Create freelancer profile' })
   @ApiBody({ type: CreateFreelancerDto })
   @ApiResponse({ status: 201, description: 'freelancer has created' })
   @Post(Routes.CREATE_FREELANCER)
@@ -40,6 +42,7 @@ export class FreelancerController {
     return this.freelancerService.saveFreelancerProfile(user, createFreelancerDto);
   }
 
+  @ApiOperation({ summary: 'Add status `published` to profile' })
   @ApiBody({ type: EditPublishedDto })
   @ApiResponse({ status: 201, description: 'Profile has published' })
   @Post(Routes.EDIT_PUBLISHED)
@@ -50,6 +53,8 @@ export class FreelancerController {
     return this.freelancerService.editPublished(user, editPublishedDto.isPublished);
   }
 
+  @ApiOperation({ summary: 'Get freelancer`s profile info' })
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 201, description: 'Profile' })
   @Get(Routes.GET_PROFILE)
   @Roles(UserRoles.FREELANCER)
@@ -58,6 +63,8 @@ export class FreelancerController {
     return this.freelancerService.getProfile(user);
   }
 
+  @ApiOperation({ summary: 'Get all freelancers profiles' })
+  @ApiQuery({ name: 'role', enum: UserRoles })
   @ApiResponse({ status: 200, description: 'All pofiles' })
   @Get(Routes.ALL_FREELANCERS)
   @Roles(UserRoles.EMPLOYER)
@@ -66,6 +73,8 @@ export class FreelancerController {
     return this.freelancerService.getAllFreelancers(user);
   }
 
+  @ApiOperation({ summary: 'Get freelancer profile by id' })
+  @ApiQuery({ name: 'id' })
   @ApiResponse({ status: 200, description: 'Get pofile by id' })
   @Get(Routes.GET_FREELANCER_BY_ID)
   @Roles(UserRoles.EMPLOYER)
@@ -74,6 +83,7 @@ export class FreelancerController {
     return this.freelancerService.getFreelancerById(id);
   }
 
+  @ApiOperation({ summary: 'Update freelancer`s profile' })
   @ApiResponse({ status: 201, description: 'Profile has updated' })
   @Put(Routes.UPDATE_FREELANCER)
   @Roles(UserRoles.FREELANCER)

@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Routes, Services, UserRoles } from 'src/utils/constants';
 import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { ActivatedGuard } from 'src/modules/auth/guards/activated.guard';
@@ -15,6 +15,7 @@ import { Roles } from 'src/utils/decorators/roles';
 export class InvitationController {
   constructor(@Inject(Services.INVITATION) private invitationService: IInvitationService) {}
 
+  @ApiOperation({ summary: 'Send invitation to freelancer for interview' })
   @ApiBody({ type: InvitationDto })
   @ApiResponse({ status: 200, description: 'Invitation sent' })
   @Post(Routes.SEND)

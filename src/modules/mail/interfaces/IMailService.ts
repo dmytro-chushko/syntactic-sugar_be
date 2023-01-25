@@ -1,3 +1,3 @@
 export interface IMailService {
-  sendActivationMail(to: string, link: string): Promise<void>;
+  sendActivationMail(to: string, html: string, subject: string): Promise<void>;
 }
