@@ -22,6 +22,16 @@ In this project there are two ways to connect to MySQL database:
 $ docker compose up
 ```
 
+## Running the app
+
+```bash
+# development
+$ npm run start:dev
+
+# production mode
+$ npm run start
+```
+
 ## Config for .env file:
 
 * **Port**: 
@@ -88,14 +98,4 @@ $ pm2 restart nestjs
 
 ## API
 You can open Swagger documentation on http://localhost:8000/api
-
-## Running the app
-
-```bash
-# development
-$ npm run start:dev
-
-# production mode
-$ npm run start
-```
 
