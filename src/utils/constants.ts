@@ -43,6 +43,7 @@ export enum Routes {
   OFFER = 'offer',
   CREATE_OFFER = 'create-offer',
   GET_FREELANCER_BY_ID = 'get-freelancer-by-id/:id',
+  CURRENT_USER = 'current-user',
 }
 
 export enum Services {
