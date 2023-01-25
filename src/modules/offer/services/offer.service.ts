@@ -7,6 +7,8 @@ import { IJobsService } from 'src/modules/jobs/interfaces/IJobService';
 import { Services } from 'src/utils/constants';
 import { CreateOfferDto } from 'src/modules/offer/dto/createOffer.dto';
 import { IOfferService } from 'src/modules/offer/interfaces/IOfferService';
+import { UpdateOfferDto } from 'src/modules/offer/dto/updateOffer.dto';
+import { IMessageService } from 'src/modules/message/interfaces/IMessageService';
 
 @Injectable()
 export class OfferService implements IOfferService {
@@ -14,6 +16,7 @@ export class OfferService implements IOfferService {
     @InjectRepository(Offer) private readonly offerRepository: Repository<Offer>,
     @Inject(Services.JOBS) private readonly jobService: IJobsService,
     @Inject(Services.FREELANCER) private readonly freelancerService: IFreelancerService,
+    @Inject(Services.MESSAGES) private readonly messageService: IMessageService,
   ) {}
 
   async createOffer(createOfferDto: CreateOfferDto): Promise<Offer> {
@@ -29,6 +32,25 @@ export class OfferService implements IOfferService {
       });
 
       return offer;
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async updateOffer(updateOfferDto: UpdateOfferDto): Promise<void> {
+    try {
+      const messageText = updateOfferDto.isAccepted
+        ? 'Your offer has been accepted'
+        : 'Your offer has been declined';
+      await this.offerRepository.update(
+        { id: updateOfferDto.id },
+        { isAccepted: updateOfferDto.isAccepted, acceptance: true },
+      );
+      await this.messageService.createMessage({
+        text: messageText,
+        sender: updateOfferDto.freelancerId,
+        chatId: updateOfferDto.chatId,
+      });
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }

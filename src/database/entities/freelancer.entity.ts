@@ -31,6 +31,7 @@ import { Offer } from './offers.entity';
 
 @Entity({ name: 'freelancers' })
 export class Freelancer {
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

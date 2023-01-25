@@ -5,6 +5,7 @@ import { Job } from 'src/database/entities/jobs.entity';
 
 @Entity({ name: 'offer' })
 export class Offer {
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -19,6 +20,12 @@ export class Offer {
     default: false,
   })
   isAccepted: boolean;
+
+  @ApiProperty({ example: 0 })
+  @Column({
+    default: false,
+  })
+  acceptance: boolean;
 
   @CreateDateColumn()
   createdDate: Date;

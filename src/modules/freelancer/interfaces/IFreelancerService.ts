@@ -4,9 +4,14 @@ import { Freelancer } from 'src/database/entities/freelancer.entity';
 import { ITokenAndRole } from 'src/modules/auth/interfaces/ITokenAndRole';
 
 export interface IFreelancerService {
-  createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<ITokenAndRole>;
+  createFreelancer(user: User, createFreelancerDto: CreateFreelancerDto): Promise<Freelancer>;
+  saveFreelancerProfile(
+    user: User,
+    createFreelancerDto: CreateFreelancerDto,
+  ): Promise<ITokenAndRole>;
   editPublished(user: User, publ: boolean): Promise<string>;
   getProfile(user: User): Promise<Freelancer>;
   getFreelancerById(id: string): Promise<Freelancer>;
   getAllFreelancers(user: User): Promise<Freelancer[]>;
+  updateFreelancerProfile(user: User, createFreelancerDto: CreateFreelancerDto): Promise<void>;
 }

@@ -9,7 +9,7 @@ import {
 import { OAuth2Client } from 'google-auth-library';
 import { IAuthService } from 'src/modules/auth/interfaces/IAuthService';
 import { AuthUserDto } from 'src/modules/auth/dtos/authUser.dto';
-import { Services, UserRoles } from 'src/utils/constants';
+import { Services, SUBJECT, UserRoles } from 'src/utils/constants';
 import { IUserService } from 'src/modules/user/interfaces/IUserService';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/users.entity';
@@ -77,6 +77,7 @@ export class AuthService implements IAuthService {
       await this.mailService.sendActivationMail(
         user.email,
         postMailServiceHtml('confirmEmail', confirmLink),
+        SUBJECT.CONFIRM_EMAIL,
       );
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -127,6 +128,7 @@ export class AuthService implements IAuthService {
       await this.mailService.sendActivationMail(
         existingUser.email,
         postMailServiceHtml('resetPassword', resetPassLink),
+        SUBJECT.RESET_PASSWORD,
       );
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);

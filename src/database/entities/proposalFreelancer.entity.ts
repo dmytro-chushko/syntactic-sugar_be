@@ -12,6 +12,7 @@ import { Job } from 'src/database/entities/jobs.entity';
 
 @Entity({ name: 'proposal_freelancers' })
 export class Proposal {
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -28,19 +29,19 @@ export class Proposal {
   })
   hourRate: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'img.url' })
   @Column()
   filePath: string;
 
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @ManyToOne(() => Freelancer, freelancer => freelancer.proposals)
   @JoinColumn()
   freelancer: Freelancer;
 
-  @ApiProperty()
+  @ApiProperty({ example: '986dcaf4-c1ea-4218-b6b4-e4fd95a3c28e' })
   @ManyToOne(() => Job, job => job.proposals)
   job: Job;
 }

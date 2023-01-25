@@ -11,6 +11,7 @@ export enum Routes {
   GOOGLE_LOGIN = 'google/login',
   FREELANCER = 'freelancer',
   CREATE_FREELANCER = 'create',
+  UPDATE_FREELANCER = 'update-freelancer',
   GET_PROFILE = 'profile',
   EDIT_PUBLISHED = 'create/published',
   JOBS = 'jobs',
@@ -42,6 +43,7 @@ export enum Routes {
   OFFER = 'offer',
   CREATE_OFFER = 'create-offer',
   GET_FREELANCER_BY_ID = 'get-freelancer-by-id/:id',
+  UPDATE_OFFER = 'update-offer',
 }
 
 export enum Services {
@@ -76,3 +78,8 @@ export enum WS_EVENTS {
   JOIN = 'join',
   LEAVE = 'leave',
 }
+
+export const SUBJECT = {
+  CONFIRM_EMAIL: 'Confirm email address on Freelancer app',
+  RESET_PASSWORD: 'Reset password on Freelance app',
+};
