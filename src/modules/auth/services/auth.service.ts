@@ -91,7 +91,6 @@ export class AuthService implements IAuthService {
         throw new HttpException('User doesnt exist', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
-
       await this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
