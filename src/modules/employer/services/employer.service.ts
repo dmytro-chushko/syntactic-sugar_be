@@ -20,6 +20,7 @@ export class EmployerService implements IEmployerService {
 
   async createEmployer(user: User, createEmployerDto: CreateEmployerDto): Promise<ITokenAndRole> {
     try {
+      console.log(user);
       const employer = this.employerRepository.create({
         fullName: createEmployerDto.fullName,
         companyName: createEmployerDto.companyName,
@@ -32,6 +33,7 @@ export class EmployerService implements IEmployerService {
         user: user,
       });
       await this.employerRepository.save(employer);
+      console.log(user);
       const token = await this.tokenService.generateToken(user);
 
       return { token: token.token, role: user.role };

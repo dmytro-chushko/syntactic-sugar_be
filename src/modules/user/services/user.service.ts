@@ -36,13 +36,9 @@ export class UserService implements IUserService {
 
   async findById(id: string): Promise<User | null> {
     try {
-      return await this.userRepository
-        .createQueryBuilder('user')
-        .select(['user.id'])
-        .leftJoinAndSelect('user.freelancer', 'freelancer')
-        .leftJoinAndSelect('user.employer', 'employer')
-        .where('user.id = :id', { id })
-        .getOne();
+      const user = await this.userRepository.findOneBy({ id: id });
+
+      return user;
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
