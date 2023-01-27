@@ -33,6 +33,7 @@ export class FreelancerController {
   @ApiBody({ type: CreateFreelancerDto })
   @ApiResponse({ status: 201, description: 'freelancer has created' })
   @Post(Routes.CREATE_FREELANCER)
+  @Roles(UserRoles.FREELANCER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   @UsePipes(ValidationPipe)
   createFreelancer(
