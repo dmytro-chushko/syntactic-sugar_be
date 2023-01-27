@@ -11,3 +11,4 @@ export { WorkHistory } from './workHistory.entity';
 export { Invitation } from './invitation.entity';
 export { Chat } from './chat.entity';
 export { Message } from './message.entity';
+export { Notification } from './notification.entity';

@@ -45,4 +45,7 @@ export class User {
 
   @OneToOne(() => Employer, employer => employer.user)
   employer: Employer;
+
+  // @OneToMany(() => Notification, notification => notification.user)
+  // notifications: Notification[];
 }

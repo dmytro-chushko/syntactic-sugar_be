@@ -64,6 +64,7 @@ export enum Services {
   MESSAGES = 'MESSAGES_SERVICE',
   CHAT = 'CHAT_SERVICE',
   OFFER = 'OFFER_SERVICE',
+  NOTIFICATION = 'NOTIFICATION_SERVICE',
 }
 
 export enum UserRoles {
@@ -84,3 +85,10 @@ export const SUBJECT = {
   CONFIRM_EMAIL: 'Confirm email address on Freelancer app',
   RESET_PASSWORD: 'Reset password on Freelance app',
 };
+
+export enum NotificationType {
+  MESSAGE = 'message',
+  INVITATION = 'invitation',
+  PROPOSAL = 'proposal',
+  OFFER = 'offer',
+}

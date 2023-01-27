@@ -4,10 +4,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Chat } from './chat.entity';
+import { Notification } from './notification.entity';
 
 @Entity({ name: 'message' })
 export class Message {
@@ -34,4 +36,7 @@ export class Message {
   @ApiProperty()
   @ManyToOne(() => Chat, chat => chat.messages)
   chat: Chat;
+
+  @OneToOne(() => Notification, notification => notification.message)
+  notification: Notification;
 }
