@@ -1,7 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsEnum } from 'class-validator';
 import { NotificationType } from 'src/utils/constants';
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Message } from './message.entity';
 
 @Entity()
@@ -38,14 +45,7 @@ export class Notification {
   @CreateDateColumn()
   createdAt: Date;
 
-  // @ApiProperty({
-  //   description: 'User who has relation with this notification',
-  //   type: () => User,
-  // })
-  // @ManyToOne(() => User, user => user.notifications)
-  // @JoinColumn({ name: 'userId' })
-  // user: User;
-
   @OneToOne(() => Message, message => message.notification)
+  @JoinColumn()
   message: Message;
 }
