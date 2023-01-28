@@ -14,6 +14,6 @@ export class UserController {
   @Get(Routes.CURRENT_USER)
   @UseGuards(AuthJwtGuard, ActivatedGuard)
   getCurrentUser(@Auth() user: User): Promise<User> {
-    return this.userService.findById(user.id);
+    return this.userService.getCurrentUser(user.id);
   }
 }

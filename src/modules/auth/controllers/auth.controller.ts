@@ -95,7 +95,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Role added' })
   @UsePipes(ValidationPipe)
   @UseGuards(AuthJwtGuard)
-  @Post('role')
+  @Post(Routes.ROLE)
   addUserRole(@Body() roleDto: AddRoleDto, @Auth() user: User): Promise<ITokenAndRole> {
     return this.authService.addUserRole(user.id, roleDto.role);
   }

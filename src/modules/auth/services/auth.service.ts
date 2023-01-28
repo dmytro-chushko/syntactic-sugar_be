@@ -58,10 +58,13 @@ export class AuthService implements IAuthService {
       const user = await this.userService.findByEmail(authUserDto.email);
       if (user) {
         const passwordEquals = await comparePassword(authUserDto.password, user.password);
-        if (passwordEquals) {
+        const profile = user.freelancer || user.employer ? true : false;
+        console.log(profile);
+
+        if (passwordEquals && profile) {
           const token = await this.tokenService.generateToken(user);
 
-          return { token: token.token, role: user.role };
+          return { token: token.token, role: user.role, profile: profile };
         }
       }
       throw new UnauthorizedException(`Authorization error`);
@@ -91,6 +94,7 @@ export class AuthService implements IAuthService {
         throw new HttpException('User doesnt exist', HttpStatus.BAD_REQUEST);
       }
       user.isActivated = true;
+
       await this.userRepository.save(user);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);

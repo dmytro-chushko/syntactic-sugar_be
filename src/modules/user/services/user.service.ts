@@ -62,4 +62,18 @@ export class UserService implements IUserService {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async getCurrentUser(id: string): Promise<User | null> {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .select(['user.id'])
+        .leftJoinAndSelect('user.freelancer', 'freelancer')
+        .leftJoinAndSelect('user.employer', 'employer')
+        .where('user.id = :id', { id })
+        .getOne();
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }
