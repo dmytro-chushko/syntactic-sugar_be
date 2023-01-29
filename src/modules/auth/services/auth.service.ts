@@ -58,13 +58,13 @@ export class AuthService implements IAuthService {
       const user = await this.userService.findByEmail(authUserDto.email);
       if (user) {
         const passwordEquals = await comparePassword(authUserDto.password, user.password);
-        const profile = user.freelancer || user.employer ? true : false;
-        console.log(profile);
+        const currentUser = await this.userService.getCurrentUser(user.id);
+        const isProfile = currentUser.employer || currentUser.freelancer ? true : false;
 
-        if (passwordEquals && profile) {
+        if (passwordEquals) {
           const token = await this.tokenService.generateToken(user);
 
-          return { token: token.token, role: user.role, profile: profile };
+          return { token: token.token, role: user.role, isProfile };
         }
       }
       throw new UnauthorizedException(`Authorization error`);
@@ -111,8 +111,10 @@ export class AuthService implements IAuthService {
       const user = await this.userService.findByEmail(ticket.email);
       if (user) {
         const token = await this.tokenService.generateToken(user);
+        const currentUser = await this.userService.getCurrentUser(user.id);
+        const isProfile = currentUser.employer || currentUser.freelancer ? true : false;
 
-        return { token: token.token, role: user.role };
+        return { token: token.token, role: user.role, isProfile };
       }
       throw new UnauthorizedException(`User with email: ${ticket.email} doesn't exist`);
     } catch (error) {
