@@ -46,6 +46,7 @@ export enum Routes {
   CURRENT_USER = 'current-user',
   UPDATE_OFFER = 'update-offer',
   GET_NOTIFICATIONS_BY_PROFILE = 'get-notifications-by-profile',
+  ROLE = 'role',
 }
 
 export enum Services {

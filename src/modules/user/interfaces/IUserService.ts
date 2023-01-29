@@ -7,4 +7,5 @@ export interface IUserService {
   findById(id: string): Promise<User | null>;
   createGoogleUser(createGoogleUserDto): Promise<User | null>;
   changeRole(user: User, role: UserRoles): Promise<void>;
+  getCurrentUser(id: string): Promise<User | null>;
 }
