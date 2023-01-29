@@ -3,5 +3,6 @@ import { CreateNotificationDto } from 'src/modules/notification/dto/createNotifi
 
 export interface INotificationService {
   createMessageNotification: (createNotificationDto: CreateNotificationDto) => void;
-  getNotificationsByProfile(user: User, id: string): Promise<Notification[]>;
+  getNotificationsByProfile(user: User): Promise<Notification[]>;
+  getNotificationsByRole(id: string, role: string): Promise<Notification[]>;
 }

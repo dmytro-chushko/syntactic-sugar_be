@@ -28,7 +28,6 @@ export class MessageService implements IMessageService {
       });
 
       const createdMessage = await this.messageRepository.save(message);
-      console.log(createdMessage.id);
       this.notificationService.createMessageNotification({ messageId: createdMessage.id });
 
       return createdMessage;

@@ -9,6 +9,8 @@ import { ChatModule } from '../chat/chat.module';
 import { NotificationController } from './controller/notification.controller';
 import { UserModule } from 'src/modules/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { FreelancerModule } from 'src/modules/freelancer/freelancer.module';
+import { EmployerModule } from 'src/modules/employer/employer.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { JwtModule } from '@nestjs/jwt';
     ChatModule,
     UserModule,
     JwtModule,
+    FreelancerModule,
+    EmployerModule,
   ],
   exports: [{ provide: Services.NOTIFICATION, useClass: NotificationService }],
   controllers: [NotificationController],
