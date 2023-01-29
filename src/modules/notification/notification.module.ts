@@ -1,16 +1,16 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
 import { Message, Notification } from 'src/database/entities';
 import { Services } from 'src/utils/constants';
 import { MessageModule } from 'src/modules/message/message.module';
-import { NotificationService } from './services/notification.service';
-import { MessageService } from '../message/services/message.service';
-import { ChatModule } from '../chat/chat.module';
-import { NotificationController } from './controller/notification.controller';
+import { MessageService } from 'src/modules/message/services/message.service';
+import { ChatModule } from 'src/modules/chat/chat.module';
 import { UserModule } from 'src/modules/user/user.module';
-import { JwtModule } from '@nestjs/jwt';
 import { FreelancerModule } from 'src/modules/freelancer/freelancer.module';
 import { EmployerModule } from 'src/modules/employer/employer.module';
+import { NotificationController } from './controller/notification.controller';
+import { NotificationService } from './services/notification.service';
 
 @Module({
   imports: [

@@ -6,7 +6,7 @@ import { AuthJwtGuard } from 'src/modules/auth/guards/authJwt.guard';
 import { RolesGuard } from 'src/modules/auth/guards/role.guard';
 import { Routes, Services } from 'src/utils/constants';
 import { Auth } from 'src/utils/decorators/auth';
-import { INotificationService } from '../interfaces/INotificationService';
+import { INotificationService } from 'src/modules/notification/interfaces/INotificationService';
 
 @Controller('notification')
 export class NotificationController {

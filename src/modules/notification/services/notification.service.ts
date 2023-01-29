@@ -9,7 +9,7 @@ import { MessageService } from 'src/modules/message/services/message.service';
 import { INotificationService } from 'src/modules/notification/interfaces/INotificationService';
 import { NotificationType, Services, UserRoles } from 'src/utils/constants';
 import { Repository } from 'typeorm';
-import { CreateNotificationDto } from '../dto/createNotificationDto';
+import { CreateNotificationDto } from 'src/modules/notification/dto/createNotificationDto';
 
 @Injectable()
 export class NotificationService implements INotificationService {
