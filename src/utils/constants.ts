@@ -45,6 +45,7 @@ export enum Routes {
   GET_FREELANCER_BY_ID = 'get-freelancer-by-id/:id',
   CURRENT_USER = 'current-user',
   UPDATE_OFFER = 'update-offer',
+  GET_NOTIFICATIONS_BY_PROFILE = 'get-notifications-by-profile',
   ROLE = 'role',
 }
 
@@ -65,6 +66,7 @@ export enum Services {
   MESSAGES = 'MESSAGES_SERVICE',
   CHAT = 'CHAT_SERVICE',
   OFFER = 'OFFER_SERVICE',
+  NOTIFICATION = 'NOTIFICATION_SERVICE',
 }
 
 export enum UserRoles {
@@ -85,3 +87,10 @@ export const SUBJECT = {
   CONFIRM_EMAIL: 'Confirm email address on Freelancer app',
   RESET_PASSWORD: 'Reset password on Freelance app',
 };
+
+export enum NotificationType {
+  MESSAGE = 'message',
+  INVITATION = 'invitation',
+  PROPOSAL = 'proposal',
+  OFFER = 'offer',
+}

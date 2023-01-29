@@ -12,6 +12,7 @@ import { Invitation } from './entities/invitation.entity';
 import { Chat } from './entities/chat.entity';
 import { Message } from './entities/message.entity';
 import { Offer } from './entities/offers.entity';
+import { Notification } from './entities';
 
 export const entities = [
   User,
@@ -28,6 +29,7 @@ export const entities = [
   Chat,
   Message,
   Offer,
+  Notification,
 ];
 
 export default entities;

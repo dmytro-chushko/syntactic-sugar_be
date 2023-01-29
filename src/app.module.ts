@@ -19,6 +19,7 @@ import { ChatModule } from 'src/modules/chat/chat.module';
 import { MessageModule } from 'src/modules/message/message.module';
 import { GatewayModule } from 'src/modules/gateway/gateway.module';
 import { OfferModule } from 'src/modules/offer/offer.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { OfferModule } from 'src/modules/offer/offer.module';
     MessageModule,
     GatewayModule,
     OfferModule,
+    NotificationModule,
   ],
   controllers: [],
   providers: [],
