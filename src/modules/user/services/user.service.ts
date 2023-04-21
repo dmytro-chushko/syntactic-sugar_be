@@ -46,7 +46,7 @@ export class UserService implements IUserService {
 
   async createGoogleUser(email: string): Promise<User> {
     try {
-      const newUser = this.userRepository.create({ email });
+      const newUser = this.userRepository.create({ email, isActivated: true });
 
       return await this.userRepository.save(newUser);
     } catch (error) {
