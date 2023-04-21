@@ -16,6 +16,7 @@ lerna-debug.log*
 .env
 ecosystem.config.js
 key.pem
+key.ppk
 # OS
 .DS_Store
 
