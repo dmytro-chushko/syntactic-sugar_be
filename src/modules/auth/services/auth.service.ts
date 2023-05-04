@@ -116,8 +116,8 @@ export class AuthService implements IAuthService {
 
         return { token: token.token, role: user.role, isProfile };
       }
-      this.signupGoogle(token);
-      // throw new UnauthorizedException(`User with email: ${ticket.email} doesn't exist`);
+
+      return this.signupGoogle(token);
     } catch (error) {
       throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
